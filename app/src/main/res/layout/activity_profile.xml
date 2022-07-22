@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="126dp"
+        android:layout_height="117dp"
+        android:onClick="handleImageClick"
+        android:visibility="visible"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profileImage"
+        android:layout_centerHorizontal="true"
+        android:text="Clicca l'immagine di profilo per cambiarla"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.245" />
+
+    <TextView
+        android:id="@+id/nicknameView"
+        android:layout_width="359dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edt_background"
+        android:drawableLeft="@drawable/ic_person"
+        android:drawablePadding="10dp"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.344" />
+
+    <TextView
+        android:id="@+id/emailView"
+        android:layout_width="358dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edt_background"
+        android:drawableStart="@drawable/ic_email"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:layout_below="@+id/nicknameView"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="10dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.429" />
+
+    <TextView
+        android:id="@+id/passwordView"
+        android:layout_width="359dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edt_background"
+        android:drawablePadding="10dp"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/emailView"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        app:drawableLeftCompat="@drawable/ic_lock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.528" />
+
+    <TextView
+        android:id="@+id/changePasswordView"
+        android:layout_width="166dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:minHeight="48dp"
+        android:onClick="changePassw"
+        android:layout_below="@+id/passwordView"
+        android:layout_centerHorizontal="true"
+        android:text="Cambia password"
+        android:textColor="#673AB7"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.102"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.62" />
+
+    <TextView
+        android:id="@+id/signOutView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:onClick="signOut"
+        android:layout_below="@+id/changePasswordView"
+        android:text="Esci da questo account"
+        android:textColor="#8C8C8C"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:drawableStartCompat="@drawable/ic_baseline_exit_to_app_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.704" />
+
+
+
+    <Button
+        android:id="@+id/quizBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="launchQuizGame"
+        android:text="QUIZ"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.887" />
+
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/icons_color"
+        app:itemRippleColor="@color/dark_grey"
+        app:itemTextColor="@color/icons_color"
+        app:menu="@menu/bottom_navigation"
+        app:labelVisibilityMode="selected"
+        />
+
+</RelativeLayout>

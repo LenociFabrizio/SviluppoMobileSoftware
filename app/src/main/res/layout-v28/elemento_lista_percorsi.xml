@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="64dp"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="8dp"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        >
+
+        <TextView
+            android:id="@+id/txt_nomePercorso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:textFontWeight="600"
+            android:textColor="@color/black"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/txt_descrizione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:gravity="center"
+            />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txt_durata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:background="@color/secondaryColor"
+        android:layout_toLeftOf="@+id/btn_vediPercorso"
+        android:layout_marginEnd="16dp"
+        android:paddingVertical="2dp"
+        android:gravity="center"
+        android:paddingHorizontal="4dp"
+        android:drawableLeft="@drawable/ic_baseline_timer_24"
+        android:drawablePadding="4dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/btn_vediPercorso"
+        style="@style/Theme.ECultureExperience.Button.TextButton"
+
+        android:layout_width="24dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_baseline_chevron_right_24"
+        android:textSize="14sp"
+        android:contentDescription="chevron" />
+
+</RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,179 @@
+{
+  "project_info": {
+    "project_number": "685637353969",
+    "firebase_url": "https://ecolture-experience-default-rtdb.firebaseio.com",
+    "project_id": "ecolture-experience",
+    "storage_bucket": "ecolture-experience.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685637353969:android:cd8ffdd9ab9eb0a4610450",
+        "android_client_info": {
+          "package_name": "com.example.algoliasearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQSy0LMDvgmHSZH_YB83K6pxBHMkR0v2s"
+        },
+        {
+          "current_key": "AIzaSyAPzAkveGNymRhV8cIddW9Xp5bJmND3otc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685637353969:android:867b3fdf5bc9bc04610450",
+        "android_client_info": {
+          "package_name": "com.example.myapplication3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQSy0LMDvgmHSZH_YB83K6pxBHMkR0v2s"
+        },
+        {
+          "current_key": "AIzaSyAPzAkveGNymRhV8cIddW9Xp5bJmND3otc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685637353969:android:885e12a0ae74394b610450",
+        "android_client_info": {
+          "package_name": "com.example.myquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQSy0LMDvgmHSZH_YB83K6pxBHMkR0v2s"
+        },
+        {
+          "current_key": "AIzaSyAPzAkveGNymRhV8cIddW9Xp5bJmND3otc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685637353969:android:5f75fff02a89b3ad610450",
+        "android_client_info": {
+          "package_name": "com.example.ricercaluogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQSy0LMDvgmHSZH_YB83K6pxBHMkR0v2s"
+        },
+        {
+          "current_key": "AIzaSyAPzAkveGNymRhV8cIddW9Xp5bJmND3otc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685637353969:android:cd4af4b18a3542c5610450",
+        "android_client_info": {
+          "package_name": "it.uniba.di.e_cultureexperience"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685637353969-vqabelruonc2rjb4fgt7tfmjqdk6sqtu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "it.uniba.di.e_cultureexperience",
+            "certificate_hash": "ce5bbf6336dde168cc99c312dbf41d7b4f8066dc"
+          }
+        },
+        {
+          "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQSy0LMDvgmHSZH_YB83K6pxBHMkR0v2s"
+        },
+        {
+          "current_key": "AIzaSyAPzAkveGNymRhV8cIddW9Xp5bJmND3otc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

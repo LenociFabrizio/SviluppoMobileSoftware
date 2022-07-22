@@ -1,0 +1,30 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ECultureExperience" parent="Theme.AppCompat.Light">
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/grey_50</item>
+        <item name="colorPrimaryDark">@color/light_grey</item>
+        <item name="colorPrimaryVariant">@color/grey_50</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/dark_grey</item>
+        <item name="colorSecondaryVariant">@color/golden</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/gov_blue</item>
+    </style>
+
+    <style name="Theme.ECultureExperience.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="Theme.ECultureExperience.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ECultureExperience.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+</resources>

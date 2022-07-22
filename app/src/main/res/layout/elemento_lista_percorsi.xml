@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/txt_durata"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_nomePercorso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:gravity="left"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_descrizione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:maxLines="2"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txt_durata"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toLeftOf="@+id/btn_vediPercorso"
+            android:background="@color/secondaryColor"
+            android:drawableLeft="@drawable/ic_baseline_timer_24"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_vediPercorso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_chevron_right_24"
+            android:tint="@color/black"
+            app:srcCompat="@drawable/ic_baseline_chevron_right_24" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

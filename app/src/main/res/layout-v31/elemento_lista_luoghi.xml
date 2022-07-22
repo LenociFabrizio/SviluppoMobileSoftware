@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:minHeight="88dp">
+
+        <ImageView
+            android:id="@+id/image_citta"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:background="@drawable/round_outline"
+            android:src="@drawable/apple" />
+
+        <TextView
+            android:id="@+id/txt_nomeCitta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_toRightOf="@+id/image_citta"
+            android:text="Name"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_descrizione"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_nomeCitta"
+            android:layout_marginStart="24dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toRightOf="@+id/image_citta"
+            android:text="Description" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>
