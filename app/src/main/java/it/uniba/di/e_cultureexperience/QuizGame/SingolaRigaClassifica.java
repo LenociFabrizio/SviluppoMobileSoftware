@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 //TODO: Cambiare nome classe a "Utente"
 public class SingolaRigaClassifica {
     String nickname; int punteggio;

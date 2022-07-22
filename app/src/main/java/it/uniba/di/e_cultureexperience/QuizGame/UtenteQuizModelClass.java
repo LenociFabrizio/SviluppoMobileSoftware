@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 
 public class UtenteQuizModelClass {
     String email; int punteggio;

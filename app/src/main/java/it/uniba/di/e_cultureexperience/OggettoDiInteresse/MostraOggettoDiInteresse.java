@@ -1,24 +1,16 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import it.uniba.di.e_cultureexperience.R;
 
 public class MostraOggettoDiInteresse extends Activity {
 

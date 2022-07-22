@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.R;
 
 public class LoginActivity extends AppCompatActivity {
     private static EditText txtEmailLogin, txtPasswordLogin;
@@ -71,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
 
-                    Intent i = new Intent(LoginActivity.this, /*QUI*/ProfileActivity.class);
+                    Intent i = new Intent(LoginActivity.this, /*QUI*/DashboardMete.class);
                     startActivity(i);
                     finish();
                 }else{

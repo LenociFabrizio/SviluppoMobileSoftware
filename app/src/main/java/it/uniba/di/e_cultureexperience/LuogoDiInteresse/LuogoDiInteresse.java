@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.os.Parcel;
 import android.os.Parcelable;

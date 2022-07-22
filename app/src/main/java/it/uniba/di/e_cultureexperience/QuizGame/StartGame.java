@@ -1,19 +1,16 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
+import it.uniba.di.e_cultureexperience.Percorso.Percorso;
+import it.uniba.di.e_cultureexperience.R;
 
 public class StartGame extends AppCompatActivity {
 

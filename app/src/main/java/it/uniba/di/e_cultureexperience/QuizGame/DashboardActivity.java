@@ -1,7 +1,9 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 
 import static android.content.ContentValues.TAG;
 
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -32,9 +34,9 @@ public class DashboardActivity extends AppCompatActivity {
     int timerValue = 0;
 
     //OGGETTI PER LISTA CONTENENTI LE DOMANDE
-    public static ArrayList<ModelClass> list;
-    List<ModelClass> allQuestionsLilst;
-    ModelClass modelClass;
+    public static ArrayList<QuesitoQuiz> list;
+    List<QuesitoQuiz> allQuestionsLilst;
+    QuesitoQuiz modelClass;
     int i = 0;
 
     //OGGETTI PER IL LAYOUT
@@ -91,7 +93,7 @@ public class DashboardActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     int countDomanda = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        modelClass = document.toObject(ModelClass.class);
+                        modelClass = document.toObject(QuesitoQuiz.class);
                         list.add(modelClass);
 
                     }

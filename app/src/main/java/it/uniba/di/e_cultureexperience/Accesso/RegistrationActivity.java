@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import it.uniba.di.e_cultureexperience.R;
 
 
 public class RegistrationActivity extends AppCompatActivity {

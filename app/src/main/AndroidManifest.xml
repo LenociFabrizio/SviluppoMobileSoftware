@@ -12,24 +12,21 @@
         android:allowClearUserData="true"
         android:theme="@style/Theme.ECultureExperience">
         <activity
-            android:name=".MostraPercorso"
+            android:name=".Percorso.MostraPercorso"
             android:exported="false"
             android:label="@string/title_activity_mostra_luogo_di_interesse2"
             android:theme="@style/Theme.ECultureExperience.NoActionBar" />
         <activity
-            android:name=".MostraOggettoDiInteresse"
+            android:name=".OggettoDiInteresse.MostraOggettoDiInteresse"
             android:exported="false"
             />
         <activity
-            android:name=".MostraLuogoDiInteresse"
+            android:name=".LuogoDiInteresse.MostraLuogoDiInteresse"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".DashboardMete"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FirstAccessActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".Accesso.FirstAccessActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,25 +35,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".DashboardMete"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Accesso.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".Accesso.RegistrationActivity"
             android:exported="true" />
-        <activity android:name=".RisultatoQuizActivity" />
+        <activity android:name=".QuizGame.RisultatoQuizActivity" />
         <activity
-            android:name=".StartGame"
+            android:name=".QuizGame.StartGame"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Accesso.ForgotPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".HomeGoogleActivity"
+            android:name=".Accesso.HomeGoogleActivity"
             android:exported="true" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Accesso.ProfileActivity"
             android:exported="true" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".QuizGame.DashboardActivity" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-class OggettiDiInteresseAdapter implements ListAdapter {
+import it.uniba.di.e_cultureexperience.R;
+
+public class OggettiDiInteresseAdapter implements ListAdapter {
     ArrayList<OggettoDiInteresse> arrayList;
     Context context;
 

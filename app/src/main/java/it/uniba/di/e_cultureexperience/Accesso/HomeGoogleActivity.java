@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.R;
 
 public class HomeGoogleActivity extends AppCompatActivity {
 
@@ -53,7 +56,7 @@ public class HomeGoogleActivity extends AppCompatActivity {
                 //SignOut
                 googleSignInClient.signOut();
                 //Apri la main Activity
-                startActivity(new Intent(HomeGoogleActivity.this,MainActivity.class));
+                startActivity(new Intent(HomeGoogleActivity.this, DashboardMete.class));
                 finish();
             }
         });

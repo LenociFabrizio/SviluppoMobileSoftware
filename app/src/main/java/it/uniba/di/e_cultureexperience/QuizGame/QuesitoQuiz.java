@@ -1,12 +1,12 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 //todo: rinominare classe in quesitoquizmodelclass
-public class ModelClass {
+public class QuesitoQuiz {
 
     String domanda, primaOpzione, secondaOpzione, terzaOpzione, rispostaCorretta;
 
-    public ModelClass(){}
+    public QuesitoQuiz(){}
 
-    public ModelClass(String domanda, String primaOpzione, String rispostaCorretta, String secondaOpzione, String terzaOpzione) {
+    public QuesitoQuiz(String domanda, String primaOpzione, String rispostaCorretta, String secondaOpzione, String terzaOpzione) {
         this.domanda = domanda;
         this.primaOpzione = primaOpzione;
         this.secondaOpzione = secondaOpzione;

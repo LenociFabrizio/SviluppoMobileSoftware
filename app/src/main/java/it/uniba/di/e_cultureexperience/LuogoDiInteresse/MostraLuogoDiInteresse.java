@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +21,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import it.uniba.di.e_cultureexperience.Accesso.FirstAccessActivity;
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
+import it.uniba.di.e_cultureexperience.Percorso.Percorso;
+import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteresse extends AppCompatActivity {
     private ArrayList<Percorso> percorsi;
@@ -69,15 +76,15 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    startActivity(new Intent(getApplicationContext(), DashboardMete.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(),FirstAccessActivity.class));
+                    startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:
-                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                     overridePendingTransition(0,0);
                     return true;
             }

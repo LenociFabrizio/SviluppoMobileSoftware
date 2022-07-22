@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+
+import it.uniba.di.e_cultureexperience.R;
 
 public class FirstAccessActivity extends AppCompatActivity {
 

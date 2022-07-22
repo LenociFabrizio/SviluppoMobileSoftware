@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import it.uniba.di.e_cultureexperience.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private EditText txtEmailReset;

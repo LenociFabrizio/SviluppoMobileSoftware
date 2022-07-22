@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_time_out.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/ECultureExperience2/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/ECultureExperience2/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/ECultureExperience4/app/src/main/res/layout/activity_start_game.xml" value="0.36102564102564105" />
@@ -10,7 +11,8 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +21,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
+import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
+import it.uniba.di.e_cultureexperience.Percorso.Percorso;
+import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.databinding.ActivityMostraLuogoDiInteresse2Binding;
 
 public class MostraLuogoDiInteresse2 extends AppCompatActivity {

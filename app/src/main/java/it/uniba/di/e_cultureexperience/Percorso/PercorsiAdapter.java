@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Percorso;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-class PercorsiAdapter implements ListAdapter {
+import it.uniba.di.e_cultureexperience.R;
+
+public class PercorsiAdapter implements ListAdapter {
     ArrayList<Percorso> arrayList;
     Context context;
 

@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -21,7 +20,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInteresseAdapter.LuoghiViewHolder> implements Filterable {
+import it.uniba.di.e_cultureexperience.R;
+
+public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInteresseAdapter.LuoghiViewHolder> implements Filterable {
     List<LuogoDiInteresse> arrayList;
     List<LuogoDiInteresse> arrayListFiltered;
     Context context;

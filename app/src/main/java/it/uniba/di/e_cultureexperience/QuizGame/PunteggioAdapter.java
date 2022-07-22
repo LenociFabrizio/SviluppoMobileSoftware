@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -9,6 +9,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import it.uniba.di.e_cultureexperience.R;
 
 class PunteggioAdapter implements ListAdapter {
     ArrayList<SingolaRigaClassifica> arrayList;

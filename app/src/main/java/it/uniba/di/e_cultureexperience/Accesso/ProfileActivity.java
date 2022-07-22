@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience;
+package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +35,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+
+import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.R;
+import it.uniba.di.e_cultureexperience.QuizGame.StartGame;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -126,11 +130,11 @@ public class ProfileActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), DashboardMete.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_scan:
-                        startActivity(new Intent(getApplicationContext(),FirstAccessActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     //selectedFragment = new ScanFragment();
@@ -163,7 +167,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void signOut(View v){
         fAuth.signOut();
-        Intent i = new Intent(ProfileActivity.this, MainActivity.class);
+        Intent i = new Intent(ProfileActivity.this, DashboardMete.class);
         startActivity(i);
         finish();
     }
