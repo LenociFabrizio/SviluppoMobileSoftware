@@ -1,10 +1,13 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,29 +28,51 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private TextView txtGoToRegistration;
     private Button loginBtn;
+    private CheckBox rememberBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         txtEmailLogin = findViewById(R.id.emailLogin);
         txtPasswordLogin = findViewById(R.id.passwordLogin);
         fAuth = FirebaseAuth.getInstance();
         loginBtn = findViewById(R.id.loginBtn);
         txtGoToRegistration = findViewById(R.id.registrationTxt);
+        rememberBox = findViewById(R.id.checkBox);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginBtnClick();
-            }
-        });
+        loginBtn.setOnClickListener(v -> loginBtnClick());
 
-        txtGoToRegistration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToRegistration();
+        txtGoToRegistration.setOnClickListener(v -> goToRegistration());
+
+        //todo: se clicco la checkbox senza inserire credenziali durante il primo accesso e riapro l'app, mi fa accedere ugualmente. Guarda riga 54
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        String checkbox = preferences.getString("remember","");
+
+        if(checkbox.equals("true")){
+            Intent intent = new Intent(LoginActivity.this, DashboardMete.class);
+            startActivity(intent);
+        }
+
+        rememberBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if(buttonView.isChecked()){
+
+                SharedPreferences preferences1 = getSharedPreferences("checkbox", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences1.edit();
+                editor.putString("remember", "true");
+                editor.apply();
+
+            }else if(!buttonView.isChecked()){
+
+                SharedPreferences preferences1 = getSharedPreferences("checkbox", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences1.edit();
+                editor.putString("remember", "false");
+                editor.apply();
+
             }
+
         });
 
     }
@@ -88,14 +113,6 @@ public class LoginActivity extends AppCompatActivity {
     public void forgotTxtClick(View v){
         Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(i);
-    }
-
-    public static String getTxtEmailLogin() {
-        return txtEmailLogin.getText().toString().trim();
-    }
-
-    public static String getTxtPasswordLogin() {
-        return txtPasswordLogin.getText().toString().trim();
     }
 
     public void goToRegistration(){

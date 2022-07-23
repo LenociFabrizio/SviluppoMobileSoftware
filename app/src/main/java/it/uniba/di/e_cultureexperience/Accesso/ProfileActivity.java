@@ -1,6 +1,7 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -58,7 +59,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         TextView email = findViewById(R.id.emailView);
-        TextView password = findViewById(R.id.passwordView);
         fAuth = FirebaseAuth.getInstance();
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
@@ -73,45 +73,41 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         //Faccio visualizzare l'email, password con cui ha effettuato l'accesso
-        email.setText(LoginActivity.getTxtEmailLogin());
-        password.setText(LoginActivity.getTxtPasswordLogin());
+        email.setText(fAuth.getCurrentUser().getEmail());
 
         //Ricercare il proprio nickname con idDB == idLocale
         db.collection("utenti")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                .addOnCompleteListener(task -> {
 
-                        if (task.isSuccessful()) {
+                    if (task.isSuccessful()) {
 
-                            if(task.getResult() != null){
+                        if(task.getResult() != null){
 
-                                for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                    String nicknameDataBase = document.getString("nickname");
-                                    String idDataBase = document.getString("idUtente");
-                                    Log.d("FETCH", document.getId() + " leggo=> " + nicknameDataBase);
+                                String nicknameDataBase = document.getString("nickname");
+                                String idDataBase = document.getString("idUtente");
+                                Log.d("FETCH", document.getId() + " leggo=> " + nicknameDataBase);
 
-                                    if(idDataBase.equals(fAuth.getUid())){
-                                        Log.d("ID UTENTE UGUALE", idDataBase + " = " + fAuth.getUid());
-                                        nickname.setText(nicknameDataBase);
-                                        return;
+                                if(idDataBase.equals(fAuth.getUid())){
+                                    Log.d("ID UTENTE UGUALE", idDataBase + " = " + fAuth.getUid());
+                                    nickname.setText(nicknameDataBase);
+                                    return;
 
-                                    }else{
-                                        Log.d("ID NON TROVATO", "ERROR");
-                                    }
+                                }else{
+                                    Log.d("ID NON TROVATO", "ERROR");
                                 }
-                            }else{
-                                Log.d("DB VUOTO", "ERROR");
                             }
-
-
-                        } else {
-                            Log.w("TAG", "Error getting documents.", task.getException());
+                        }else{
+                            Log.d("DB VUOTO", "ERROR");
                         }
 
+
+                    } else {
+                        Log.w("TAG", "Error getting documents.", task.getException());
                     }
+
                 });
 
         onCreateBottomNavigation();
@@ -166,8 +162,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void signOut(View v){
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("remember", "false");
+        editor.apply();
+
         fAuth.signOut();
-        Intent i = new Intent(ProfileActivity.this, DashboardMete.class);
+        Intent i = new Intent(ProfileActivity.this, FirstAccessActivity.class);
         startActivity(i);
         finish();
     }
