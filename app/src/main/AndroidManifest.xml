@@ -45,6 +45,7 @@
             android:name=".Accesso.RegistrationActivity"
             android:exported="true" />
         <activity android:name=".QuizGame.RisultatoQuizActivity" />
+        <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
             android:name=".QuizGame.StartGame"
             android:exported="false" />

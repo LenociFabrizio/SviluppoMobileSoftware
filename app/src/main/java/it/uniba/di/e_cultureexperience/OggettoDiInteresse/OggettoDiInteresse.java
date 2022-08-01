@@ -4,11 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public final class OggettoDiInteresse implements Parcelable {
-    private String nome, descrizione, url_immagine, bluetooth_id;
+    private String id, nome, descrizione, url_immagine, bluetooth_id;
 
     public OggettoDiInteresse(){}
 
-    public OggettoDiInteresse(String nome, String descrizione, String url_immagine, String bluetooth_id) {
+    public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id) {
+        this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.url_immagine = url_immagine;
@@ -16,6 +17,7 @@ public final class OggettoDiInteresse implements Parcelable {
     }
 
     protected OggettoDiInteresse(Parcel in) {
+        id = in.readString();
         nome = in.readString();
         descrizione = in.readString();
         url_immagine = in.readString();
@@ -41,11 +43,16 @@ public final class OggettoDiInteresse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
         parcel.writeString(nome);
         parcel.writeString(descrizione);
         parcel.writeString(url_immagine);
         parcel.writeString(bluetooth_id);
     }
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getNome() {
         return nome;

@@ -15,11 +15,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +33,7 @@ import it.uniba.di.e_cultureexperience.Accesso.FirstAccessActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 
 public class DashboardMete extends AppCompatActivity {
 
@@ -48,27 +54,26 @@ public class DashboardMete extends AppCompatActivity {
         list_view_mete = findViewById(R.id.lista_luoghi);
         db = FirebaseFirestore.getInstance();
 
-        db.collection("mete").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    LuogoDiInteresse temp = document.toObject(LuogoDiInteresse.class);
-                    mete.add(temp);
-
+        db.collection("mete").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        LuogoDiInteresse temp = document.toObject(LuogoDiInteresse.class);
+                        temp.setId(document.getId());
+                        mete.add(temp);
+                    }
+                    customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), mete);
+                    list_view_mete.setLayoutManager(new LinearLayoutManager(DashboardMete.this,LinearLayoutManager.VERTICAL,false));
+                    list_view_mete.setAdapter(customAdapter);
+                } else {
+                    Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                 }
-                customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), mete);
-                list_view_mete.setLayoutManager(new LinearLayoutManager(DashboardMete.this,LinearLayoutManager.VERTICAL,false));
-                list_view_mete.setAdapter(customAdapter);
-            } else {
-                Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
             }
         });
 
         onCreateBottomNavigation();
     }
-
-
-
-
 
 
     public void onCreateBottomNavigation(){
@@ -85,6 +90,13 @@ public class DashboardMete extends AppCompatActivity {
                     case R.id.nav_home:
                         return true;
                     case R.id.nav_scan:
+                        /*
+                                IntentIntegrator integrator = new IntentIntegrator(QRScanner.class);
+                                integrator.setPrompt("For flash use volume up key");
+                                integrator.setOrientationLocked(true);
+                                integrator.setCaptureActivity(Capture.class);
+                                integrator.initiateScan();
+                        */
                         startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
                         overridePendingTransition(0,0);
                         return true;

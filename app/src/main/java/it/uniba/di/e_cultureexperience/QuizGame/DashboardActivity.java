@@ -34,7 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
     int timerValue = 0;
 
     //OGGETTI PER LISTA CONTENENTI LE DOMANDE
-    public static ArrayList<QuesitoQuiz> list;
+    ArrayList<QuesitoQuiz> list;
     List<QuesitoQuiz> allQuestionsLilst;
     QuesitoQuiz modelClass;
     int i = 0;
@@ -84,34 +84,11 @@ public class DashboardActivity extends AppCompatActivity {
         secondaOpzione = findViewById(R.id.secondaRisposta);
         terzaOpzione = findViewById(R.id.terzaRisposta);
 
-        list = new ArrayList<>();
-
-        db = FirebaseFirestore.getInstance();
-        db.collection("quizBari").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    int countDomanda = 0;
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        modelClass = document.toObject(QuesitoQuiz.class);
-                        list.add(modelClass);
-
-                    }
-                    setListenersToViews();
-                    assegnazioneList();
-                    setAllData();
-
-                    countDomanda++;
-                    //numeroDomanda.setText(countDomanda);
-
-
-                } else {
-                    Log.w(TAG, "Error getting documents.", task.getException());
-                }
-            }
-        });
-
-
+        //prendo i quesiti passati dall' intent
+        list = getIntent().getExtras().getParcelableArrayList("quesiti");
+        setListenersToViews();
+        assegnazioneList();
+        setAllData();
 
     }
 
@@ -180,6 +157,7 @@ public class DashboardActivity extends AppCompatActivity {
             setAllData();
         }else {
             Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+            intent.putExtra("quesiti", list);
             intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
             intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
             startActivity(intent);
@@ -206,10 +184,4 @@ public class DashboardActivity extends AppCompatActivity {
         super.onPause();
         countDownTimer.cancel();
     }
-
-
 }
-
-
-
-

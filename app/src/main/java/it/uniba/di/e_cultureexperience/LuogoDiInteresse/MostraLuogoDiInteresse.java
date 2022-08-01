@@ -9,15 +9,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -110,31 +115,29 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
 
     public void setPercorsi(LuogoDiInteresse luogo){
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //OGGETTI PER FIREBASE
+        FirebaseFirestore db;
+        DocumentReference docRef;
 
-        db.collection("percorsi").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful())
-            {
-
-                for (QueryDocumentSnapshot document : task.getResult())
-                {
-                    String percorsiMetaDatabase = document.getString("meta");
-
-                    if(percorsiMetaDatabase.equals(luogo.getId()))
-                    {
+        db = FirebaseFirestore.getInstance();
+        //prendo i percorsi di quella meta
+        db.collection("percorsi")
+                .whereEqualTo("meta", luogo.getId())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
                         Percorso temp = document.toObject(Percorso.class);
+                        temp.setId(document.getId());
                         percorsi.add(temp);
-                     }
-
+                    }
+                    PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
+                    list_view_percorsi.setAdapter(customAdapter);
+                } else {
+                    Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                 }
-
-                PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
-                list_view_percorsi.setAdapter(customAdapter);
-
-            } else {
-                Log.w("error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
             }
         });
     }
-
 }

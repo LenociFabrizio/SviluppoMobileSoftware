@@ -33,6 +33,8 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
     ImageView exitImageView;
 
+    ArrayList<QuesitoQuiz> list;
+
     //Roba per aggiornamento del database per la classifica
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth fAuth;
@@ -47,6 +49,8 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risultato_quiz);
 
+        //prendo i quesiti passati dall' intent
+        list = getIntent().getExtras().getParcelableArrayList("quesiti");
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
         int numeroRisposteSbagliate = getIntent().getIntExtra("RISPOSTA_SBAGLIATA", 0);
         int numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
@@ -133,6 +137,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         esitoBtn.setOnClickListener(v -> {
             Intent intent = new Intent(RisultatoQuizActivity.this, DashboardActivity.class);
+            intent.putExtra("quesiti", list);
             startActivity(intent);
             finish();
         });
