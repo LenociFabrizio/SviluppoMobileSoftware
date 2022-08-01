@@ -89,7 +89,7 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="16dp"
         android:textColorHint="#673AB7"
