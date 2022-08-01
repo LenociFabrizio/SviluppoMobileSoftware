@@ -52,9 +52,6 @@
             android:name=".Accesso.ForgotPasswordActivity"
             android:exported="true" />
         <activity
-            android:name=".Accesso.HomeGoogleActivity"
-            android:exported="true" />
-        <activity
             android:name=".Accesso.ProfileActivity"
             android:exported="true" />
         <activity android:name=".QuizGame.DashboardActivity" />

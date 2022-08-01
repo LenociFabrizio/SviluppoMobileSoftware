@@ -1,0 +1,31 @@
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience
+$ git init
+Initialized empty Git repository in C:/Users/marco/Desktop/EcultureExperience/.git/
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+$ git config --globa user.name "Cangiante98"
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+$ ^C
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+$  git config --globa user.email "marco_degiglio@libero.it"
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+$ git remote add origin https://github.com/LenociFabrizio/SviluppoMobileSoftware.git
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+$ git pull origin master
+remote: Enumerating objects: 282, done.
+remote: Counting objects: 100% (282/282), done.
+remote: Compressing objects: 100% (160/160), done.
+remote: Total 282 (delta 116), reused 245 (delta 83), pack-reused 0
+Receiving objects: 100% (282/282), 318.28 KiB | 2.24 MiB/s, done.
+Resolving deltas: 100% (116/116), done.
+From https://github.com/LenociFabrizio/SviluppoMobileSoftware
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> origin/master
+
+marco@DESKTOP-QLSEFMU MINGW64 ~/Desktop/EcultureExperience (master)
+ 

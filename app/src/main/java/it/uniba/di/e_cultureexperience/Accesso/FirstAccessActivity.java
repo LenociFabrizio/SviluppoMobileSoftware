@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -18,66 +20,58 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import it.uniba.di.e_cultureexperience.DashboardMete;
 import it.uniba.di.e_cultureexperience.R;
 
 public class FirstAccessActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private GoogleSignInClient mGoogleSignInClient;
-    GoogleSignInAccount googleSignInAccount;
+    private GoogleSignInClient gsc;
+    GoogleSignInOptions gso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_access);
 
-        final SignInButton LoginButton = findViewById(R.id.sign_in_button);
+        final SignInButton loginButton = findViewById(R.id.sign_in_button);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        gsc=GoogleSignIn.getClient(this,gso);
 
-
-        if (googleSignInAccount != null) {
-            Intent i = new Intent(FirstAccessActivity.this, ProfileActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        ActivityResultLauncher<Intent> resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK) {
-
-                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-                handleSignInTask(task);
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                    //firebaseAuthWithGoogle(account.getIdToken());
-                } catch (ApiException e) {
-                    // Google Sign In failed, update UI appropriately
-                    Log.w(TAG, "Google sign in failed", e);
-                }
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SignIn();
             }
         });
 
-        LoginButton.setOnClickListener(v -> {
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-            resultLauncher.launch(signInIntent);
-        });
     }
 
+    private void SignIn(){
+        Intent intent=gsc.getSignInIntent();
+        startActivityForResult(intent,100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if(requestCode==100){
+            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
+            Intent intent = new Intent(FirstAccessActivity.this, DashboardMete.class);
+            startActivity(intent);
+        }
+    }
     private void handleSignInTask(Task<GoogleSignInAccount> task) {
 
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
-
             // Google Sign In was successful, authenticate with Firebase
-
             startActivity(new Intent(FirstAccessActivity.this, ProfileActivity.class));
             finish();
         } catch (ApiException e) {
