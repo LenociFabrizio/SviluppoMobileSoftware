@@ -57,16 +57,20 @@ public class MostraLuogoDiInteresse2 extends AppCompatActivity {
         FirebaseFirestore db;
         DocumentReference docRef;
 
+
         db = FirebaseFirestore.getInstance();
-        db.collection("percorsi").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        //prendo i percorsi di quella meta
+        db.collection("percorsi")
+                .whereEqualTo("meta", luogo.getId())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Percorso temp = document.toObject(Percorso.class);
+                        temp.setId(document.getId());
                         percorsi.add(temp);
                     }
-                    Log.w("dfdsf", String.valueOf(percorsi.size()));
                     PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
                     list_view_percorsi.setAdapter(customAdapter);
                 } else {
