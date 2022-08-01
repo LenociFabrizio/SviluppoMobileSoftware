@@ -55,5 +55,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
 
+    //passwordToggle
+    implementation 'com.google.android.material:material:1.1.0'
+
 
 }

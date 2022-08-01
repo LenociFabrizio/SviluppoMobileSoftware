@@ -28,7 +28,7 @@
         android:drawablePadding="16dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textEmailAddress"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="16dp"
         android:textColorHint="#673AB7"
@@ -144,7 +144,10 @@
         android:text="Ricorda le mie credenziali"
         app:layout_constraintBottom_toTopOf="@+id/loginBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordLogin"
+        app:layout_constraintVertical_bias="0.718" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
