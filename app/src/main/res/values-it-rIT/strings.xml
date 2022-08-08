@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">E-Culture Experience</string>
+    <string name="inserisci_il_tuo_indirizzo_e_ti_invieremo_una_email_dove_poter_resettare_la_tua_password">Inserisci il tuo indirizzo e ti invieremo una email dove poter resettare la tua password</string>
+    <string name="che_sbadato">Che sbadato</string>
+    <string name="richiedi_reset">Richiedi reset</string>
+    <string name="ma_non_ti_preoccupare_ti_aiutiamo_noi">Ma non ti preoccupare, ti aiutiamo noi!</string>
+    <string name="esci">Esci</string>
+    <string name="descrizione">Descrizione</string>
+    <string name="inserici_password">Inserisci password</string>
+    <string name="domanda_numero">Domanda numero:</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="share">Condividi</string>
+    <string name="favorite">Aggiungi ai preferiti</string>
+    <string name="content_description_favorite">Potrai rivisitare questi posti quando vuoi</string>
+    <string name="change_password">Cambia password</string>
+    <string name="change_profile_image">Clicca qui per cambiare foto profilo</string>
+    <string name="profile">Profilo</string>
+    <string name="scan">Scansiona</string>
+    <string name="home">Esplora</string>
+</resources>
