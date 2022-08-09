@@ -5,8 +5,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+<<<<<<< HEAD
         classpath 'com.android.tools.build:gradle:7.2.1'
         classpath 'com.google.gms:google-services:4.3.13'
+=======
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath 'com.google.gms:google-services:4.3.12'
+
+
+
+
+
+>>>>>>> 07cd5078ac95b8c7d2ff6259e478d821994f737e
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

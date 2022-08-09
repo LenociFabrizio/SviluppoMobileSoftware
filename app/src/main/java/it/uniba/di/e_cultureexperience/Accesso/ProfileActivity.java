@@ -2,13 +2,17 @@ package it.uniba.di.e_cultureexperience.Accesso;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +40,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
 import it.uniba.di.e_cultureexperience.R;
@@ -58,11 +63,34 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Locale locale = new Locale("it-rIT");
+        Locale.setDefault(locale);
+
         TextView email = findViewById(R.id.emailView);
         fAuth = FirebaseAuth.getInstance();
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
+        Button language_button = findViewById(R.id.languageBtn);
+
+        language_button.setOnClickListener(new View.OnClickListener() {
+                                               @Override
+                                               public void onClick(View view) {
+                                                   setLocale("en-rGB");
+                                               }
+                                           }
+
+        );
+
+        Button language_button_ita = findViewById(R.id.languageBtnIta);
+
+        language_button_ita.setOnClickListener(new View.OnClickListener() {
+                                                   @Override
+                                                   public void onClick(View view) {
+                                                       setLocale("it-rIT");
+                                                   }
+                                               }
+        );
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user != null){
@@ -117,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
-        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setSelectedItemId(R.id.nav_profile);
         //Perform ItemSelectedListener
         //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -136,8 +164,6 @@ public class ProfileActivity extends AppCompatActivity {
                     //selectedFragment = new ScanFragment();
                     //break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                        overridePendingTransition(0,0);
                         return true;
 
                 }
@@ -242,5 +268,17 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(this, ProfileActivity.class);
+        startActivity(refresh);
+        finish();
     }
 }
