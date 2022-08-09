@@ -26,7 +26,7 @@ import it.uniba.di.e_cultureexperience.R;
 public class FirstAccessActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private GoogleSignInClient gsc;
+    GoogleSignInClient gsc;
     GoogleSignInOptions gso;
 
     @Override
@@ -53,19 +53,33 @@ public class FirstAccessActivity extends AppCompatActivity {
     }
 
     private void SignIn(){
+
         Intent intent=gsc.getSignInIntent();
         startActivityForResult(intent,100);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,@Nullable Intent data){
+    protected void onActivityResult(int requestCode, int resultCode,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
 
         if(requestCode==100){
             Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
-            Intent intent = new Intent(FirstAccessActivity.this, DashboardMete.class);
-            startActivity(intent);
+            try{
+                //GoogleSignInAccount accounts = task.getResult(ApiException.class);
+                task.getResult(ApiException.class);
+                entraInGoogleActivity();
+            }catch(ApiException ex){
+                Toast.makeText(getApplicationContext(),"qualcosa è andato storto",Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+            }
+
         }
+    }
+
+    private void entraInGoogleActivity(){
+        finish();
+        Intent intent=new Intent(getApplicationContext(),GoogleLoginActivity.class);
+        startActivity(intent);
     }
     private void handleSignInTask(Task<GoogleSignInAccount> task) {
 

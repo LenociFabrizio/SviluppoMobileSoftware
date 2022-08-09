@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "685637353969-sm0d3llirnd0h5tccukck1m4653fmr6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.algoliasearch",
+            "certificate_hash": "21057a59cfd68b4d662c3ba2029f33eb266c97a9"
+          }
+        },
+        {
           "client_id": "685637353969-571diist548rjpci0ad4a22emkhevlpj.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -143,11 +151,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "685637353969-vqabelruonc2rjb4fgt7tfmjqdk6sqtu.apps.googleusercontent.com",
+          "client_id": "685637353969-580d3oa4j1c424rmrtnoi6uicq7ec3sh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "it.uniba.di.e_cultureexperience",
-            "certificate_hash": "ce5bbf6336dde168cc99c312dbf41d7b4f8066dc"
+            "certificate_hash": "21057a59cfd68b4d662c3ba2029f33eb266c97a9"
           }
         },
         {
