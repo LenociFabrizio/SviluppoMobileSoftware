@@ -39,6 +39,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if(checkbox.equals("true")){
             Intent intent = new Intent(LoginActivity.this, DashboardMete.class);
+
+            //mi carico il segnalino dal first access activity
+            boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+            //immetto segnalino in dashboard mete
+            intent.putExtra("segnalino",loginGoogle);
+
             startActivity(intent);
         }
 
@@ -96,6 +102,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(LoginActivity.this, /*QUI*/DashboardMete.class);
+
+                //mi carico il segnalino dal first activity
+                boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+                //immetto segnalino in dashboard mete
+                i.putExtra("segnalino",loginGoogle);
+
                 startActivity(i);
                 finish();
             }else{

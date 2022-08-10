@@ -28,6 +28,7 @@ public class FirstAccessActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     GoogleSignInClient gsc;
     GoogleSignInOptions gso;
+    boolean loginGoogle=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +66,8 @@ public class FirstAccessActivity extends AppCompatActivity {
         if(requestCode==100){
             Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
-                //GoogleSignInAccount accounts = task.getResult(ApiException.class);
                 task.getResult(ApiException.class);
+                loginGoogle=true;
                 entraInGoogleActivity();
             }catch(ApiException ex){
                 Toast.makeText(getApplicationContext(),"qualcosa è andato storto",Toast.LENGTH_SHORT).show();
@@ -78,7 +79,9 @@ public class FirstAccessActivity extends AppCompatActivity {
 
     private void entraInGoogleActivity(){
         finish();
-        Intent intent=new Intent(getApplicationContext(),GoogleLoginActivity.class);
+        Intent intent=new Intent(getApplicationContext(),DashboardMete.class);
+        //mi porto nell'activity DashbordMete il segnalino
+        intent.putExtra("segnalino",loginGoogle);
         startActivity(intent);
     }
     private void handleSignInTask(Task<GoogleSignInAccount> task) {
@@ -102,6 +105,8 @@ public class FirstAccessActivity extends AppCompatActivity {
 
     public void loginBtnClick(View v){
         Intent i = new Intent(FirstAccessActivity.this, LoginActivity.class);
+        //mi porto nell'activity LoginActivity il segnalino
+        i.putExtra("segnalino",loginGoogle);
         startActivity(i);
         finish();
     }

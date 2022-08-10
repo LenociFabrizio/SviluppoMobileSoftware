@@ -91,17 +91,19 @@ public class ProfileActivity extends AppCompatActivity {
                                                    }
                                                }
         );
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(user != null){
-
-            if(user.getPhotoUrl() != null){
+        if (user != null) {
+            if (user.getPhotoUrl() != null) {
                 Glide.with(this).load(user.getPhotoUrl()).into(profileImageView);
             }
         }
 
+
         //Faccio visualizzare l'email, password con cui ha effettuato l'accesso
         email.setText(fAuth.getCurrentUser().getEmail());
+
 
         //Ricercare il proprio nickname con idDB == idLocale
         db.collection("utenti")
@@ -110,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
 
-                        if(task.getResult() != null){
+                        if (task.getResult() != null) {
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
@@ -118,51 +120,52 @@ public class ProfileActivity extends AppCompatActivity {
                                 String idDataBase = document.getString("idUtente");
                                 Log.d("FETCH", document.getId() + " leggo=> " + nicknameDataBase);
 
-                                if(idDataBase.equals(fAuth.getUid())){
+                                if (idDataBase.equals(fAuth.getUid())) {
                                     Log.d("ID UTENTE UGUALE", idDataBase + " = " + fAuth.getUid());
                                     nickname.setText(nicknameDataBase);
                                     return;
 
-                                }else{
+                                } else {
                                     Log.d("ID NON TROVATO", "ERROR");
                                 }
                             }
-                        }else{
+                        } else {
                             Log.d("DB VUOTO", "ERROR");
                         }
-
-
                     } else {
                         Log.w("TAG", "Error getting documents.", task.getException());
                     }
 
                 });
-
         onCreateBottomNavigation();
-
     }
 
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
         bottomNav.setSelectedItemId(R.id.nav_profile);
-        //Perform ItemSelectedListener
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+
+        boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        startActivity(new Intent(getApplicationContext(), DashboardMete.class));
+
+                        //entro nell'altra activity immettendo il segnalino appena caricato
+                        startActivity(new Intent(getApplicationContext(), DashboardMete.class).putExtra("segnalino",loginGoogle));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_scan:
-                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
+
+                        //entro nell'altra activity immettendo il segnalino appena caricato
+                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class).putExtra("segnalino",loginGoogle));
                         overridePendingTransition(0,0);
                         return true;
-                    //selectedFragment = new ScanFragment();
-                    //break;
+
                     case R.id.nav_profile:
                         return true;
 

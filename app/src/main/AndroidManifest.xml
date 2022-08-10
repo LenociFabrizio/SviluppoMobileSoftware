@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="it.uniba.di.e_cultureexperience">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,9 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECultureExperience">
         <activity
-            android:name=".Accesso.GoogleLoginActivity"
-            android:exported="true"
-            />
+            android:name=".Accesso.ProfileActivityGoogle"
+            android:exported="true" />
         <activity
             android:name=".Percorso.MostraPercorso"
             android:exported="false"
@@ -42,19 +41,15 @@
         </activity>
         <activity
             android:name=".DashboardMete"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Accesso.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".Accesso.RegistrationActivity"
             android:exported="true" />
-        <activity
-            android:name=".QuizGame.RisultatoQuizActivity" />
-        <activity
-            android:name=".QuizGame.TimeOutActivity" />
+        <activity android:name=".QuizGame.RisultatoQuizActivity" />
+        <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
             android:name=".QuizGame.StartGame"
             android:exported="false" />

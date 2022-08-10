@@ -31,6 +31,7 @@ import java.util.List;
 
 import it.uniba.di.e_cultureexperience.Accesso.FirstAccessActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivityGoogle;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
@@ -103,9 +104,19 @@ public class DashboardMete extends AppCompatActivity {
                     //selectedFragment = new ScanFragment();
                     //break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
+
+                        //PASSAGGIO VARIABILE "SEGNALINO" DAL'ACTIVITY gOOGLElOGINaCTIVITY
+                        boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+
+                        if(loginGoogle==true){
+                            startActivity(new Intent(getApplicationContext(), ProfileActivityGoogle.class).putExtra("segnalino",loginGoogle));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }else {
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class).putExtra("segnalino",loginGoogle));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        }
 
                 }
 
