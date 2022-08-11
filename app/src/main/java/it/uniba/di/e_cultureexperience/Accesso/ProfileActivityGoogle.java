@@ -8,8 +8,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,6 +21,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +41,7 @@ public class ProfileActivityGoogle extends AppCompatActivity {
     GoogleSignInClient gsc;
 
     private FirebaseAuth fAuth;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("studenti");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +53,6 @@ public class ProfileActivityGoogle extends AppCompatActivity {
         immagineProfilo = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
-        //setContentView(R.layout.activity_google_login);
-        Map<String, Object> utente = new HashMap<>();
-        // scritturaDataBase(utente,eMail);
-
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -59,6 +60,17 @@ public class ProfileActivityGoogle extends AppCompatActivity {
         gsc= GoogleSignIn.getClient(this,gso);
 
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
+
+        String emailPassaggio=account.getEmail();
+        String[] nicknamePassaggio=emailPassaggio.split("@");
+
+        System.out.println("0000000 "+nicknamePassaggio[0] + " " + nicknamePassaggio[1]);
+
+        Utente u =new Utente(nicknamePassaggio[0],"123456",emailPassaggio);
+        mDatabase.push().setValue(u);
+        Toast.makeText(ProfileActivityGoogle.this, "aggiunto!?", Toast.LENGTH_LONG).show();
+
+
 
         if(account != null){
             Uri googleAccountImagePh = account.getPhotoUrl();
@@ -103,4 +115,11 @@ public class ProfileActivityGoogle extends AppCompatActivity {
             }
         });
     }
+
+
+    public void changePassw(View v){
+        Intent i = new Intent(ProfileActivityGoogle.this, ForgotPasswordActivity.class);
+        startActivity(i);
+    }
+
 }
