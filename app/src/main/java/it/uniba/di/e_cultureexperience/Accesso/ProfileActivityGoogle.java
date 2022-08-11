@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -23,9 +22,6 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
 import it.uniba.di.e_cultureexperience.R;
@@ -40,16 +36,12 @@ public class ProfileActivityGoogle extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    private FirebaseAuth fAuth;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("studenti");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         TextView email = findViewById(R.id.emailView);
-        fAuth = FirebaseAuth.getInstance();
         immagineProfilo = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
@@ -64,22 +56,12 @@ public class ProfileActivityGoogle extends AppCompatActivity {
         String emailPassaggio=account.getEmail();
         String[] nicknamePassaggio=emailPassaggio.split("@");
 
-        System.out.println("0000000 "+nicknamePassaggio[0] + " " + nicknamePassaggio[1]);
+        Uri googleAccountImagePh = account.getPhotoUrl();
 
-        Utente u =new Utente(nicknamePassaggio[0],"123456",emailPassaggio);
-        mDatabase.push().setValue(u);
-        Toast.makeText(ProfileActivityGoogle.this, "aggiunto!?", Toast.LENGTH_LONG).show();
+        Glide.with(this)
+                .load(googleAccountImagePh).into(immagineProfilo);
 
-
-
-        if(account != null){
-            Uri googleAccountImagePh = account.getPhotoUrl();
-
-            Glide.with(this)
-                    .load(googleAccountImagePh).into(immagineProfilo);
-
-            email.setText(account.getEmail());
-        }
+        email.setText(account.getEmail());
 
         onCreateBottomNavigation();
     }
