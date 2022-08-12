@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.R;
 
 public class FirstAccessActivity extends AppCompatActivity {
