@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,9 +23,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
 import it.uniba.di.e_cultureexperience.R;
@@ -29,28 +34,24 @@ import it.uniba.di.e_cultureexperience.R;
 public class ProfileActivityGoogle extends AppCompatActivity {
 
     private ImageView immagineProfilo;
-    private TextView eMailGoogle;
-    private TextView esciDalProfilo;
     private TextView nickname;
 
+    //metodi per il login google
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    private FirebaseAuth fAuth;
+    //informazioni db
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        TextView email = findViewById(R.id.emailView);
-        fAuth = FirebaseAuth.getInstance();
+        TextView emailGoogle = findViewById(R.id.emailView);
         immagineProfilo = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
-
-        //setContentView(R.layout.activity_google_login);
-        Map<String, Object> utente = new HashMap<>();
-        // scritturaDataBase(utente,eMail);
+        //Button esciDalProfilo = findViewById(R.id.changePasswordView);
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -60,14 +61,54 @@ public class ProfileActivityGoogle extends AppCompatActivity {
 
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
 
-        if(account != null){
-            Uri googleAccountImagePh = account.getPhotoUrl();
+        String emailPassaggio=account.getEmail();
+        String[] nicknamePassaggio=emailPassaggio.split("@");
 
-            Glide.with(this)
-                    .load(googleAccountImagePh).into(immagineProfilo);
+        /*
+        esciDalProfilo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                esci();
+            }
+        });
+        */
+        Uri googleAccountImagePh = account.getPhotoUrl();
 
-            email.setText(account.getEmail());
-        }
+        Glide.with(this)
+                .load(googleAccountImagePh).into(immagineProfilo);
+
+        emailGoogle.setText(account.getEmail());
+
+        //Ricercare il proprio nickname con idDB == idLocale
+        db.collection("utenti")
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        if (task.getResult() != null) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                String nicknameDataBase = document.getString("nickname");
+                                nicknameDataBase.toLowerCase();
+
+                                if (nicknameDataBase.equals(nicknamePassaggio[0])) {
+                                    nickname.setText(nicknameDataBase);
+                                    return;
+
+                                } else {
+                                    Log.d("ID NON TROVATO", "ERROR"+ nicknameDataBase);
+                                }
+                            }
+                        } else {
+                            Log.d("DB VUOTO", "ERROR");
+                        }
+                    } else {
+                        Log.w("TAG", "Error getting documents.", task.getException());
+                    }
+
+                });
 
         onCreateBottomNavigation();
     }
@@ -105,4 +146,25 @@ public class ProfileActivityGoogle extends AppCompatActivity {
             }
         });
     }
+
+
+    public void changePassw(View v){
+        Intent i = new Intent(ProfileActivityGoogle.this, ForgotPasswordActivity.class);
+        startActivity(i);
+    }
+
+    public void signOut(View v){
+        SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("remember", "false");
+        editor.apply();
+
+        GoogleSignInClient googleSignInClient=GoogleSignIn.getClient(this,gso);
+        googleSignInClient.signOut();
+
+        Intent i = new Intent(ProfileActivityGoogle.this, FirstAccessActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }

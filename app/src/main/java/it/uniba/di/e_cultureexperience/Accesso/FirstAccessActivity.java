@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.R;
 
 public class FirstAccessActivity extends AppCompatActivity {
@@ -79,7 +80,7 @@ public class FirstAccessActivity extends AppCompatActivity {
 
     private void entraInGoogleActivity(){
         finish();
-        Intent intent=new Intent(getApplicationContext(),DashboardMete.class);
+        Intent intent=new Intent(getApplicationContext(),LoginGoogleActivity.class);
         //mi porto nell'activity DashbordMete il segnalino
         intent.putExtra("segnalino",loginGoogle);
         startActivity(intent);

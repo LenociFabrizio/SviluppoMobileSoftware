@@ -74,13 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
         Button language_button = findViewById(R.id.languageBtn);
 
         language_button.setOnClickListener(new View.OnClickListener() {
-                                               @Override
-                                               public void onClick(View view) {
-                                                   setLocale("en-rGB");
-                                               }
-                                           }
-
-        );
+            @Override
+            public void onClick(View view) {
+                setLocale("en-rGB");
+                }
+        });
 
         Button language_button_ita = findViewById(R.id.languageBtnIta);
 

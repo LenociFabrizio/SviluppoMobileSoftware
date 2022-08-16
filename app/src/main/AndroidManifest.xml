@@ -15,6 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECultureExperience">
         <activity
+            android:name=".Accesso.LoginGoogleActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".Accesso.ProfileActivityGoogle"
             android:exported="true" />
         <activity
@@ -41,7 +45,7 @@
         </activity>
         <activity
             android:name=".DashboardMete"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".Accesso.LoginActivity"
             android:exported="true" />
@@ -53,6 +57,14 @@
         <activity
             android:name=".QuizGame.StartGame"
             android:exported="false" />
+        <activity
+            android:name=".QuizGame.PuzzleGame"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Accesso.ForgotPasswordActivity"
             android:exported="true" />
