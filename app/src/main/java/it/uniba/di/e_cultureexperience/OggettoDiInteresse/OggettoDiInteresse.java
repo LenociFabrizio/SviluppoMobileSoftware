@@ -95,5 +95,7 @@ public final class OggettoDiInteresse implements Parcelable {
                 ", bluetooth_id='" + bluetooth_id + '\'' +
                 '}';
     }
+
+
 }
 

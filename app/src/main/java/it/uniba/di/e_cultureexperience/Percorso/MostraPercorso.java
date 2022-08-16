@@ -22,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.GestionePercorso;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
@@ -37,6 +38,13 @@ public class MostraPercorso extends AppCompatActivity {
     ArrayList<OggettoDiInteresse> oggetti_di_interesse;
 
     ExtendedFloatingActionButton floatingActionButton;
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,10 @@ public class MostraPercorso extends AppCompatActivity {
 
         oggetti_di_interesse = new ArrayList<>();
         list_view_oggetti = findViewById(R.id.lista_oggetti);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
@@ -96,7 +108,6 @@ public class MostraPercorso extends AppCompatActivity {
             }
         });
 
-        //prendo gli oggetti di quel percorso
 
         //innanzitutto ricavo gli id degli oggetti del percorso
         ArrayList<String> id_oggetti = new ArrayList<>();
@@ -134,6 +145,8 @@ public class MostraPercorso extends AppCompatActivity {
                     }
                     OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggetti_di_interesse);
                     list_view_oggetti.setAdapter(customAdapter);
+
+
                 } else {
                     Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                 }

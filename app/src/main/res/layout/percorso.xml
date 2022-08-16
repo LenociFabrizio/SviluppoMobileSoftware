@@ -12,15 +12,14 @@
     android:orientation="vertical">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent">
+
+
 
         <RelativeLayout
             android:id="@+id/inside_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/nome"
@@ -50,11 +49,10 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/descrizione" />
 
-
             <ListView
                 android:id="@+id/lista_oggetti"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/durata"
 
                 android:layout_marginTop="16dp"
@@ -63,7 +61,6 @@
 
         </RelativeLayout>
 
-    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_fab"
