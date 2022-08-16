@@ -48,17 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        String email = txtEmailLogin.getText().toString().trim(), password = txtPasswordLogin.getText().toString().trim();
-
-        if(email.isEmpty()){
-            txtEmailLogin.requestFocus();
-            return;
-        }
-        if(password.isEmpty()){
-            txtPasswordLogin.requestFocus();
-            return;
-        }
-
         rememberBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
             if(buttonView.isChecked()){
