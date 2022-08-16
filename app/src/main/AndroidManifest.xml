@@ -21,7 +21,7 @@
             android:name=".Percorso.MostraPercorso"
             android:exported="false"
             android:label="@string/title_activity_mostra_luogo_di_interesse2"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar" />
+            android:theme="@style/Theme.ECultureExperience" />
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresse"
             android:exported="false" />

@@ -18,4 +18,6 @@
     <string name="profile">Profilo</string>
     <string name="scan">Scansiona</string>
     <string name="home">Esplora</string>
+    <string name="durata">Durata del percorso :</string>
+    <string name="minutes">minuti</string>
 </resources>

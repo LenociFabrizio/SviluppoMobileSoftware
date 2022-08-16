@@ -114,4 +114,6 @@
     <string name="profile">Profile</string>
     <string name="scan">Scan</string>
     <string name="home">Explore</string>
+    <string name="durata">Journey time :</string>
+    <string name="minutes">minutes</string>
 </resources>

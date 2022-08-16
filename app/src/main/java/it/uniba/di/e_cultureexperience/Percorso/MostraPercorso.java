@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -25,10 +28,15 @@ import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdap
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
-public class MostraPercorso extends Activity {
-    ArrayList<OggettoDiInteresse> oggetti_di_interesse;
-    ListView list_view_oggetti;
+public class MostraPercorso extends AppCompatActivity {
+    TextView nome_percorso;
+    TextView descrizione_percorso;
+    TextView durata_percorso;
 
+    ListView list_view_oggetti;
+    ArrayList<OggettoDiInteresse> oggetti_di_interesse;
+
+    ExtendedFloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +47,15 @@ public class MostraPercorso extends Activity {
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
-        //prendo i riferimenti degli elementi del layout
-        TextView nome_percorso = findViewById(R.id.nome);
-        TextView descrizione_percorso = findViewById(R.id.descrizione);
-        TextView durata_percorso = findViewById(R.id.durata);
-        Button button_avvia_percorso = (Button) findViewById(R.id.btn_avvia_percorso);
 
+        //prendo i riferimenti degli elementi del layout
+        nome_percorso = findViewById(R.id.nome);
+        descrizione_percorso = findViewById(R.id.descrizione);
+        durata_percorso = findViewById(R.id.durata);
+        floatingActionButton = findViewById(R.id.btn_fab);
         nome_percorso.setText(percorso.getNome());
         descrizione_percorso.setText(percorso.getDescrizione());
-        durata_percorso.setText(Integer.toString(percorso.getDurata()));
+        durata_percorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
 
         //OGGETTI PER FIREBASE
         FirebaseFirestore db;
@@ -55,7 +63,7 @@ public class MostraPercorso extends Activity {
         db = FirebaseFirestore.getInstance();
 
         //bottone
-        button_avvia_percorso.setOnClickListener(new View.OnClickListener() {
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //prendo gli oggetti relativi al percorso
                 db.collection("/percorsi/"+percorso.getId()+"/oggetti")

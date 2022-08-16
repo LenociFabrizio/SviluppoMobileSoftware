@@ -84,8 +84,8 @@
                     android:layout_marginHorizontal="@dimen/text_margin"
 
                     android:text="Percorsi"
-                    android:textSize="18sp"
                     android:textColor="@color/black"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <ListView
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_percorsi"
                     android:layout_marginTop="4dp"
-                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginHorizontal="16dp"
 
                     android:layout_marginBottom="@dimen/text_margin" />
 

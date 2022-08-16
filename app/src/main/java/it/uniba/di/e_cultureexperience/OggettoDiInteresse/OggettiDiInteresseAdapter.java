@@ -86,8 +86,9 @@ public class OggettiDiInteresseAdapter implements ListAdapter {
             TextView textViewBluetoothId= convertView.findViewById(R.id.txt_bluetoothId);
             textViewBluetoothId.setText(oggettoDiInteresse.getBluetooth_id());
             //bottone
-            final Button button = convertView.findViewById(R.id.btn_vedi_oggetto);
-            button.setOnClickListener(v -> {
+            ImageView button = (ImageView) convertView.findViewById(R.id.btn_vedi_oggetto);
+            button.setColorFilter(R.color.black);
+            convertView.setOnClickListener(v -> {
                 //quando viene premuto, lancia l' intent esplicito
                 Intent i = new Intent(context, MostraOggettoDiInteresse.class);
                 i.putExtra("oggettoDiInteresse", oggettoDiInteresse);
