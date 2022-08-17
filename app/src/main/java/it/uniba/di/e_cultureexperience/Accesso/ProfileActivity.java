@@ -165,6 +165,8 @@ public class ProfileActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_profile:
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class).putExtra("segnalino",loginGoogle));
+                        overridePendingTransition(0,0);
                         return true;
 
                 }
