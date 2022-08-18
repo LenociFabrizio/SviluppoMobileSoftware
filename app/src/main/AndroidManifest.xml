@@ -28,7 +28,8 @@
             android:theme="@style/Theme.ECultureExperience" />
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresse"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LuogoDiInteresse.MostraLuogoDiInteresse"
             android:label="@string/app_name"

@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_content.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_outline.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.140625" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.264" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.536" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/lista_luoghi.xml" value="0.140625" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/lista_luoghi.xml" value="0.176" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.2" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/percorso.xml" value="0.264" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/menu_mostra_luogo_di_interesse2.xml" value="0.140625" />
