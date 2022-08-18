@@ -1,7 +1,11 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -19,7 +23,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -50,6 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView nickname;
     private final int TAKE_IMAGE_CODE = 10001;
+    private int CAMERA_PERMISSION_CODE = 1;
 
     private FirebaseAuth fAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -71,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
-        Button language_button = findViewById(R.id.languageBtn);
+        /*Button language_button = findViewById(R.id.languageBtn);
 
         language_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,20 +96,18 @@ public class ProfileActivity extends AppCompatActivity {
                                                        setLocale("it-rIT");
                                                    }
                                                }
-        );
+        );*/
 
+        //foto profilo
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         if (user != null) {
             if (user.getPhotoUrl() != null) {
                 Glide.with(this).load(user.getPhotoUrl()).into(profileImageView);
             }
         }
 
-
         //Faccio visualizzare l'email, password con cui ha effettuato l'accesso
         email.setText(fAuth.getCurrentUser().getEmail());
-
 
         //Ricercare il proprio nickname con idDB == idLocale
         db.collection("utenti")
@@ -204,11 +210,47 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void handleImageClick(View view) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(intent, TAKE_IMAGE_CODE);
+        if (ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(ProfileActivity.this, "Cheese!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if(intent.resolveActivity(getPackageManager()) != null){
+                startActivityForResult(intent, TAKE_IMAGE_CODE);
+            }
+        } else {
+            requestStoragePermission();
+        }
+
+    }
+
+    private void requestStoragePermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.CAMERA)) {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Concedi permesso")
+                    .setMessage("Questo permesso serve per poter accedere alla fotocamera per impostare la propria foto profilo.")
+                    .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(ProfileActivity.this,
+                            new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE))
+                    .setNegativeButton("cancella", (dialog, which) -> dialog.dismiss())
+                    .create().show();
+
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
         }
     }
+
+    @SuppressLint("MissingSuperCall")
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERMISSION_CODE)  {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permesso Concesso", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permesso Rifiutato", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -231,27 +273,13 @@ public class ProfileActivity extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getCurrentUser(). getUid();
         StorageReference reference = FirebaseStorage.getInstance().getReference().child("profileImages").child(uid + ".jpeg");
 
-        reference.putBytes(baos.toByteArray()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                getDownloadUrl(reference);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-                Log.e(TAG, "onFailure: ", e.getCause());
-            }
-        });
+        reference.putBytes(baos.toByteArray()).addOnSuccessListener(taskSnapshot -> getDownloadUrl(reference)).addOnFailureListener(e -> Log.e(TAG, "onFailure: ", e.getCause()));
     }
 
     private void getDownloadUrl(StorageReference reference){
-        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Log.d(TAG, "onSuccess: " + uri);
-                setUserProfileUrl(uri);
-            }
+        reference.getDownloadUrl().addOnSuccessListener(uri -> {
+            Log.d(TAG, "onSuccess: " + uri);
+            setUserProfileUrl(uri);
         });
     }
 
