@@ -34,6 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
         txtGoToRegistration.setOnClickListener(v -> goToRegistration());
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
 

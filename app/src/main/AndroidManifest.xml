@@ -25,7 +25,6 @@
         <activity
             android:name=".Percorso.MostraPercorso"
             android:exported="false"
-            android:label="@string/title_activity_mostra_luogo_di_interesse2"
             android:theme="@style/Theme.ECultureExperience" />
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresse"
@@ -50,10 +49,12 @@
             android:exported="true" />
         <activity
             android:name=".Accesso.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Accesso.FirstAccessActivity"/>
         <activity
             android:name=".Accesso.RegistrationActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Accesso.FirstAccessActivity"/>
         <activity android:name=".QuizGame.RisultatoQuizActivity" />
         <activity android:name=".QuizGame.TimeOutActivity" />
         <activity

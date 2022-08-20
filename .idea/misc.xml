@@ -7,9 +7,13 @@
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_outline.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.13520749665327977" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1578125" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.140625" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse2.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/content_scrolling.xml" value="0.21041666666666667" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.536" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.536" />
@@ -23,7 +27,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

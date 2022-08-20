@@ -57,8 +57,11 @@ public class MostraPercorso extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
+
+        getSupportActionBar().setTitle(percorso.getNome());
 
         //prendo i riferimenti degli elementi del layout
         nome_percorso = findViewById(R.id.nome);
