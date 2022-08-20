@@ -14,7 +14,7 @@
     <string name="favorite">Aggiungi ai preferiti</string>
     <string name="content_description_favorite">Potrai rivisitare questi posti quando vuoi</string>
     <string name="change_password">Cambia password</string>
-    <string name="change_profile_image">Clicca qui per cambiare foto profilo</string>
+    <string name="clicca_sulla_foto_profilo_per_cambiarla">Clicca qui per cambiare foto profilo</string>
     <string name="profile">Profilo</string>
     <string name="scan">Scansiona</string>
     <string name="home">Esplora</string>

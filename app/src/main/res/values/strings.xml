@@ -108,7 +108,7 @@
     <string name="action_settings">Settings</string>
     <string name="share">Share</string>
     <string name="change_password">Change password</string>
-    <string name="change_profile_image">Click here to change profile image</string>
+    <string name="clicca_sulla_foto_profilo_per_cambiarla">Click here to change profile image</string>
     <string name="favorite">Add to favourites</string>
     <string name="content_description_favorite">You can revisit these places whenever you want</string>
     <string name="profile">Profile</string>

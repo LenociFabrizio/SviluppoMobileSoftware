@@ -66,14 +66,31 @@
                 android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/title_descrizione"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/text_margin"
+                    android:text="Descrizione"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
                     android:id="@+id/descrizioneTxt"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_descrizione"
+
+                    android:layout_marginHorizontal="@dimen/text_margin"
+
+                    />
 
                 <TextView
                     android:id="@+id/bluetoothIdTxt"
                     android:layout_below="@+id/descrizioneTxt"
                     android:layout_width="wrap_content"
+                    android:layout_marginHorizontal="@dimen/text_margin"
                     android:layout_height="wrap_content" />
 
                 <TextView
