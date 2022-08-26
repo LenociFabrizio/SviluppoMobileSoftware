@@ -161,6 +161,7 @@
         android:layout_marginStart="20dp"
         android:minHeight="48dp"
         android:text="Le tue mete preferite"
+        android:onClick="goToPreferiti"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"

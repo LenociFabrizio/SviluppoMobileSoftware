@@ -71,10 +71,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
                             final int sizeDataBase = task.getResult().size();
-                            //DATABASE VUOTO
+
                             if(sizeDataBase==0){
                                 Toast.makeText(RegistrationActivity.this, "Sei il primo utente della nostra APP!", Toast.LENGTH_LONG).show();
-                            }else{//DATABASE NON VUOTO
+                            }else{
                                 for (QueryDocumentSnapshot document : task.getResult()) {
 
                                     String nicknameDataBase = document.getString("nickname");

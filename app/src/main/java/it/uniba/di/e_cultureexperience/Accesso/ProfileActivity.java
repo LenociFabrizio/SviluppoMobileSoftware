@@ -50,6 +50,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.StartGame;
 
@@ -311,5 +312,10 @@ public class ProfileActivity extends AppCompatActivity {
         Intent refresh = new Intent(this, ProfileActivity.class);
         startActivity(refresh);
         finish();
+    }
+
+    public void goToPreferiti(View v){
+        Intent intent = new Intent(this, MostraLuogoDiInteressePreferitoActivity.class);
+        startActivity(intent);
     }
 }

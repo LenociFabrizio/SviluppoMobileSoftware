@@ -40,7 +40,7 @@ public class DashboardMete extends AppCompatActivity {
 
     List<LuogoDiInteresse> mete;
 
-    RecyclerView list_view_mete; //OK
+    RecyclerView list_view_mete;
     public LuoghiDiInteresseAdapter customAdapter;
 
     @Override

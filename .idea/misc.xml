@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.1" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/toggle_selector.xml" value="0.1" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout-v31/elemento_lista_luoghi.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.44243792325056436" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse_preferito.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.1" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/secondary_top_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_content.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_outline.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />
@@ -27,7 +37,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

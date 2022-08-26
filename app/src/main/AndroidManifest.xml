@@ -4,7 +4,7 @@
     package="it.uniba.di.e_cultureexperience">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -16,9 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECultureExperience">
         <activity
+            android:name=".LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity"
+            android:exported="false" />
+        <activity
             android:name=".Accesso.LoginGoogleActivity"
             android:exported="false" />
-
         <activity
             android:name=".Accesso.ProfileActivityGoogle"
             android:exported="true" />
@@ -50,11 +52,11 @@
         <activity
             android:name=".Accesso.LoginActivity"
             android:exported="true"
-            android:parentActivityName=".Accesso.FirstAccessActivity"/>
+            android:parentActivityName=".Accesso.FirstAccessActivity" />
         <activity
             android:name=".Accesso.RegistrationActivity"
             android:exported="true"
-            android:parentActivityName=".Accesso.FirstAccessActivity"/>
+            android:parentActivityName=".Accesso.FirstAccessActivity" />
         <activity android:name=".QuizGame.RisultatoQuizActivity" />
         <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
@@ -62,9 +64,10 @@
             android:exported="false" />
         <activity
             android:name=".QuizGame.PuzzleGame"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

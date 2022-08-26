@@ -45,12 +45,23 @@
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_luogodiinteresse"
-                    app:menu="@menu/secondary_top_menu"
                     android:layout_width="match_parent"
-                    android:background="@android:color/transparent"
                     android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_collapseMode="pin"/>
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin"
+                    app:menu="@menu/secondary_top_menu"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+                <ToggleButton
+                    android:id="@+id/favoriteToggleButton"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/toggle_selector"
+                    android:onClick="onCustomToggleClick"
+                    android:textOff=""
+                    android:textOn="" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
