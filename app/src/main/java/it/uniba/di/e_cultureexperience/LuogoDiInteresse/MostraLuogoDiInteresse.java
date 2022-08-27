@@ -123,16 +123,12 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Toolbar con share e favorite button
-     * @param luogo
-     */
-    /*public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
         return true;
-    }*/
+    }
 
     public void setPercorsi(LuogoDiInteresse luogo){
 
@@ -189,10 +185,10 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
                 });
     }
     /**
-     * Al click del "<3" richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo(wip)
+     * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo(wip)
      * @param view
      */
-    public void onCustomToggleClick(View view) {
+    public void onFavoriteToggleClick(View view) {
 
         //prendo l' oggetto passato dall' intent
         LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");

@@ -19,6 +19,12 @@ public final class LuogoDiInteresse implements Parcelable {
         this.descrizione = descrizione;
         this.id = id;
     }
+    //Costruttore utile per MostraLuogoPreferitoActivity
+    public LuogoDiInteresse(String nome, String descrizione, String url_immagine){
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.url_immagine = url_immagine;
+    }
 
     public LuogoDiInteresse(Parcel in) {
         nome = in.readString();

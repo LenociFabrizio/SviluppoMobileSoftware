@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import it.uniba.di.e_cultureexperience.DashboardMete;
@@ -17,6 +18,7 @@ import it.uniba.di.e_cultureexperience.R;
 public class LoginActivity extends AppCompatActivity {
     private static EditText txtEmailLogin, txtPasswordLogin;
     private FirebaseAuth fAuth;
+    private ToggleButton visibility;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         Button loginBtn = findViewById(R.id.loginBtn);
         TextView txtGoToRegistration = findViewById(R.id.registrationTxt);
         CheckBox rememberBox = findViewById(R.id.checkBox);
+        visibility = findViewById(R.id.visibilityToggleButton);
 
         loginBtn.setOnClickListener(v -> loginBtnClick());
 
@@ -119,5 +122,16 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Permette di visualizzare la password oppure di nasconderla
+     */
+    public void onVisibiblityToggleButton(View view) {
+        int PASSWORD_INPUT_TYPE;
+        if(visibility.isChecked())
+            PASSWORD_INPUT_TYPE = 129;
+        else
+            PASSWORD_INPUT_TYPE = 1;
 
+        txtPasswordLogin.setInputType(PASSWORD_INPUT_TYPE);
+    }
 }

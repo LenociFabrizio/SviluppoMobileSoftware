@@ -17,6 +17,24 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_baseline_person_24" />
 
+
+    <ToggleButton
+        android:id="@+id/visibilityToggleButton"
+        android:layout_width="36dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:background="@drawable/toggle_visibility_selector"
+        android:onClick="onVisibiblityToggleButton"
+        android:textOff=""
+        android:textOn=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.433" />
+
     <EditText
         android:id="@+id/passwordLogin"
         android:layout_width="0dp"

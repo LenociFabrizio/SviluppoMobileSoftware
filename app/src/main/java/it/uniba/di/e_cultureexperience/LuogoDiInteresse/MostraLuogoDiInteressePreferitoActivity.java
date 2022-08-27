@@ -19,7 +19,7 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
     final String collectionPath = "luoghiPreferiti";
     RecyclerView list_view_mete;
     public LuoghiDiInteresseAdapter customAdapter;
-    List<LuogoDiInteresse> mete;
+    List<LuogoDiInteresse> listLuoghi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +43,29 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
                         final int sizeDataBase = task.getResult().size();
 
                         if (sizeDataBase != 0) {
-                            mete = new ArrayList<>();
+                            listLuoghi = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String idUtenteDatabase = document.getString("idUtente");
                                 //Faccio coincidere l'id dell'utente loggato con quello del database
                                 assert idUtenteDatabase != null;
                                 if(idUtenteDatabase.equals(fAuth.getUid())){
-                                    //todo: Work in Progress
-                                    LuogoDiInteresse temp = document.toObject(LuogoDiInteresse.class);
-                                    temp.setId(document.getId());
-                                    mete.add(temp);
-                                    customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), mete);
+                                    //todo: Work in Progress, nel db c'è oggetto LuogoDiInteresse + idUtente (non c'è nella creazione dell'obj)
+                                    String nomeLuogoDatabase = document.getString("nome");
+                                    String descrizioneLuogoDatabase = document.getString("descrizione");
+                                    String urlImmagineLuogoDatabase = document.getString("url_immagine");
+                                    //TODO: Controllare creazione oggetto senza ID
+                                    LuogoDiInteresse luogoDatabase = new LuogoDiInteresse(nomeLuogoDatabase, descrizioneLuogoDatabase, urlImmagineLuogoDatabase);
+                                    //luogoDatabase.setId(document.getId());
+
+                                    listLuoghi.add(luogoDatabase);
+                                    customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), listLuoghi);
                                     list_view_mete.setLayoutManager(new LinearLayoutManager(MostraLuogoDiInteressePreferitoActivity.this,LinearLayoutManager.VERTICAL,false));
                                     list_view_mete.setAdapter(customAdapter);
                                 }
-
                             }
                         }
                     }else{
-                        Log.e("Error", "Errore nella lettura del database metePreferite!");
+                        Log.e("Error", "Errore nella lettura del database luoghiPreferiti!");
                     }
                 });
     }
