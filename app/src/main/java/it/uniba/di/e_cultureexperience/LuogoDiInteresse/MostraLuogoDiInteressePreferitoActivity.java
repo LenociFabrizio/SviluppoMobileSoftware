@@ -25,7 +25,7 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostra_luogo_di_interesse_preferito);
-
+        list_view_mete = findViewById(R.id.lista_luoghi);
         leggiMetePreferita();
 
     }
