@@ -34,6 +34,7 @@ import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivityGoogle;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
+import it.uniba.di.e_cultureexperience.QRScanner.Capture;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 
 public class DashboardMete extends AppCompatActivity {
@@ -91,15 +92,7 @@ public class DashboardMete extends AppCompatActivity {
                     case R.id.nav_home:
                         return true;
                     case R.id.nav_scan:
-                        /*
-                                IntentIntegrator integrator = new IntentIntegrator(QRScanner.class);
-                                integrator.setPrompt("For flash use volume up key");
-                                integrator.setOrientationLocked(true);
-                                integrator.setCaptureActivity(Capture.class);
-                                integrator.initiateScan();
-                        */
-                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
-                        overridePendingTransition(0,0);
+                        startActivity(new Intent(getApplicationContext(), QRScanner.class));
                         return true;
                     //selectedFragment = new ScanFragment();
                     //break;
