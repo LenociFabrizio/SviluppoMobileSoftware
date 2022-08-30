@@ -46,7 +46,8 @@ public class PuzzleGame extends AppCompatActivity {
 
     private int posizioneBlanco;
     private Drawable blanco;
-    Button riordina;
+
+    private String url=null;
 
     //Creating drawable's vector 1d
     Drawable[] imageSplittedDrawableOneDimension = new Drawable[NUMERO_SPLIT_X * NUMERO_SPLIT_Y];
@@ -64,6 +65,8 @@ public class PuzzleGame extends AppCompatActivity {
         gridView = findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this);
 
+
+        url=getIntent().getExtras().getString("UrlOggettoDiInteresse");
 
         int DURATA_TIMER = 5;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
@@ -92,7 +95,7 @@ public class PuzzleGame extends AppCompatActivity {
         Glide.with(PuzzleGame.this)
                 .asBitmap()
                 //todo: aggiustare link per la foto
-                .load("https://firebasestorage.googleapis.com/v0/b/ecolture-experience.appspot.com/o/aldo.jpg?alt=media&token=4703a946-5fba-40d9-b5cb-4f5d7de914c3")
+                .load(url)
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -347,4 +350,11 @@ public class PuzzleGame extends AppCompatActivity {
         randomImages=imageSplittedDrawableOneDimension;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
