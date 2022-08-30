@@ -2,19 +2,17 @@ package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ActionMenuView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import android.widget.ToggleButton;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,7 +75,9 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         descrizioneLuogo.setText(luogo.getDescrizione());
         setPercorsi(luogo);
 
+
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -94,7 +94,7 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
-        bottomNav.setSelectedItemId(R.id.nav_home);
+        bottomNav.setSelectedItemId(R.id.share);
 
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
@@ -127,7 +127,24 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+        Intent intent =new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        //whatsappIntent.setPackage("com.whatsapp");
+        intent.putExtra(Intent.EXTRA_SUBJECT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n");
+        intent.putExtra(Intent.EXTRA_TEXT,"Scaricati l'app ECulture-Experience!");
+        startActivity(Intent.createChooser(intent,"share"));
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     public void setPercorsi(LuogoDiInteresse luogo){
@@ -138,21 +155,21 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         db.collection("percorsi")
                 .whereEqualTo("meta", luogo.getId())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Percorso temp = document.toObject(Percorso.class);
-                        temp.setId(document.getId());
-                        percorsi.add(temp);
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Percorso temp = document.toObject(Percorso.class);
+                                temp.setId(document.getId());
+                                percorsi.add(temp);
+                            }
+                            PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
+                            list_view_percorsi.setAdapter(customAdapter);
+                        } else {
+                            Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                        }
                     }
-                    PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
-                    list_view_percorsi.setAdapter(customAdapter);
-                } else {
-                    Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
-                }
-            }
-        });
+                });
     }
 
     /**
@@ -242,25 +259,25 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
-                   if (task.isSuccessful()){
-                       final int sizeDataBase = task.getResult().size();
-                       boolean luogoDuplicato = false;
-                       if (sizeDataBase != 0) {
-                           for (QueryDocumentSnapshot document : task.getResult()) {
-                               String idUtenteDatabase = document.getString("idUtente");
-                               String nomeLuogoDatabase = document.getString("nome");
-                               //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
-                               if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogoScelto.get("nome"))){
-                                   luogoDuplicato = true;
-                               }
-                           }//fine for
-                           if (!luogoDuplicato){
-                               addDoc(collectionPath, luogoScelto);
-                           }
-                       }else{
-                           addDoc(collectionPath, luogoScelto);
-                       }
-                   }
+                    if (task.isSuccessful()){
+                        final int sizeDataBase = task.getResult().size();
+                        boolean luogoDuplicato = false;
+                        if (sizeDataBase != 0) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String idUtenteDatabase = document.getString("idUtente");
+                                String nomeLuogoDatabase = document.getString("nome");
+                                //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
+                                if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogoScelto.get("nome"))){
+                                    luogoDuplicato = true;
+                                }
+                            }//fine for
+                            if (!luogoDuplicato){
+                                addDoc(collectionPath, luogoScelto);
+                            }
+                        }else{
+                            addDoc(collectionPath, luogoScelto);
+                        }
+                    }
                 });
     }
 
