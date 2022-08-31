@@ -99,17 +99,17 @@ public class DashboardMete extends AppCompatActivity {
                     case R.id.nav_profile:
 
                         //PASSAGGIO VARIABILE "SEGNALINO" DAL'ACTIVITY gOOGLElOGINaCTIVITY
-                        boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+                        //boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
 
-                        if(loginGoogle==true){
+                        /*if(loginGoogle==true){
                             startActivity(new Intent(getApplicationContext(), ProfileActivityGoogle.class).putExtra("segnalino",loginGoogle));
                             overridePendingTransition(0, 0);
                             return true;
-                        }else {
-                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class).putExtra("segnalino",loginGoogle));
+                        }else {*/
+                            startActivity(new Intent(getApplicationContext(), ProfileActivity.class)/*.putExtra("segnalino",loginGoogle)*/);
                             overridePendingTransition(0, 0);
                             return true;
-                        }
+                        /*}*/
 
                 }
 
