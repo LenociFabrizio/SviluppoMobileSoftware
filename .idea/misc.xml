@@ -3,9 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.19" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/luogo_di_interesse.xml" value="0.23052536231884058" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_dashboard.xml" value="0.16" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -34,6 +31,8 @@
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.16161616161616163" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse_preferito.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_registration.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti_avvia_percorso.xml" value="0.36666666666666664" />

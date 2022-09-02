@@ -1,5 +1,7 @@
 package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
+import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,7 +31,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
@@ -58,7 +59,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         OggettoDiInteresse oggettoDiInteresse = getIntent().getExtras().getParcelable("oggettoDiInteresse");
         Log.d("OggettoDiInteresse => ", oggettoDiInteresse.toString());
 
-
         descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         immagineOggetto = findViewById(R.id.immagineOggetto);
         bluetoothOggetto  = findViewById(R.id.bluetoothIdTxt);
@@ -67,7 +67,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(oggettoDiInteresse.getUrl_immagine())
                 .into(immagineOggetto);
-        
+
         descrizioneOggetto.setText(oggettoDiInteresse.getDescrizione());
 
         bluetoothOggetto.setText(oggettoDiInteresse.getBluetooth_id());
@@ -83,76 +83,40 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         collapsingLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
 
         //OGGETTI PER FIREBASE
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db;
+        DocumentReference docRef;
+
+        db = FirebaseFirestore.getInstance();
 
         //controllo se l' oggetto ha un quiz
         db.collection("/oggetti/"+oggettoDiInteresse.getId()+"/quesiti_quiz")
-<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
-                .get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        //ha un quiz, rendo visibile il bottone del quiz
-                        Button button = findViewById(R.id.btn_quiz);
-                        button.setVisibility(View.VISIBLE);
-                        //quando clicca sul bottone gli passo l' array contenente i quesiti
-                        ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
-                            quesiti.add(temp);
-                        }
-                        button.setOnClickListener(v -> {
-=======
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    //ha un quiz, rendo visibile il bottone del quiz
-                    Button quizButton = (Button) findViewById(R.id.btn_quiz);
-                    quizButton.setVisibility(View.VISIBLE);
-
-                    Button puzzleButton=findViewById(R.id.btn_puzzleGame);
-
-                    //quando clicca sul bottone gli passo l' array contenente i quesiti
-                    ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
-                        quesiti.add(temp);
-                    }
-                    quizButton.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
->>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
-                            //quando viene premuto, lancia l' intent esplicito
-                            Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                            i.putExtra("quesiti", quesiti);
-                            getApplicationContext().startActivity(i);
-<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
-                        });
-                    } else {
-                        //non ha nessun quiz, rimane invisibile
-                        Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            //ha un quiz, rendo visibile il bottone del quiz
+                            Button button = (Button) findViewById(R.id.btn_quiz);
+                            button.setVisibility(View.VISIBLE);
+                            //quando clicca sul bottone gli passo l' array contenente i quesiti
+                            ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
+                                quesiti.add(temp);
+                            }
+                            button.setOnClickListener(new View.OnClickListener() {
+                                public void onClick(View v) {
+                                    //quando viene premuto, lancia l' intent esplicito
+                                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    i.putExtra("quesiti", quesiti);
+                                    getApplicationContext().startActivity(i);
+                                }
+                            });
+                        } else {
+                            //non ha nessun quiz, rimane invisibile
+                            Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                        }
                     }
                 });
-=======
-                        }
-                    });
-
-                    puzzleButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //oggettoDiInteresse.getUrl_immagine()
-                            //String urlPassaggio=getIntent().getExtras().getString("UrlOggettoDiInteresse");
-                            Intent i=new Intent(getApplicationContext(), PuzzleGame.class).putExtra("UrlOggettoDiInteresse",oggettoDiInteresse.getUrl_immagine());
-
-                            //oggettoDiInteresse.getUrl_immagine()
-                            startActivity(i);
-                        }
-                    });
-                } else {
-                    //non ha nessun quiz, rimane invisibile
-                    Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
-                }
-            }
-        });
->>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
         //F I N I S H
 
     }
