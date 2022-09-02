@@ -153,7 +153,15 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.nav_home:
 
                         //entro nell'altra activity immettendo il segnalino appena caricato
+<<<<<<< HEAD
                         startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+=======
+
+                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class).putExtra("segnalino",LoginGoogleActivity.class));
+
+                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class)/*.putExtra("segnalino",loginGoogle)*/);
+
+>>>>>>> accd2477bd8a6d60048e0f8429b60f6db192912b
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_scan:

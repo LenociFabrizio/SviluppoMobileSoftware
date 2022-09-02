@@ -80,6 +80,7 @@
 
                 <TextView
                     android:id="@+id/descrizione"
+                    android:text="@string/descrizioneMetaMatera"
                     android:layout_width="wrap_content"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
@@ -94,7 +95,7 @@
                     android:layout_below="@+id/descrizione"
                     android:layout_marginHorizontal="@dimen/text_margin"
 
-                    android:text="Percorsi"
+                    android:text="@string/percorsi"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
