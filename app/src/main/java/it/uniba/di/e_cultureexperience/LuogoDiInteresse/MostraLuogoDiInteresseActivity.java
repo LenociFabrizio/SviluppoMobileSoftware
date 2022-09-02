@@ -39,6 +39,7 @@ import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
 import it.uniba.di.e_cultureexperience.Percorso.Percorso;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
@@ -101,7 +102,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:
