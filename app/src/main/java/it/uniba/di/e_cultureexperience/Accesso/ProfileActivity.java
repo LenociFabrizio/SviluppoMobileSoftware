@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,13 +24,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -45,8 +42,9 @@ import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
-import it.uniba.di.e_cultureexperience.R;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.QuizGame.StartGame;
+import it.uniba.di.e_cultureexperience.R;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -125,14 +123,14 @@ public class ProfileActivity extends AppCompatActivity {
                                     return;
 
                                 } else {
-                                    Log.d("ID NON TROVATO", "ERROR");
+                                    Log.d("Errir", "ID non trovato");
                                 }
                             }
                         } else {
-                            Log.d("DB VUOTO", "ERROR");
+                            Log.d("Error", "Database utenti vuoto");
                         }
                     } else {
-                        Log.w("TAG", "Error getting documents.", task.getException());
+                        Log.w("Error", "Error getting documents.", task.getException());
                     }
 
                 });
@@ -144,42 +142,27 @@ public class ProfileActivity extends AppCompatActivity {
         //Set Home Selected
         bottomNav.setSelectedItemId(R.id.nav_profile);
 
-        bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        bottomNav.setOnItemSelectedListener(item -> {
 
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
-                switch (item.getItemId()){
-                    case R.id.nav_home:
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    //entro nell'altra activity immettendo il segnalino appena caricato
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
 
-                        //entro nell'altra activity immettendo il segnalino appena caricato
-<<<<<<< HEAD
-                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
-=======
+                case R.id.nav_scan:
+                    //entro nell'altra activity immettendo il segnalino appena caricato
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
 
-                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class).putExtra("segnalino",LoginGoogleActivity.class));
-
-                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class)/*.putExtra("segnalino",loginGoogle)*/);
-
->>>>>>> accd2477bd8a6d60048e0f8429b60f6db192912b
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.nav_scan:
-
-                        //entro nell'altra activity immettendo il segnalino appena caricato
-                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.nav_profile:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                }
-
-                return false;
+                case R.id.nav_profile:
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
             }
+            return false;
         });
     }
 
