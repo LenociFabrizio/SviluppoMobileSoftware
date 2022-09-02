@@ -74,7 +74,7 @@ public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInter
         holder.textView.setText(luogoDiInteresse.getDescrizione());
         holder.itemView.setOnClickListener(v -> {
             //quando viene premuto, lancia l' intent esplicito
-            Intent i = new Intent(context, MostraLuogoDiInteresse.class);
+            Intent i = new Intent(context, MostraLuogoDiInteresseActivity.class);
             i.putExtra("luogoDiInteresse", arrayListFiltered.get(position));
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

@@ -49,14 +49,10 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
                                 //Faccio coincidere l'id dell'utente loggato con quello del database
                                 assert idUtenteDatabase != null;
                                 if(idUtenteDatabase.equals(fAuth.getUid())){
-                                    //todo: Work in Progress, nel db c'è oggetto LuogoDiInteresse + idUtente (non c'è nella creazione dell'obj)
                                     String nomeLuogoDatabase = document.getString("nome");
                                     String descrizioneLuogoDatabase = document.getString("descrizione");
                                     String urlImmagineLuogoDatabase = document.getString("url_immagine");
-                                    //TODO: Controllare creazione oggetto senza ID
                                     LuogoDiInteresse luogoDatabase = new LuogoDiInteresse(nomeLuogoDatabase, descrizioneLuogoDatabase, urlImmagineLuogoDatabase);
-                                    //luogoDatabase.setId(document.getId());
-
                                     listLuoghi.add(luogoDatabase);
                                     customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), listLuoghi);
                                     list_view_mete.setLayoutManager(new LinearLayoutManager(MostraLuogoDiInteressePreferitoActivity.this,LinearLayoutManager.VERTICAL,false));

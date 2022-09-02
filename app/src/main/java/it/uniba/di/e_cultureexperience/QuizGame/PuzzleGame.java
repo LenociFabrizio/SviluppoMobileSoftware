@@ -30,7 +30,7 @@ import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class PuzzleGame extends AppCompatActivity {
@@ -338,7 +338,7 @@ public class PuzzleGame extends AppCompatActivity {
      * esce dall'activity, ritornando indietro
      */
     private void goBack() {
-        Intent i = new Intent(this, DashboardMete.class);
+        Intent i = new Intent(this, DashboardMeteActivity.class);
         startActivity(i);
         finish();
     }

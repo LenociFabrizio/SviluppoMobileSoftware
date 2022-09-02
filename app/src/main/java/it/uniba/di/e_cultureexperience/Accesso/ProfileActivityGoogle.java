@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,13 +21,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class ProfileActivityGoogle extends AppCompatActivity {
@@ -127,7 +123,7 @@ public class ProfileActivityGoogle extends AppCompatActivity {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        startActivity(new Intent(getApplicationContext(), DashboardMete.class).putExtra("segnalino",loginGoogle));
+                        startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class).putExtra("segnalino",loginGoogle));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_scan:

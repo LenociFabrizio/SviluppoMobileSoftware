@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,20 +23,17 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.uniba.di.e_cultureexperience.Accesso.FirstAccessActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivityGoogle;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
-import it.uniba.di.e_cultureexperience.QRScanner.Capture;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 
-public class DashboardMete extends AppCompatActivity {
+public class DashboardMeteActivity extends AppCompatActivity {
 
     List<LuogoDiInteresse> mete;
 
@@ -66,7 +62,7 @@ public class DashboardMete extends AppCompatActivity {
                         mete.add(temp);
                     }
                     customAdapter = new LuoghiDiInteresseAdapter(getApplicationContext(), mete);
-                    list_view_mete.setLayoutManager(new LinearLayoutManager(DashboardMete.this,LinearLayoutManager.VERTICAL,false));
+                    list_view_mete.setLayoutManager(new LinearLayoutManager(DashboardMeteActivity.this,LinearLayoutManager.VERTICAL,false));
                     list_view_mete.setAdapter(customAdapter);
                 } else {
                     Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());

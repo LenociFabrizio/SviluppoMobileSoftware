@@ -1,15 +1,10 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -20,8 +15,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-import it.uniba.di.e_cultureexperience.DashboardMete;
-import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.R;
 
 public class FirstAccessActivity extends AppCompatActivity {

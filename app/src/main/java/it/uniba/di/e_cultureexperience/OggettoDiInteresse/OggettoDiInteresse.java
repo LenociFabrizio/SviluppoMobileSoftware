@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public final class OggettoDiInteresse implements Parcelable {
     private String id, nome, descrizione, url_immagine, bluetooth_id;
+    private boolean visitato;
 
     public OggettoDiInteresse(){}
 
@@ -14,6 +15,15 @@ public final class OggettoDiInteresse implements Parcelable {
         this.descrizione = descrizione;
         this.url_immagine = url_immagine;
         this.bluetooth_id = bluetooth_id;
+    }
+
+    public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id, boolean visitato) {
+        this.id = id;
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.url_immagine = url_immagine;
+        this.bluetooth_id = bluetooth_id;
+        this.visitato = visitato;
     }
 
     protected OggettoDiInteresse(Parcel in) {
@@ -84,6 +94,14 @@ public final class OggettoDiInteresse implements Parcelable {
 
     public void setBluetooth_id(String bluetooth_id) {
         this.bluetooth_id = bluetooth_id;
+    }
+
+    public boolean isVisitato() {
+        return visitato;
+    }
+
+    public void setVisitato(boolean visitato) {
+        this.visitato = visitato;
     }
 
     @Override

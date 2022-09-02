@@ -18,7 +18,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class LoginGoogleActivity extends AppCompatActivity {
@@ -70,7 +70,7 @@ public class LoginGoogleActivity extends AppCompatActivity {
                                 if(nicknameDataBase.equals(nicknamePassaggio[0])){
                                     //NICKNAME GIà ESISTENTE
                                     boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
-                                    Intent i = new Intent(LoginGoogleActivity.this, DashboardMete.class).putExtra("segnalino",loginGoogle);
+                                    Intent i = new Intent(LoginGoogleActivity.this, DashboardMeteActivity.class).putExtra("segnalino",loginGoogle);
                                     startActivity(i);
                                 }
                             }

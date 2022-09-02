@@ -80,7 +80,7 @@ public class PercorsiAdapter implements ListAdapter {
             imageview.setColorFilter(R.color.black);
             convertView.setOnClickListener(v -> {
                 //quando viene premuto, lancia l' intent esplicito
-                Intent i = new Intent(context, MostraPercorso.class);
+                Intent i = new Intent(context, MostraPercorsoActivity.class);
                 i.putExtra("percorso", arrayList.get(position));
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
