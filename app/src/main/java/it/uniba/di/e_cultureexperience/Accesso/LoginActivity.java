@@ -12,7 +12,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         String checkbox = preferences.getString("remember","");
 
         if(checkbox.equals("true")){
-            Intent intent = new Intent(LoginActivity.this, DashboardMete.class);
+            Intent intent = new Intent(LoginActivity.this, DashboardMeteActivity.class);
 
             //mi carico il segnalino dal first access activity
             boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
             if(task.isSuccessful()){
                 Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(LoginActivity.this, /*QUI*/DashboardMete.class);
+                Intent i = new Intent(LoginActivity.this, /*QUI*/DashboardMeteActivity.class);
 
                 //mi carico il segnalino dal first activity
                 boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");

@@ -10,7 +10,7 @@
     app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
 
     android:descendantFocusability="blocksDescendants"
-    tools:context=".OggettoDiInteresse.MostraOggettoDiInteresse">
+    tools:context=".OggettoDiInteresse.MostraOggettoDiInteresseActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

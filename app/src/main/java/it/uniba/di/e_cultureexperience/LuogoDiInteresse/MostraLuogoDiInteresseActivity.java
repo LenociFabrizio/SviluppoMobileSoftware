@@ -36,12 +36,12 @@ import java.util.Map;
 
 import it.uniba.di.e_cultureexperience.Accesso.FirstAccessActivity;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
-import it.uniba.di.e_cultureexperience.DashboardMete;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
 import it.uniba.di.e_cultureexperience.Percorso.Percorso;
 import it.uniba.di.e_cultureexperience.R;
 
-public class MostraLuogoDiInteresse extends AppCompatActivity {
+public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     private ArrayList<Percorso> percorsi;
     ListView list_view_percorsi;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -97,7 +97,7 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
-                    startActivity(new Intent(getApplicationContext(), DashboardMete.class));
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
@@ -151,20 +151,17 @@ public class MostraLuogoDiInteresse extends AppCompatActivity {
         //prendo i percorsi di quella meta
         db.collection("percorsi")
                 .whereEqualTo("meta", luogo.getId())
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Percorso temp = document.toObject(Percorso.class);
-                                temp.setId(document.getId());
-                                percorsi.add(temp);
-                            }
-                            PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
-                            list_view_percorsi.setAdapter(customAdapter);
-                        } else {
-                            Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            Percorso temp = document.toObject(Percorso.class);
+                            temp.setId(document.getId());
+                            percorsi.add(temp);
                         }
+                        PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
+                        list_view_percorsi.setAdapter(customAdapter);
+                    } else {
+                        Log.w("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                     }
                 });
     }

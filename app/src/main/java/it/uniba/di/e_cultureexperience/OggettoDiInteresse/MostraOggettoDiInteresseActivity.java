@@ -34,7 +34,7 @@ import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
 
-public class MostraOggettoDiInteresse extends AppCompatActivity {
+public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
     private TextView descrizioneOggetto, bluetoothOggetto;
     private ImageView immagineOggetto;
 
@@ -57,6 +57,7 @@ public class MostraOggettoDiInteresse extends AppCompatActivity {
         //Prendo l'oggetto passato dall'intent
         OggettoDiInteresse oggettoDiInteresse = getIntent().getExtras().getParcelable("oggettoDiInteresse");
         Log.d("OggettoDiInteresse => ", oggettoDiInteresse.toString());
+
 
         descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         immagineOggetto = findViewById(R.id.immagineOggetto);
@@ -82,13 +83,24 @@ public class MostraOggettoDiInteresse extends AppCompatActivity {
         collapsingLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
 
         //OGGETTI PER FIREBASE
-        FirebaseFirestore db;
-        DocumentReference docRef;
-
-        db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //controllo se l' oggetto ha un quiz
         db.collection("/oggetti/"+oggettoDiInteresse.getId()+"/quesiti_quiz")
+<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        //ha un quiz, rendo visibile il bottone del quiz
+                        Button button = findViewById(R.id.btn_quiz);
+                        button.setVisibility(View.VISIBLE);
+                        //quando clicca sul bottone gli passo l' array contenente i quesiti
+                        ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
+                            quesiti.add(temp);
+                        }
+                        button.setOnClickListener(v -> {
+=======
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -107,10 +119,19 @@ public class MostraOggettoDiInteresse extends AppCompatActivity {
                     }
                     quizButton.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
+>>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
                             //quando viene premuto, lancia l' intent esplicito
                             Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                             i.putExtra("quesiti", quesiti);
                             getApplicationContext().startActivity(i);
+<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
+                        });
+                    } else {
+                        //non ha nessun quiz, rimane invisibile
+                        Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                    }
+                });
+=======
                         }
                     });
 
@@ -131,6 +152,7 @@ public class MostraOggettoDiInteresse extends AppCompatActivity {
                 }
             }
         });
+>>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
         //F I N I S H
 
     }
