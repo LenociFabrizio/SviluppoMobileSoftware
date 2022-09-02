@@ -144,7 +144,7 @@ public class ProfileActivity extends AppCompatActivity {
         //Set Home Selected
         bottomNav.setSelectedItemId(R.id.nav_profile);
 
-        boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
+        //boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
 
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
@@ -155,18 +155,22 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.nav_home:
 
                         //entro nell'altra activity immettendo il segnalino appena caricato
+<<<<<<< HEAD
                         startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class).putExtra("segnalino",loginGoogle));
+=======
+                        startActivity(new Intent(getApplicationContext(), DashboardMete.class)/*.putExtra("segnalino",loginGoogle)*/);
+>>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.nav_scan:
 
                         //entro nell'altra activity immettendo il segnalino appena caricato
-                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class).putExtra("segnalino",loginGoogle));
+                        startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class)/*.putExtra("segnalino",loginGoogle)*/);
                         overridePendingTransition(0,0);
                         return true;
 
                     case R.id.nav_profile:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class).putExtra("segnalino",loginGoogle));
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class)/*.putExtra("segnalino",loginGoogle)*/);
                         overridePendingTransition(0,0);
                         return true;
 

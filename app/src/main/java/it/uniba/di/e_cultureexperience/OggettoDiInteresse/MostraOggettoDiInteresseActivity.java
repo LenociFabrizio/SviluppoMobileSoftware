@@ -1,7 +1,5 @@
 package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,6 +29,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
@@ -42,7 +41,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.oggetto_di_interesse);
+        setContentView(R.layout.activity_oggetto_di_interesse);
 
         if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
             setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
@@ -88,6 +87,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
 
         //controllo se l' oggetto ha un quiz
         db.collection("/oggetti/"+oggettoDiInteresse.getId()+"/quesiti_quiz")
+<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         //ha un quiz, rendo visibile il bottone del quiz
@@ -100,16 +100,59 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                             quesiti.add(temp);
                         }
                         button.setOnClickListener(v -> {
+=======
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    //ha un quiz, rendo visibile il bottone del quiz
+                    Button quizButton = (Button) findViewById(R.id.btn_quiz);
+                    quizButton.setVisibility(View.VISIBLE);
+
+                    Button puzzleButton=findViewById(R.id.btn_puzzleGame);
+
+                    //quando clicca sul bottone gli passo l' array contenente i quesiti
+                    ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
+                        quesiti.add(temp);
+                    }
+                    quizButton.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+>>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
                             //quando viene premuto, lancia l' intent esplicito
                             Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                             i.putExtra("quesiti", quesiti);
                             getApplicationContext().startActivity(i);
+<<<<<<< HEAD:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresseActivity.java
                         });
                     } else {
                         //non ha nessun quiz, rimane invisibile
                         Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                     }
                 });
+=======
+                        }
+                    });
+
+                    puzzleButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //oggettoDiInteresse.getUrl_immagine()
+                            //String urlPassaggio=getIntent().getExtras().getString("UrlOggettoDiInteresse");
+                            Intent i=new Intent(getApplicationContext(), PuzzleGame.class).putExtra("UrlOggettoDiInteresse",oggettoDiInteresse.getUrl_immagine());
+
+                            //oggettoDiInteresse.getUrl_immagine()
+                            startActivity(i);
+                        }
+                    });
+                } else {
+                    //non ha nessun quiz, rimane invisibile
+                    Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                }
+            }
+        });
+>>>>>>> 53d13fcb0cb9a15c0495a8f2782a2b0162419c74:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/MostraOggettoDiInteresse.java
         //F I N I S H
 
     }
