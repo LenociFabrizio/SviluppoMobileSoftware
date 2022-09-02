@@ -76,7 +76,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="16dp"
         android:contentDescription="Avvia percorso"
-        android:text="Avvia percorso"
+        android:text="@string/avviaPercorso"
         android:theme="@style/Theme.MyApplication3.FloatingButton">
 
     </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>

@@ -31,7 +31,7 @@ public class LoginGoogleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_google);
+        //setContentView(R.layout.activity_login_google);
 
         //LOGIN CLASSICO
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

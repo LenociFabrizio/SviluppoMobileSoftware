@@ -127,13 +127,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
-        if(numeroRisposteCorrette == numeroRisposteTotali){
-            descrizioneEsito.setText("Complimenti, hai risposto a tutte le domande del quiz correttamente! Se ti sei divertito, sei libero di rifarlo");
-            esitoBtn.setText("Rifacciamo!");
-        }else{
-            descrizioneEsito.setText("Se vuoi migliorare il tuo punteggio clicca sul bottone qui sotto!");
-            esitoBtn.setText("Miglioriamo!");
-        }
+
 
         esitoBtn.setOnClickListener(v -> {
             Intent intent = new Intent(RisultatoQuizActivity.this, DashboardActivity.class);

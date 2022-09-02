@@ -70,9 +70,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:text="Descrizione"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="4dp"
+                    android:text="@string/descrizione"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                     android:layout_below="@+id/bluetoothIdTxt"
                     android:layout_marginHorizontal="@dimen/text_margin"
 
-                    android:text="Attività"
+                    android:text="@string/attivita"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />

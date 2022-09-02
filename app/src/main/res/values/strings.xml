@@ -116,4 +116,26 @@
     <string name="home">Explore</string>
     <string name="durata">Journey time :</string>
     <string name="minutes">minutes</string>
+    <string name="le_tue_mete_preferite">Favourite destinations</string>
+    <string name="esci_da_questo_account">Log out</string>
+    <string name="registrati">Register</string>
+    <string name="logIn">Login</string>
+    <string name="inserisci_email">INSERT EMAIL</string>
+    <string name="ricorda_le_mie_credenziali">remember my credentials</string>
+    <string name="haiDimentiCatoLaPassword">forgotten password?</string>
+    <string name="nonSeiAncoraRegistrato">Not Registered Yet?</string>
+    <string name="cliccaQuiPerFarlo">Click Here To Do</string>
+    <string name="attivita">activity</string>
+    <string name="miArrendo">surrender</string>
+    <string name="haiGiaUnAccount">Do you already have an account?</string>
+    <string name="risultatoFinale">Final result</string>
+    <string name="riprova">Try again!</string>
+    <string name="gioca">Play!</string>
+    <string name="tempoScaduto">Time Out!</string>
+    <string name="vaiVia">Leave</string>
+    <string name="percorsi">Routes</string>
+    <string name="avviaPercorso">Start Route</string>
+    <string name="descrizioneMetaMatera">It is known worldwide for its historic Sassi districts, making it one of the oldest still-inhabited cities in the world.</string>
+
+
 </resources>

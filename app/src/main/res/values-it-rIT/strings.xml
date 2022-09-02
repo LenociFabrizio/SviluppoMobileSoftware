@@ -20,4 +20,33 @@
     <string name="home">Esplora</string>
     <string name="durata">Durata del percorso :</string>
     <string name="minutes">minuti</string>
+    <string name="le_tue_mete_preferite">le tue mete preferite</string>
+    <string name="esci_da_questo_account">esci</string>
+    <string name="registrati">Registrati</string>
+    <string name="logIn">LogIn</string>
+    <string name="inserisci_email">INSERISCI EMAIL</string>
+    //LOGIN ACTIVITY
+    <string name="ricorda_le_mie_credenziali">ricorda le mie credenziali</string>
+    <string name="haiDimentiCatoLaPassword">Hai Dimenticato La Password ?</string>
+    <string name="nonSeiAncoraRegistrato">Non sei ancora registrato?</string>
+    <string name="cliccaQuiPerFarlo">Clicca qui per farlo!</string>
+    //OGGETTO DI INTERESSE
+    <string name="attivita">attivita</string>
+    //PUZZLE
+    <string name="miArrendo">mi arrendo</string>
+    <string name="haiGiaUnAccount">Hai già un account?</string>
+    //RISULTATO QUIZ
+    <string name="risultatoFinale">Risultato finale</string>
+    <string name="riprova">Riprova!</string>
+    <string name="gioca">Gioca!</string>
+    //START GAME
+    <string name="tempoScaduto">Tempo Scaduto!</string>
+    <string name="vaiVia">Esci</string>
+    //LUOGO DI INTERESSE
+    <string name="percorsi">percorsi</string>
+    //LUOGO DI INTERESSE
+    <string name="avviaPercorso">Avvia Percorso</string>
+    <string name="descrizioneMetaMatera">È conosciuta in tutto il mondo per gli storici rioni Sassi, che ne fanno una delle città ancora abitate più antiche al mondo.</string>
+
+
 </resources>
