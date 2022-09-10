@@ -45,9 +45,7 @@ public class PuzzleGame extends AppCompatActivity {
     private ImageAdapter imageAdapter;
 
     private int posizioneBlanco;
-    private Drawable blanco;
-
-    private String url=null;
+    private Drawable black;
 
     //Creating drawable's vector 1d
     Drawable[] imageSplittedDrawableOneDimension = new Drawable[NUMERO_SPLIT_X * NUMERO_SPLIT_Y];
@@ -66,7 +64,7 @@ public class PuzzleGame extends AppCompatActivity {
         imageAdapter = new ImageAdapter(this);
 
 
-        url=getIntent().getExtras().getString("UrlOggettoDiInteresse");
+        String url =getIntent().getExtras().getString("urlImmagine");
 
         int DURATA_TIMER = 5;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
@@ -122,15 +120,14 @@ public class PuzzleGame extends AppCompatActivity {
                                     @Override
                                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
-                                        blanco = new BitmapDrawable(getResources(), resource);
+                                        black = new BitmapDrawable(getResources(), resource);
 
-                                        //Elimino ultima foto splittata per inserire blanco -> permetto spostamento
+                                        //Elimino ultima foto splittata per inserire black -> permetto spostamento
                                         int lastPosition = imageSplittedDrawableOneDimension.length - 1;
-                                        imageSplittedDrawableOneDimension[lastPosition] = blanco;
+                                        imageSplittedDrawableOneDimension[lastPosition] = black;
 
                                         //Randomizzo le immagini splittate
                                         randomImages = getRandomImages();
-
 
                                         //Output immagini splittate
                                         gridView.setAdapter(imageAdapter);
@@ -139,7 +136,7 @@ public class PuzzleGame extends AppCompatActivity {
                                             System.out.println("posizione="+position);
                                             //riordina();
                                             if(checkUp(position) || checkDown(position) || checkLeft(position) || checkRight(position) ){//|| checkDown(position) || checkLeft(position) || checkRight(position)) {
-                                                //System.out.println("posizione="+position);
+
                                                 swap(position);
                                                 verificaSpostamento=false;
 
@@ -256,7 +253,7 @@ public class PuzzleGame extends AppCompatActivity {
 
         System.arraycopy(randomImages, 0, trasporta, 0, imageSplittedDrawableOneDimension.length);
 
-        randomImages[pos] = blanco;
+        randomImages[pos] = black;
         randomImages[posizioneBlanco] = trasporta[pos];
 
         posizioneBlanco = pos;
@@ -283,7 +280,7 @@ public class PuzzleGame extends AppCompatActivity {
         boolean verifica = false;
 
         if (position >= 0 && (position - 3) >=0) {
-            if (randomImages[position - 3] == blanco) {
+            if (randomImages[position - 3] == black) {
                 posizioneBlanco = position - 3;
                 System.out.println("posizione="+position + "posizione bianco="+ posizioneBlanco);
                 verifica = true;
@@ -299,7 +296,7 @@ public class PuzzleGame extends AppCompatActivity {
     public boolean checkDown(int position) {
 
         if (position >= 0 && (position + 3) < randomImages.length) {
-            if (randomImages[position + 3] == blanco) {
+            if (randomImages[position + 3] == black) {
                 posizioneBlanco = position + 3;
                 verificaSpostamento = true;
             }
@@ -314,7 +311,7 @@ public class PuzzleGame extends AppCompatActivity {
     public boolean checkRight(int position) {
 
         if (position >= 0 && (position + 1) < randomImages.length) {
-            if (randomImages[position + 1] == blanco && position != 2 && position != 5 ) {
+            if (randomImages[position + 1] == black && position != 2 && position != 5 ) {
                 posizioneBlanco = position + 1;
                 verificaSpostamento = true;
             }
@@ -329,7 +326,7 @@ public class PuzzleGame extends AppCompatActivity {
     public boolean checkLeft(int position) {
 
         if (position >= 0 && (position - 1) >= 0) {
-            if (randomImages[position - 1] == blanco && position != 3 && position != 6 ) {
+            if (randomImages[position - 1] == black && position != 3 && position != 6 ) {
                 posizioneBlanco = position - 1;
                 verificaSpostamento = true;
             }
@@ -350,11 +347,5 @@ public class PuzzleGame extends AppCompatActivity {
         randomImages=imageSplittedDrawableOneDimension;
     }
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }
