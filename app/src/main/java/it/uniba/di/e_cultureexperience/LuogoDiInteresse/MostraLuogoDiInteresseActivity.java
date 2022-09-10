@@ -132,15 +132,25 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+        switch (item.getItemId()) {
+            case R.id.share:
+                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
-        Intent intent =new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        //whatsappIntent.setPackage("com.whatsapp");
-        intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
-        startActivity(Intent.createChooser(intent,"share"));
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                //whatsappIntent.setPackage("com.whatsapp");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
-        return super.onOptionsItemSelected(item);
+                startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
 
     }
 

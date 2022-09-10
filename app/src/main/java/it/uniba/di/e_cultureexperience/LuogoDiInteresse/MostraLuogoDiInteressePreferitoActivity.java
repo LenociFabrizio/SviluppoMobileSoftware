@@ -3,13 +3,22 @@ package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
@@ -22,12 +31,23 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
     List<LuogoDiInteresse> listLuoghi;
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostra_luogo_di_interesse_preferito);
+
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         list_view_mete = findViewById(R.id.lista_luoghi);
         leggiMetePreferita();
-
+        onCreateBottomNavigation();
     }
 
     /**
@@ -64,6 +84,34 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
                         Log.e("Error", "Errore nella lettura del database luoghiPreferiti!");
                     }
                 });
+    }
+
+    public void onCreateBottomNavigation(){
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNav.setSelectedItemId(R.id.nav_profile);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    //entro nell'altra activity immettendo il segnalino appena caricato
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                case R.id.nav_scan:
+                    //entro nell'altra activity immettendo il segnalino appena caricato
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
+
+                case R.id.nav_profile:
+
+                    return true;
+            }
+            return false;
+        });
     }
 
 }
