@@ -1,10 +1,9 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
-import static android.content.ContentValues.TAG;
-
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.R;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,6 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
     //OGGETTI PER IL LAYOUT
     TextView domanda, numeroDomanda;
     Button primaOpzione, secondaOpzione, terzaOpzione;
+    int posizioneCliccata=0;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
     int correttaCount = 0, sbagliataCount = 0;
@@ -96,6 +97,7 @@ public class DashboardActivity extends AppCompatActivity {
         primaOpzione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                posizioneCliccata=1;
                 prossimaDomanda(primaOpzione);
             }
         });
@@ -103,6 +105,7 @@ public class DashboardActivity extends AppCompatActivity {
         secondaOpzione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                posizioneCliccata=2;
                 prossimaDomanda(secondaOpzione);
             }
         });
@@ -110,6 +113,7 @@ public class DashboardActivity extends AppCompatActivity {
         terzaOpzione.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                posizioneCliccata=3;
                 prossimaDomanda(terzaOpzione);
             }
         });
@@ -145,10 +149,24 @@ public class DashboardActivity extends AppCompatActivity {
     public void prossimaDomanda(Button opzione) {
 
         //Conto quali sono le opzioni corrette o sbagliate totali
-        if(esitoOpzione(opzione))
+        if(esitoOpzione(opzione)) {
             correttaCount++;
-        else
+            // qui vado a modificare il colore
+            primaOpzione.setBackgroundColor(Color.GREEN);
+        }
+
+        else {
             sbagliataCount++;
+            if(posizioneCliccata==2){
+                primaOpzione.setBackgroundColor(Color.GREEN);
+                secondaOpzione.setBackgroundColor(Color.RED);
+            }
+            if(posizioneCliccata==3){
+                primaOpzione.setBackgroundColor(Color.GREEN);
+                terzaOpzione.setBackgroundColor(Color.RED);
+            }
+
+        }
 
         //Se non si trova nell'ultima domanda vado nella domanda successiva, altrimenti vado in RisultatoQuizActivity
         if(i < list.size() - 1) {

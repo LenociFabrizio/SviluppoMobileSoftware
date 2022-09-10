@@ -10,7 +10,8 @@
         android:id="@+id/imageView4"
         android:layout_width="615dp"
         android:layout_height="391dp"
-        android:rotation="90"
+        android:rotation="270"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +51,7 @@
         android:layout_height="78dp"
         android:background="@drawable/rounded_button"
         android:text="@string/riprova"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
