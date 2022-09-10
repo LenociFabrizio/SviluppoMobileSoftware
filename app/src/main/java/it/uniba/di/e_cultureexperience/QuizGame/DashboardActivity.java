@@ -4,6 +4,9 @@ import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.R;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -42,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
     //OGGETTI PER IL LAYOUT
     TextView domanda, numeroDomanda;
     Button primaOpzione, secondaOpzione, terzaOpzione;
+
     int posizioneCliccata=0;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
@@ -151,19 +155,25 @@ public class DashboardActivity extends AppCompatActivity {
         //Conto quali sono le opzioni corrette o sbagliate totali
         if(esitoOpzione(opzione)) {
             correttaCount++;
-            // qui vado a modificare il colore
-            primaOpzione.setBackgroundColor(Color.GREEN);
+            // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
+            GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+            bgShape1.setColor( Color.parseColor("#00FF00"));
+
         }
 
         else {
             sbagliataCount++;
             if(posizioneCliccata==2){
-                primaOpzione.setBackgroundColor(Color.GREEN);
-                secondaOpzione.setBackgroundColor(Color.RED);
+                GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+                GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
+                bgShape1.setColor( Color.parseColor("#00FF00"));
+                bgShape2.setColor( Color.parseColor("#ff0000"));
             }
             if(posizioneCliccata==3){
-                primaOpzione.setBackgroundColor(Color.GREEN);
-                terzaOpzione.setBackgroundColor(Color.RED);
+                GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+                GradientDrawable bgShape2 = (GradientDrawable) terzaOpzione.getBackground();
+                bgShape1.setColor( Color.parseColor("#00FF00"));
+                bgShape2.setColor( Color.parseColor("#ff0000"));
             }
 
         }
