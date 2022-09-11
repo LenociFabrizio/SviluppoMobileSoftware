@@ -14,6 +14,7 @@
     <string name="password" translatable="false">Password</string>
     <string name="descrizione">Description</string>
     <string name="inserici_password">Enter password</string>
+    <string name="percorsi_preferiti">Favourite routes</string>
     <string name="domanda_numero">Question n.</string>
     <string name="title_activity_mostra_luogo_di_interesse2" translatable="false">MostraLuogoDiInteresse2</string>
     <string name="large_text" translatable="false">

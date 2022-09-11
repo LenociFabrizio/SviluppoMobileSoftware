@@ -29,27 +29,24 @@ import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
     //OGGETTI PER PROGRESS BAR
-    ProgressBar progressBar;
-    CountDownTimer countDownTimer;
-    int timerValue = 0;
+    private ProgressBar progressBar;
+    private CountDownTimer countDownTimer;
+    private int timerValue = 0;
 
     //OGGETTI PER LISTA CONTENENTI LE DOMANDE
-    ArrayList<QuesitoQuiz> list;
-    List<QuesitoQuiz> allQuestionsLilst;
-    QuesitoQuiz modelClass;
+    private ArrayList<QuesitoQuiz> list;
+    private List<QuesitoQuiz> allQuestionsLilst;
+    private QuesitoQuiz modelClass;
     int i = 0;
 
     //OGGETTI PER IL LAYOUT
-    TextView domanda, numeroDomanda;
-    Button primaOpzione, secondaOpzione, terzaOpzione;
+    private TextView domanda, numeroDomanda;
+    private Button primaOpzione, secondaOpzione, terzaOpzione;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
     int correttaCount = 0, sbagliataCount = 0;
 
-    //OGGETTI PER FIREBASE
-    FirebaseFirestore db;
-
-    ImageView exitImageView;
+    private ImageView exitImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,42 +83,25 @@ public class DashboardActivity extends AppCompatActivity {
 
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
-        setListenersToViews();
+        String idOggettoDiInteresse = getIntent().getExtras().getString("idOggetto");
+        setListenersToViews(idOggettoDiInteresse);
         assegnazioneList();
         setAllData();
 
     }
 
-    private void setListenersToViews(){
-        primaOpzione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prossimaDomanda(primaOpzione);
-            }
-        });
+    private void setListenersToViews(String idOgg){
+        primaOpzione.setOnClickListener(v -> prossimaDomanda(primaOpzione, idOgg));
 
-        secondaOpzione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prossimaDomanda(secondaOpzione);
-            }
-        });
+        secondaOpzione.setOnClickListener(v -> prossimaDomanda(secondaOpzione, idOgg));
 
-        terzaOpzione.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                prossimaDomanda(terzaOpzione);
-            }
-        });
+        terzaOpzione.setOnClickListener(v -> prossimaDomanda(terzaOpzione, idOgg));
 
         exitImageView = findViewById(R.id.exitImg);
-        exitImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        exitImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            finish();
         });
 
     }
@@ -142,7 +122,7 @@ public class DashboardActivity extends AppCompatActivity {
         return opzione.getText().equals(modelClass.getRispostaCorretta());
     }
 
-    public void prossimaDomanda(Button opzione) {
+    public void prossimaDomanda(Button opzione, String idOgg) {
 
         //Conto quali sono le opzioni corrette o sbagliate totali
         if(esitoOpzione(opzione))
@@ -157,6 +137,7 @@ public class DashboardActivity extends AppCompatActivity {
             setAllData();
         }else {
             Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+            intent.putExtra("idOggetto", idOgg);
             intent.putExtra("quesiti", list);
             intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
             intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);

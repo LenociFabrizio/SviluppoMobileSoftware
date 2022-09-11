@@ -39,6 +39,7 @@ import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
 import it.uniba.di.e_cultureexperience.Percorso.Percorso;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
@@ -101,7 +102,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), FirstAccessActivity.class));
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:
@@ -131,23 +132,30 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+        switch (item.getItemId()) {
+            case R.id.share:
+                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
-        Intent intent =new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        //whatsappIntent.setPackage("com.whatsapp");
-        intent.putExtra(Intent.EXTRA_SUBJECT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n");
-        intent.putExtra(Intent.EXTRA_TEXT,"Scaricati l'app ECulture-Experience!");
-        startActivity(Intent.createChooser(intent,"share"));
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                //whatsappIntent.setPackage("com.whatsapp");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
-        return super.onOptionsItemSelected(item);
+                startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
 
     }
 
     public void setPercorsi(LuogoDiInteresse luogo){
 
-        //OGGETTI PER FIREBASE
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         //prendo i percorsi di quella meta
         db.collection("percorsi")
                 .whereEqualTo("meta", luogo.getId())
@@ -196,7 +204,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 });
     }
     /**
-     * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo(wip)
+     * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo
      * @param view
      */
     public void onFavoriteToggleClick(View view) {
@@ -220,13 +228,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 return;
                             }
 
-                            for (QueryDocumentSnapshot document : task1.getResult()) {
-                                String idUtenteDatabase = document.getString("idUtente");
-                                if(idUtenteDatabase.equals(fAuth.getUid())){
-                                    scritturaLuogoDatabase(luogo, fAuth.getUid());
-                                    Log.d("Scrittura luogoPreferito", "scrittura avvenuta, controlla nel db");
-                                }
-                            }
+                            scritturaLuogoDatabase(luogo, fAuth.getUid());
                         }else{
                             Log.e("Error", "Errore server metaPreferita.");
                         }
@@ -256,18 +258,23 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                     if (task.isSuccessful()){
                         final int sizeDataBase = task.getResult().size();
                         boolean luogoDuplicato = false;
+                        int singolaRigaDatabase = 0;
                         if (sizeDataBase != 0) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                singolaRigaDatabase++;
+
                                 String idUtenteDatabase = document.getString("idUtente");
                                 String nomeLuogoDatabase = document.getString("nome");
                                 //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
                                 if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogoScelto.get("nome"))){
                                     luogoDuplicato = true;
                                 }
+
+                                if (!luogoDuplicato && singolaRigaDatabase == sizeDataBase){
+                                    addDoc(collectionPath, luogoScelto);
+                                }
                             }//fine for
-                            if (!luogoDuplicato){
-                                addDoc(collectionPath, luogoScelto);
-                            }
+
                         }else{
                             addDoc(collectionPath, luogoScelto);
                         }
