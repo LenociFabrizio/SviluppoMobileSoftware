@@ -1,6 +1,8 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,10 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,32 +28,32 @@ import java.util.Map;
 import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class RisultatoQuizActivity extends AppCompatActivity {
 
-    TextView risultato;
-
-    TextView descrizioneEsito; Button esitoBtn;
-
-    ImageView exitImageView;
-
-    ArrayList<QuesitoQuiz> list;
+    private ArrayList<QuesitoQuiz> list;
 
     //Roba per aggiornamento del database per la classifica
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth fAuth;
-    String idDocumentoDaEliminare = "";
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     //Roba per Output classifica aggiornata
-    ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
-    ListView listViewClassifica;
+    private ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
+    private ListView listViewClassifica;
+    private ImageView immagineOggetto;
+
+    //pulsante riprova
+    private Button esitoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risultato_quiz);
 
+        final String idOggettoDiInteresse = getIntent().getExtras().getString("idOggetto");
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
@@ -56,9 +61,17 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         int numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
 
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
-        fAuth = FirebaseAuth.getInstance();
+        final String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
-        db.collection("classificaQuiz")
+        immagineOggetto = findViewById(R.id.immagine);
+        //carico url immagine e la faccio vedere a schermo
+        String urlImmagineOggetto = getIntent().getExtras().getString("url");
+
+        Picasso.with(this)
+                .load(urlImmagineOggetto)
+                .into(immagineOggetto);
+
+        db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
 
@@ -67,17 +80,16 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         //Caso in cui il Database è vuoto
                         if(sizeDataBase == 0){
-
-                            ricercaNicknameConScrittura(numeroRisposteCorrette);
-                        //Caso in cui esiste un vecchio punteggio e, nel caso, aggiorno, altrimenti non aggiorno
+                            ricercaNicknameConScrittura(numeroRisposteCorrette, collectionPath);
+                        //Caso in cui esiste un vecchio punteggio aggiorno, altrimenti no
                         }else{
 
                             boolean recordTrovato = false;
-                            int count = 0;
+                            int countRigaClassifica = 0;
 
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                count++;
+                                countRigaClassifica++;
 
                                 String idDataBase = document.getString("idUtente");
                                 long punteggioDataBase = document.getLong("punteggio");
@@ -85,25 +97,26 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                                 //Controllo se c'è stato già un punteggio vecchio fatto dallo stesso utente
                                 if(Objects.equals(fAuth.getUid(), idDataBase)){
                                     recordTrovato = true;
+
                                     //se c'è stato gia un suo puntegio registrato, allora controllo il punteggio se è da aggiornare
                                     if(numeroRisposteCorrette > punteggioDataBase){
 
-                                        idDocumentoDaEliminare = document.getId();
+                                        String idDocumentoDaEliminare = document.getId();
 
                                         //Elimino il documento vecchio dove c'è il punteggio minore
-                                        db.collection("classificaQuiz")
+                                        db.collection(collectionPath)
                                                 .document(idDocumentoDaEliminare)
                                                 .delete()
                                                 .addOnSuccessListener(unused -> Toast.makeText(RisultatoQuizActivity.this, "Aggiornamento classifica completato!", Toast.LENGTH_SHORT).show())
                                                 .addOnFailureListener(e -> Log.w("ELIMINAZIONE FALLITA", e));//fine delete
                                         //Dopo aver eliminato quello vecchio, scrivo sul database il punteggio nuovo (new record)
                                         //Ricerco il nickname dell'utente attuale e creo HashMap
-                                        ricercaNicknameConScrittura(numeroRisposteCorrette);
-                                    }//Fine if confrontro punteggio
+                                        ricercaNicknameConScrittura(numeroRisposteCorrette, collectionPath);
+                                    }
                                 }
                                 //Se sono arrivato alla fine e non ho ancora trovato l'utente, allora scrivo perchè vuol dire che è il suo primo record effettuato del quiz
-                                if(count == sizeDataBase && recordTrovato == false){
-                                    ricercaNicknameConScrittura(numeroRisposteCorrette);
+                                if(countRigaClassifica == sizeDataBase && recordTrovato == false){
+                                    ricercaNicknameConScrittura(numeroRisposteCorrette, collectionPath);
                                 }
                             }//fine for
                         }
@@ -116,45 +129,44 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //S T A R T - Mostrare Output classifica aggiornata
 
         listViewClassifica = findViewById(R.id.lista_classifica);
-        letturaClassifica();
+        letturaClassifica(collectionPath);
 
         //F I N I S H - Mostrare Output classifica aggiornata
 
 
-        descrizioneEsito = findViewById(R.id.esitoText);
+        TextView descrizioneEsito = findViewById(R.id.esitoText);
         esitoBtn = findViewById(R.id.resultButton);
-        risultato = findViewById(R.id.risultatoText);
+        TextView risultato = findViewById(R.id.risultatoText);
+        setColorButton();
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
 
 
         esitoBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(RisultatoQuizActivity.this, DashboardActivity.class);
+
+            Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("quesiti", list);
-            startActivity(intent);
+            intent.putExtra("idOggetto", idOggettoDiInteresse);
+            intent.putExtra("url", urlImmagineOggetto);
+            getApplicationContext().startActivity(intent);
             finish();
         });
 
-        exitImageView = findViewById(R.id.exitResultBtn);
-        exitImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(RisultatoQuizActivity.this, ProfileActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
+        onCreateBottomNavigation();
     }
 
 
-    public void scritturaDataBase(Map<String, Object> utente){
+    public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
         //scrittura
-        db.collection("classificaQuiz")
+        db.collection(collectionPath)
                 .add(utente)
                 .addOnSuccessListener(documentReference -> Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId()))
                 .addOnFailureListener(e -> Log.w("TAG", "Error adding document", e));
     }
 
-    public void ricercaNicknameConScrittura(int numeroRisposteCorrette){
+    public void ricercaNicknameConScrittura(int numeroRisposteCorrette, String collectionPath){
         Map<String, Object> utente = new HashMap<>();
         //Ricerco il nickname dell'utente actual e creo HashMap
         db.collection("utenti")
@@ -169,14 +181,14 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
                                 String idUtenteDataBase = document.getString("idUtente");
 
-                                assert idUtenteDataBase != null;
-                                if(idUtenteDataBase.equals(fAuth.getUid())){
+//                                assert idUtenteDataBase != null;
+                                if(Objects.equals(fAuth.getUid(), idUtenteDataBase)){
                                     String nicknameDatabase = document.getString("nickname");
                                     utente.put("idUtente", fAuth.getUid());
                                     utente.put("nickname", nicknameDatabase);
                                     utente.put("punteggio", numeroRisposteCorrette);
-                                    scritturaDataBase(utente);
-                                    letturaClassifica();
+                                    scritturaDataBase(utente, collectionPath);
+                                    letturaClassifica(collectionPath);
                                 }
                             }
                         }
@@ -184,28 +196,25 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 });
     }
 
-    public void letturaClassifica(){
+    public void letturaClassifica(String collectionPath){
 
-        db.collection("classificaQuiz")
+        db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
-
-                        int count = 0;
+                        int sizeDataBase = task.getResult().size(),  countRigaClassifica = 0;
                         //svuoto per non creare doppioni ogni volta che viene riprovato il quiz
                         classificaList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            count++;
+                            countRigaClassifica++;
 
                             SingolaRigaClassifica temp = document.toObject(SingolaRigaClassifica.class);
 
                             classificaList.add(temp);
 
-                            final int sizeDataBase = task.getResult().size();
-
-                            if(sizeDataBase == count){
+                            if(sizeDataBase == countRigaClassifica){
                                 //Ordino la lista in ordine decrescente
                                 classificaList.sort(Comparator.comparing(SingolaRigaClassifica::getPunteggio));
                                 Collections.reverse(classificaList);
@@ -218,6 +227,34 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 });
     }
 
+    public void setColorButton(){
+        GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
+        bgShape1.setColor(Color.parseColor("#ffffff"));
+    }
 
+    public void onCreateBottomNavigation(){
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNav.setSelectedItemId(R.id.share);
 
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_scan:
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_profile:
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+
+            return false;
+        });
+    }
 }

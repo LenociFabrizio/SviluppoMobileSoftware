@@ -1,5 +1,5 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
-//TODO: Cambiare nome classe a "Utente"
+
 public class SingolaRigaClassifica {
     String nickname; int punteggio;
 
@@ -18,7 +18,13 @@ public class SingolaRigaClassifica {
         return punteggio;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 
+    public void setPunteggio(int punteggio) {
+        this.punteggio = punteggio;
+    }
 
     @Override
     public String toString() {

@@ -51,5 +51,7 @@
     <string name="prova_domanda" >prova domanda</string>
     //RISULTATO QUIZ
     <string name="punteggio" >punteggio</string>
+    //DASHBOARD_ACTIVITY
+    <string name="timeOut" >tempo scaduto!</string>
 
 </resources>
