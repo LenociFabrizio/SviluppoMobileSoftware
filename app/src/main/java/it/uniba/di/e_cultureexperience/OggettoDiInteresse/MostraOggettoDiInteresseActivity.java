@@ -1,7 +1,5 @@
 package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -100,7 +98,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             //ha un quiz, rendo visibile il bottone del quiz
-                            Button button = (Button) findViewById(R.id.btn_quiz);
+                            Button button = findViewById(R.id.btn_quiz);
                             button.setVisibility(View.VISIBLE);
                             //quando clicca sul bottone gli passo l' array contenente i quesiti
                             ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
@@ -113,6 +111,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                                     //quando viene premuto, lancia l' intent esplicito
                                     Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
                                     i.putExtra("quesiti", quesiti);
+                                    i.putExtra("luogoDiInteresse",oggettoDiInteresse);
                                     getApplicationContext().startActivity(i);
                                 }
                             });

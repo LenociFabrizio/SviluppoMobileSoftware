@@ -1,11 +1,11 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
-import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.R;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,20 +15,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DashboardActivity extends AppCompatActivity {
     //OGGETTI PER PROGRESS BAR
@@ -63,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         numeroDomanda = findViewById(R.id.numeroDomandaTV);
 
+        //BARRA DEL TIMER
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(timerValue);
         countDownTimer = new CountDownTimer(20000,1000) {
@@ -84,10 +81,23 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }.start();
 
+        //LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+        //MostraLuogoDiInteresseActivity ldi=new MostraLuogoDiInteresseActivity();
+
+        //ldi.isLuogoPreferito(luogo);
+
+        //ImageView immagine = findViewById(R.id.immagine);
+        /*
+        Picasso.with(this)
+                .load(ldi.getUrl_immagine())
+                .into(immagine);*/
+
         domanda = findViewById(R.id.domanda);
         primaOpzione = findViewById(R.id.primaRisposta);
         secondaOpzione = findViewById(R.id.secondaRisposta);
         terzaOpzione = findViewById(R.id.terzaRisposta);
+
+        coloraShapeButton();
 
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
@@ -119,16 +129,6 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 posizioneCliccata=3;
                 prossimaDomanda(terzaOpzione);
-            }
-        });
-
-        exitImageView = findViewById(R.id.exitImg);
-        exitImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
 
@@ -181,15 +181,30 @@ public class DashboardActivity extends AppCompatActivity {
         //Se non si trova nell'ultima domanda vado nella domanda successiva, altrimenti vado in RisultatoQuizActivity
         if(i < list.size() - 1) {
             i++;
-            modelClass = list.get(i);
-            setAllData();
+            //"RUVO" UN PO DI TEMPO PER FAR VEDERE SE L'UTENTE HA FATTO ERRORI E PROSEGUO IN AUTOMATICO CON A DOMANDA SUCCESSIVA
+            Timer timer= new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    modelClass = list.get(i);
+                    setAllData();
+                }
+            },420);
+
         }else {
-            Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
-            intent.putExtra("quesiti", list);
-            intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
-            intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
-            startActivity(intent);
-            finish();
+            //"RUBO" TEMPO PER FAR VEDERE ALL'UTENTE L'ERRORE E IN AUTOMATICO ENTRO NELL'ALTRA ACTIVITY
+            Timer timer= new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+                    intent.putExtra("quesiti", list);
+                    intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
+                    intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
+                    startActivity(intent);
+                    finish();
+                }
+            },420);
         }
     }
 
@@ -212,4 +227,14 @@ public class DashboardActivity extends AppCompatActivity {
         super.onPause();
         countDownTimer.cancel();
     }
+
+    public void  coloraShapeButton(){
+        GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+        GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
+        GradientDrawable bgShape3 = (GradientDrawable) terzaOpzione.getBackground();
+        bgShape1.setColor( Color.parseColor("#ffffff"));
+        bgShape2.setColor( Color.parseColor("#ffffff"));
+        bgShape3.setColor( Color.parseColor("#ffffff"));
+    }
+
 }

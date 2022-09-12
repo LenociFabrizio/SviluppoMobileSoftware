@@ -6,13 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".QuizGame.RisultatoQuizActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.ECultureExperience.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/immagine"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:contentDescription="cane" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.ECultureExperience.PopupOverlay" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ListView
         android:id="@+id/lista_classifica"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="290dp"
+        android:layout_height="350dp"
+        android:layout_marginStart="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296" />
 
     <TextView
         android:id="@+id/textView3"
@@ -26,6 +63,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.499" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="615dp"
+        android:layout_height="390dp"
+        android:rotation="90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/rounded_rectangle" />
 
     <TextView
         android:id="@+id/risultatoText"
@@ -45,6 +95,7 @@
         android:layout_width="180dp"
         android:layout_height="50dp"
         android:text="@string/riprova"
+        android:background="@drawable/rounded_button_quiz_game"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -58,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="TextView"
+        android:text="@string/punteggio"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/resultButton"
         app:layout_constraintEnd_toEndOf="parent"
