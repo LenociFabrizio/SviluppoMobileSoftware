@@ -6,7 +6,6 @@
     <string name="richiedi_reset">Request reset</string>
     <string name="ma_non_ti_preoccupare_ti_aiutiamo_noi">But don’t worry, we’ll help you!</string>
     <string name="button" translatable="false">button</string>
-    <string name="prova_domanda" translatable="false">prova_domanda</string>
     <string name="todo" translatable="false">todo</string>
     <string name="button2" translatable="false">button2</string>
     <string name="button3" translatable="false">button3</string>
@@ -137,6 +136,6 @@
     <string name="percorsi">Routes</string>
     <string name="avviaPercorso">Start Route</string>
     <string name="descrizioneMetaMatera">It is known worldwide for its historic Sassi districts, making it one of the oldest still-inhabited cities in the world.</string>
-
+    <string name="prova_domanda" >test ask</string>
 
 </resources>
