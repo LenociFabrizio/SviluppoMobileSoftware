@@ -1,6 +1,8 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,7 +28,7 @@ public class TimeOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_out);
 
-        retryBtn = findViewById(R.id.retryButton);
+        // = findViewById(R.id.retryButton);
         exitBtn = findViewById(R.id.exitButton);
 
         immagineOggetto = findViewById(R.id.immagine);
@@ -45,6 +47,11 @@ public class TimeOutActivity extends AppCompatActivity {
             finish();
         });
         exitBtn.setOnClickListener(v -> {
+            GradientDrawable bgShape1 = (GradientDrawable) exitBtn.getBackground();
+            bgShape1.setColor(Color.parseColor("#000000"));
+            exitBtn.setTextColor(Color.parseColor("#ffffff"));
+
+
             Intent intent = new Intent(TimeOutActivity.this, ProfileActivity.class);
             startActivity(intent);
             finish();

@@ -53,5 +53,6 @@
     <string name="punteggio" >punteggio</string>
     //DASHBOARD_ACTIVITY
     <string name="timeOut" >tempo scaduto!</string>
+    <string name="turnAround" >torna indietro</string>
 
 </resources>

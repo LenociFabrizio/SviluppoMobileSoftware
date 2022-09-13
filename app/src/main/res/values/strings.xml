@@ -139,6 +139,8 @@
     <string name="prova_domanda" >test ask</string>
     <string name="punteggio" >score</string>
     <string name="timeOut" >time out!!</string>
+    <string name="turnAround" >turn around</string>
+
 
 
 </resources>
