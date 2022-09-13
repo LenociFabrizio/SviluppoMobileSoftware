@@ -109,14 +109,16 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     //quando viene premuto, lancia l' intent esplicito
                                     Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
+                                    i.putExtra("idOggetto", oggettoDiInteresse.getId());
                                     i.putExtra("quesiti", quesiti);
                                     getApplicationContext().startActivity(i);
                                 }
                             });
                         } else {
                             //non ha nessun quiz, rimane invisibile
-                            Log.w("ENDRIT", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                            Log.w("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                         }
                     }
                 });
