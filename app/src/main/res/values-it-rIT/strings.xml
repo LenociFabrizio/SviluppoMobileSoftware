@@ -52,11 +52,7 @@
     //RISULTATO QUIZ
     <string name="punteggio" >Punteggio</string>
     //DASHBOARD_ACTIVITY
-<<<<<<< HEAD
     <string name="timeOut" >Tempo scaduto!</string>
-=======
-    <string name="timeOut" >tempo scaduto!</string>
     <string name="turnAround" >torna indietro</string>
->>>>>>> ca2ead5a7bd983e330511aa6103d728c42cdffdb
 
 </resources>

@@ -84,11 +84,9 @@
     <ImageView
         android:id="@+id/immagine"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:contentDescription="cane"
+        android:layout_height="180dp"
         android:scaleType="fitXY"
-        app:layout_anchor="@+id/progressBar"
-        app:layout_anchorGravity="top|start" />
+        app:layout_anchorGravity="top|end" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

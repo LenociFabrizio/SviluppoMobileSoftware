@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,10 +53,9 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oggetto_di_interesse);
 
-
-
         //Prendo l'oggetto passato dall'intent
         OggettoDiInteresse oggettoDiInteresse = getIntent().getExtras().getParcelable("oggettoDiInteresse");
+
         Log.d("OggettoDiInteresse => ", oggettoDiInteresse.toString());
 
         descrizioneOggetto = findViewById(R.id.descrizioneTxt);
@@ -106,6 +106,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                                 public void onClick(View v) {
                                     //quando viene premuto, lancia l' intent esplicito
                                     Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                    i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
                                     i.putExtra("quesiti", quesiti);
                                     getApplicationContext().startActivity(i);
                                 }
