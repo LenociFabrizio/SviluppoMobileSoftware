@@ -105,5 +105,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/risultatoText" />
 
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>
