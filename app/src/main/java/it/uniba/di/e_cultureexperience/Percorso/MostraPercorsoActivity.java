@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -16,9 +18,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
@@ -67,6 +72,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         letturaOggetti(percorso);
 
+        onCreateBottomNavigation();
 
     }
 
@@ -104,5 +110,32 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                         Log.e("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                     }
                 });
+    }
+
+
+    public void onCreateBottomNavigation(){
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNav.setSelectedItemId(R.id.nav_home);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_scan:
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_profile:
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+
+            return false;
+        });
     }
 }

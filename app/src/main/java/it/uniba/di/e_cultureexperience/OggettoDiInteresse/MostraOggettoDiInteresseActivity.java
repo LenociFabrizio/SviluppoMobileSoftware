@@ -135,7 +135,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
-        bottomNav.setSelectedItemId(R.id.share);
+        bottomNav.setSelectedItemId(R.id.nav_home);
 
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;

@@ -2,7 +2,7 @@
     <string name="app_name">E-Culture Experience</string>
     <string name="email" translatable="false">Email</string>
     <string name="inserisci_il_tuo_indirizzo_e_ti_invieremo_una_email_dove_poter_resettare_la_tua_password">Enter your address and we will send you an email where you can reset your password</string>
-    <string name="che_sbadato">Than careless</string>
+    <string name="che_sbadato">Than careless!</string>
     <string name="richiedi_reset">Request reset</string>
     <string name="ma_non_ti_preoccupare_ti_aiutiamo_noi">But don’t worry, we’ll help you!</string>
     <string name="button" translatable="false">button</string>
@@ -114,8 +114,8 @@
     <string name="profile">Profile</string>
     <string name="scan">Scan</string>
     <string name="home">Explore</string>
-    <string name="durata">Journey time :</string>
-    <string name="minutes">minutes</string>
+    <string name="durata">"Journey time: "</string>
+    <string name="minutes">" minutes"</string>
     <string name="le_tue_mete_preferite">Favourite destinations</string>
     <string name="esci_da_questo_account">Log out</string>
     <string name="registrati">Register</string>

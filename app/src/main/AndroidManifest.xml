@@ -77,7 +77,8 @@
             android:exported="true" />
         <activity
             android:name=".Accesso.ProfileActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
         <activity android:name=".QuizGame.DashboardActivity" />
         <activity android:name=".QRScanner.QRScanner" />
         <activity

@@ -18,22 +18,22 @@
     <string name="profile">Profilo</string>
     <string name="scan">Scansiona</string>
     <string name="home">Esplora</string>
-    <string name="durata">Durata del percorso :</string>
-    <string name="minutes">minuti</string>
+    <string name="durata">"Durata del percorso: "</string>
+    <string name="minutes">" minuti"</string>
     <string name="le_tue_mete_preferite">le tue mete preferite</string>
-    <string name="esci_da_questo_account">esci</string>
+    <string name="esci_da_questo_account">Esci</string>
     <string name="registrati">Registrati</string>
     <string name="logIn">LogIn</string>
     <string name="inserisci_email">INSERISCI EMAIL</string>
     //LOGIN ACTIVITY
     <string name="ricorda_le_mie_credenziali">ricorda le mie credenziali</string>
-    <string name="haiDimentiCatoLaPassword">Hai Dimenticato La Password ?</string>
+    <string name="haiDimentiCatoLaPassword">Hai dimenticato la password ?</string>
     <string name="nonSeiAncoraRegistrato">Non sei ancora registrato?</string>
     <string name="cliccaQuiPerFarlo">Clicca qui per farlo!</string>
     //OGGETTO DI INTERESSE
-    <string name="attivita">attivita</string>
+    <string name="attivita">Attività</string>
     //PUZZLE
-    <string name="miArrendo">mi arrendo</string>
+    <string name="miArrendo">Mi arrendo</string>
     <string name="haiGiaUnAccount">Hai già un account?</string>
     //RISULTATO QUIZ
     <string name="risultatoFinale">Risultato finale</string>
@@ -43,15 +43,15 @@
     <string name="tempoScaduto">Tempo Scaduto!</string>
     <string name="vaiVia">Esci</string>
     //LUOGO DI INTERESSE
-    <string name="percorsi">percorsi</string>
+    <string name="percorsi">Percorsi</string>
     //LUOGO DI INTERESSE
     <string name="avviaPercorso">Avvia Percorso</string>
     <string name="descrizioneMetaMatera">È conosciuta in tutto il mondo per gli storici rioni Sassi, che ne fanno una delle città ancora abitate più antiche al mondo.</string>
     <string name="percorsi_preferiti">Percorsi preferiti</string>
-    <string name="prova_domanda" >prova domanda</string>
+    <string name="prova_domanda" >Prova domanda</string>
     //RISULTATO QUIZ
-    <string name="punteggio" >punteggio</string>
+    <string name="punteggio" >Punteggio</string>
     //DASHBOARD_ACTIVITY
-    <string name="timeOut" >tempo scaduto!</string>
+    <string name="timeOut" >Tempo scaduto!</string>
 
 </resources>
