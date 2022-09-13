@@ -77,14 +77,11 @@
             android:exported="true" />
         <activity
             android:name=".Accesso.ProfileActivity"
-<<<<<<< HEAD
             android:exported="true"
             android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
-        <activity android:name=".QuizGame.DashboardActivity" />
-=======
+        <activity android:name=".QuizGame.DashboardActivity"
             android:exported="true" />
-        <activity android:name=".QuizGame.DashboardActivity"/>
->>>>>>> ca2ead5a7bd983e330511aa6103d728c42cdffdb
+
         <activity android:name=".QRScanner.QRScanner" />
         <activity
             android:name=".QRScanner.Capture"

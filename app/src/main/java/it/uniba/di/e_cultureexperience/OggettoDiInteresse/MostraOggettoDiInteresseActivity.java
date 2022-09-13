@@ -40,11 +40,13 @@ import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
+import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
 
 public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
     private TextView descrizioneOggetto, bluetoothOggetto;
     private ImageView immagineOggetto;
+    private Button quizBtn, puzzleBtn;
 
     @SuppressLint("ResourceType")
     @Override
@@ -61,7 +63,8 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         immagineOggetto = findViewById(R.id.immagineOggetto);
         bluetoothOggetto  = findViewById(R.id.bluetoothIdTxt);
-
+        quizBtn = findViewById(R.id.btn_quiz);
+        puzzleBtn = findViewById(R.id.btn_puzzleGame);
         //S T A R T - set content into layout
         Picasso.with(this)
                 .load(oggettoDiInteresse.getUrl_immagine())
@@ -94,15 +97,15 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             //ha un quiz, rendo visibile il bottone del quiz
-                            Button button = (Button) findViewById(R.id.btn_quiz);
-                            button.setVisibility(View.VISIBLE);
+
+                            quizBtn.setVisibility(View.VISIBLE);
                             //quando clicca sul bottone gli passo l' array contenente i quesiti
                             ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
                                 quesiti.add(temp);
                             }
-                            button.setOnClickListener(new View.OnClickListener() {
+                            quizBtn.setOnClickListener(new View.OnClickListener() {
                                 public void onClick(View v) {
                                     //quando viene premuto, lancia l' intent esplicito
                                     Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
@@ -116,7 +119,22 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                         }
                     }
                 });
-        //F I N I S H
+
+        //controllo se l'oggetto ha un puzzle
+        db.collection("/oggetti/")
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        puzzleBtn.setVisibility(View.VISIBLE);
+                        puzzleBtn.setOnClickListener(v -> {
+                            Intent i = new Intent(getApplicationContext(), PuzzleGame.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            i.putExtra("urlImmagine", oggettoDiInteresse.getUrl_immagine());
+                            getApplicationContext().startActivity(i);
+                        });
+                    } else {
+                        Log.w("Error", "Lettura non avvenua url_immagine oggetto", task.getException());
+                    }
+                });
 
         onCreateBottomNavigation();
     }
