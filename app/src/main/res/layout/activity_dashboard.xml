@@ -25,51 +25,30 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <ImageView
-                android:id="@+id/immagine"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="fitXY"
-                android:contentDescription="cane" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.ECultureExperience.PopupOverlay" />
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="600dp"
-        android:layout_height="300dp"
-        android:rotation="90"
-        app:srcCompat="@drawable/rounded_rectangle"
-        android:layout_marginTop="0dip"
-        android:layout_gravity="center"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="273dp"
+        android:layout_width="420dp"
         android:layout_height="33dp"
-        android:layout_marginTop="-400dip"
+        android:layout_marginTop="-200dip"
         android:layout_gravity="center"
          />
 
     <TextView
         android:id="@+id/domanda"
-        android:layout_width="251dp"
-        android:layout_height="117dp"
+        android:layout_width="244dp"
+        android:layout_height="125dp"
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginVertical="200dp"
         android:gravity="center"
         android:text="@string/prova_domanda"
         android:textColor="#000000"
-        android:textSize="24sp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginVertical="160dp"/>
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/primaRisposta"
@@ -79,7 +58,7 @@
         android:text="@string/button"
         android:gravity="center"
         android:textColor="#000000"
-        android:layout_marginTop="295dip"
+        android:layout_marginTop="320dip"
         android:layout_marginHorizontal="80dp"/>
     <Button
         android:id="@+id/secondaRisposta"
@@ -89,7 +68,7 @@
         android:text="@string/button"
         android:gravity="center"
         android:textColor="#000000"
-        android:layout_marginTop="380dip"
+        android:layout_marginTop="410dip"
         android:layout_marginHorizontal="80dp"/>
     <Button
         android:id="@+id/terzaRisposta"
@@ -99,32 +78,17 @@
         android:text="@string/button"
         android:gravity="center"
         android:textColor="#000000"
-        android:layout_marginTop="470dip"
+        android:layout_marginTop="500dip"
         android:layout_marginHorizontal="80dp"/>
 
-    <TextView
-        android:id="@+id/numeroDomandaTV"
-        android:layout_width="100dp"
-        android:layout_height="46dp"
-        android:layout_marginHorizontal="150dp"
-        android:layout_marginTop="30dip"
-        android:gravity="center"
-        android:text="@string/domanda_numero"
-        android:textColor="#000000" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <ImageView
+        android:id="@+id/immagine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
-        app:itemIconTint="@color/icons_color"
-        app:itemRippleColor="@color/dark_grey"
-        app:itemTextColor="@color/icons_color"
-        app:labelVisibilityMode="selected"
-        android:layout_marginTop="550dip"
-        app:menu="@menu/bottom_navigation" />
-
+        android:layout_height="350dp"
+        android:contentDescription="cane"
+        android:scaleType="fitXY"
+        app:layout_anchor="@+id/progressBar"
+        app:layout_anchorGravity="top|start" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

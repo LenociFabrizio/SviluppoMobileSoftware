@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.MostraOggettoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
@@ -57,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        numeroDomanda = findViewById(R.id.numeroDomandaTV);
+        //numeroDomanda = findViewById(R.id.numeroDomandaTV);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(timerValue);
@@ -88,8 +90,24 @@ public class DashboardActivity extends AppCompatActivity {
                 timerValue++;
                 progressBar.setProgress(100);
 
-                domanda.setText("@string/timeOut");
+                domanda.setText(R.string.timeOut);
+                primaOpzione.setVisibility(View.GONE);
+                terzaOpzione.setVisibility(View.GONE);
+                secondaOpzione.setText(R.string.vaiVia);
 
+                secondaOpzione.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
+                        bgShape1.setColor(Color.parseColor("#000000"));
+                        secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
+                        Intent i= new Intent(DashboardActivity.this, DashboardMeteActivity.class);
+
+                        //i.putExtra("url",urlImmagineOggetto);
+                        startActivity(i);
+                        finish();
+                    }
+                });
             }
         }.start();
 
@@ -101,10 +119,6 @@ public class DashboardActivity extends AppCompatActivity {
         setListenersToViews(idOggettoDiInteresse);
         assegnazioneList();
         setAllData();
-
-        //menu
-        onCreateBottomNavigation();
-
     }
 
     /**
@@ -223,31 +237,5 @@ public class DashboardActivity extends AppCompatActivity {
         bgShape1.setColor(Color.parseColor("#ffffff"));
         bgShape2.setColor(Color.parseColor("#ffffff"));
         bgShape3.setColor(Color.parseColor("#ffffff"));
-    }
-
-    public void onCreateBottomNavigation(){
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        //Set Home Selected
-        bottomNav.setSelectedItemId(R.id.share);
-
-        bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()){
-                case R.id.nav_home:
-                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-                case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
-                    overridePendingTransition(0,0);
-                    return true;
-                case R.id.nav_profile:
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-            }
-
-            return false;
-        });
     }
 }

@@ -145,6 +145,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         esitoBtn.setOnClickListener(v -> {
 
+            GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
+            bgShape1.setColor(Color.parseColor("#000000"));
+            esitoBtn.setTextColor(Color.parseColor("#ffffff"));
+
             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("quesiti", list);
