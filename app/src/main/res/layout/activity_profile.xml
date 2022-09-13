@@ -21,22 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="Email:"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441" />
-
     <ImageView
         android:id="@+id/copertinaImage"
         android:layout_width="411dp"
@@ -87,7 +71,6 @@
         android:layout_centerVertical="true"
         android:layout_marginHorizontal="@dimen/text_margin"
         android:layout_marginStart="12dp"
-        android:foregroundGravity="center_vertical|center|center_horizontal"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textIsSelectable="false"
@@ -105,16 +88,16 @@
         android:id="@+id/emailView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_centerHorizontal="true"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
         android:text=""
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintBaseline_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintTop_toBottomOf="@+id/nicknameView" />
 
     <TextView
         android:id="@+id/textView11"
@@ -173,5 +156,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.733" />
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/emailView"
+        android:layout_marginStart="20dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Italiano" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inglese" />
+
+    </RadioGroup>
+    <Button
+        android:id="@+id/btn_ita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ita"
+        app:layout_constraintStart_toEndOf="@+id/changePasswordView"
+        app:layout_constraintTop_toBottomOf="@+id/preferitiView" />
+
+    <Button
+        android:id="@+id/btn_eng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eng"
+        app:layout_constraintStart_toEndOf="@+id/btn_ita"
+        app:layout_constraintTop_toBottomOf="@+id/preferitiView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,21 +29,12 @@ public class FirstAccessActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_access);
 
-        final SignInButton loginButton = findViewById(R.id.sign_in_button);
-
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
         gsc=GoogleSignIn.getClient(this,gso);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SignIn();
-            }
-        });
 
     }
 
@@ -62,7 +53,6 @@ public class FirstAccessActivity extends AppCompatActivity {
             try{
                 task.getResult(ApiException.class);
                 loginGoogle=true;
-                entraInGoogleActivity();
             }catch(ApiException ex){
                 Toast.makeText(getApplicationContext(),"qualcosa è andato storto",Toast.LENGTH_SHORT).show();
                 ex.printStackTrace();
@@ -71,13 +61,6 @@ public class FirstAccessActivity extends AppCompatActivity {
         }
     }
 
-    private void entraInGoogleActivity(){
-        finish();
-        Intent intent=new Intent(getApplicationContext(),LoginGoogleActivity.class);
-        //mi porto nell'activity DashbordMete il segnalino
-        intent.putExtra("segnalino",loginGoogle);
-        startActivity(intent);
-    }
     private void handleSignInTask(Task<GoogleSignInAccount> task) {
 
         try {

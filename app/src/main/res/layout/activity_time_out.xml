@@ -6,24 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".QuizGame.TimeOutActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.ECultureExperience.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/immagine"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:contentDescription="cane" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.ECultureExperience.PopupOverlay" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="615dp"
-        android:layout_height="391dp"
+        android:layout_width="600dp"
+        android:layout_height="300dp"
         android:rotation="90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614"
-        app:srcCompat="@drawable/rounded_rectangle_purple" />
+        app:layout_constraintVertical_bias="0.5"
+        app:srcCompat="@drawable/rounded_rectangle" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tempoScaduto"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,8 +83,9 @@
         android:id="@+id/retryButton"
         android:layout_width="251dp"
         android:layout_height="78dp"
-        android:background="@drawable/rounded_button"
+        android:background="@drawable/rounded_button_quiz_game"
         android:text="@string/riprova"
+        android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -61,8 +97,7 @@
         android:id="@+id/exitButton"
         android:layout_width="251dp"
         android:layout_height="78dp"
-        android:background="@drawable/rounded_button"
-        android:backgroundTint="#FF5722"
+        android:background="@drawable/rounded_button_quiz_game"
         android:text="@string/vaiVia"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,4 +105,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/retryButton"
         app:layout_constraintVertical_bias="0.189" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/icons_color"
+        app:itemRippleColor="@color/dark_grey"
+        app:itemTextColor="@color/icons_color"
+        app:labelVisibilityMode="selected"
+        app:menu="@menu/bottom_navigation"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

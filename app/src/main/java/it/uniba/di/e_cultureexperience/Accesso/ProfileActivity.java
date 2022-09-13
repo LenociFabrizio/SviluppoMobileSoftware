@@ -14,7 +14,10 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +54,13 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView nickname;
     private final int TAKE_IMAGE_CODE = 10001;
     private int CAMERA_PERMISSION_CODE = 1;
-
     private FirebaseAuth fAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
     String TAG;
+
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
 
     @Override
@@ -64,32 +69,41 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Locale locale = new Locale("it-rIT");
-        Locale.setDefault(locale);
+        Log.e("lingua",Locale.getDefault().getLanguage());
+
 
         TextView email = findViewById(R.id.emailView);
         fAuth = FirebaseAuth.getInstance();
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
-        /*Button language_button = findViewById(R.id.languageBtn);
+        Button itaBtn = findViewById(R.id.btn_ita);
+        radioGroup = findViewById(R.id.radio_group);
 
-        language_button.setOnClickListener(new View.OnClickListener() {
+
+
+        if(Locale.getDefault().getLanguage().equals("it")){
+
+        }
+        else{
+
+        }
+        itaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setLocale("en-rGB");
+                setLocale("it");
                 }
         });
 
-        Button language_button_ita = findViewById(R.id.languageBtnIta);
+        Button engBtn = findViewById(R.id.btn_eng);
 
-        language_button_ita.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View view) {
-                                                       setLocale("it-rIT");
-                                                   }
-                                               }
-        );*/
+        engBtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   setLocale("en-rGB");
+               }
+           }
+        );
 
         //foto profilo
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -284,6 +298,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
+        Locale.setDefault(myLocale);
         Resources res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();

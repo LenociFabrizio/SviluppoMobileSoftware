@@ -27,7 +27,7 @@ public class StartGame extends AppCompatActivity {
 
         startButton = findViewById(R.id.buttonPlay);
         descrizione = findViewById(R.id.descrizioneQuizTV);
-        //todo: Bisogna passare l'"idPercorso" da un'altra intent
+
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
         String percorsoSelezionato = percorso.getId();
 
