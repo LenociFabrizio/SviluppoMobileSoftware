@@ -159,7 +159,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
             finish();
         });
 
-        onCreateBottomNavigation();
     }
 
 
@@ -235,31 +234,5 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     public void setColorButton(){
         GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
         bgShape1.setColor(Color.parseColor("#ffffff"));
-    }
-
-    public void onCreateBottomNavigation(){
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        //Set Home Selected
-        bottomNav.setSelectedItemId(R.id.share);
-
-        bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()){
-                case R.id.nav_home:
-                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-                case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
-                    overridePendingTransition(0,0);
-                    return true;
-                case R.id.nav_profile:
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                    overridePendingTransition(0,0);
-                    return true;
-            }
-
-            return false;
-        });
     }
 }
