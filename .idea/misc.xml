@@ -30,7 +30,6 @@
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/round_outline.xml" value="0.243" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/rounded_border.xml" value="0.243" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/rounded_button.xml" value="0.243" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/rounded_button_quiz_game.xml" value="0.1185" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/toggle_selector.xml" value="0.243" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/drawable/toggle_visibility_selector.xml" value="0.243" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout-v28/elemento_lista_percorsi.xml" value="0.3026041666666667" />
@@ -38,7 +37,11 @@
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.17643142476697737" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.20703125" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_avvia_percorso.xml" value="0.19895833333333332" />
+<<<<<<< HEAD
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_dashboard.xml" value="0.22" />
+=======
+        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_dashboard.xml" value="0.1875" />
+>>>>>>> f3256987d2c1c3483dfad5329be341bd5c591455
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_elemento_lista_classifica.xml" value="0.1875" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_first_access.xml" value="0.1875" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_forgot_password.xml" value="0.1875" />
@@ -58,7 +61,7 @@
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_risultato_quiz.xml" value="0.22" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_start_game.xml" value="0.2734375" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_test.xml" value="0.21693840579710144" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_time_out.xml" value="0.25" />
+        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_time_out.xml" value="0.2734375" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/activity_utente.xml" value="0.3026041666666667" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/content_scrolling.xml" value="0.3026041666666667" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.3026041666666667" />
@@ -76,8 +79,6 @@
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/menu/menu_mostra_luogo_di_interesse2.xml" value="0.33" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/menu/secondary_top_menu.xml" value="0.22" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/menu/top_menu.xml" value="0.3026041666666667" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1005" />
-        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_dashboard.xml" value="0.16" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -98,23 +99,34 @@
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_outline.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/toggle_selector.xml" value="0.1565" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/toggle_visibility_selector.xml" value="0.1565" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout-v31/elemento_lista_luoghi.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_first_access.xml" value="0.1984375" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_login.xml" value="0.1984375" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.140625" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse2.xml" value="0.3958333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse_preferito.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_percorso.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.264" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.536" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.12708333333333333" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti_avvia_percorso.xml" value="0.2246376811594203" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.264" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/lista_luoghi.xml" value="0.176" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.2" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/percorso.xml" value="0.264" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/bottom_navigation.xml" value="0.25" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/menu_mostra_luogo_di_interesse2.xml" value="0.140625" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/secondary_top_menu.xml" value="0.2" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VisualizationToolProject">

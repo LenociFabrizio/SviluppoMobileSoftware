@@ -1,5 +1,6 @@
 package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     final String collectionPath = "luoghiPreferiti";
     private ToggleButton favorite;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,8 +84,9 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(luogo.getNome());
 
         CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbar);
-        collapsingLayout.setExpandedTitleColor(Color.parseColor("#ffffff"));
-        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
+        Log.e("colore",getResources().getString(R.color.black));
+        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
+        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
 
         onCreateBottomNavigation();
 
@@ -141,6 +144,11 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                return true;
+
+            case R.id.favourite_btn:
+                //va aggiunta la stessa funzione
+                //onFavoriteToggleClick();
                 return true;
 
             default:
