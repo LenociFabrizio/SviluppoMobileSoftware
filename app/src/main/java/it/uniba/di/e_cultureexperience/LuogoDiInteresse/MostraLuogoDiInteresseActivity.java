@@ -138,7 +138,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                //whatsappIntent.setPackage("com.whatsapp");
                 intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));

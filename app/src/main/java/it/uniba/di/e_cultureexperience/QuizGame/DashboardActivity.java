@@ -10,14 +10,22 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -36,12 +44,13 @@ public class DashboardActivity extends AppCompatActivity {
     private TextView domanda, numeroDomanda;
     private Button primaOpzione, secondaOpzione, terzaOpzione;
 
-    int posizioneCliccata = 0;
+    private ImageView immagineOggetto;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
     int correttaCount = 0, sbagliataCount = 0;
 
-    private ImageView exitImageView;
+    //contatore per il click dell'utente
+    int posizioneCliccata = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,20 @@ public class DashboardActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(timerValue);
+
+        domanda = findViewById(R.id.domanda);
+        primaOpzione = findViewById(R.id.primaRisposta);
+        secondaOpzione = findViewById(R.id.secondaRisposta);
+        terzaOpzione = findViewById(R.id.terzaRisposta);
+        immagineOggetto = findViewById(R.id.immagine);
+
+        //carico url immagine e la faccio vedere a schermo
+        String urlImmagineOggetto = getIntent().getExtras().getString("url");
+
+        Picasso.with(this)
+                .load(urlImmagineOggetto)
+                .into(immagineOggetto);
+
         countDownTimer = new CountDownTimer(20000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -65,16 +88,12 @@ public class DashboardActivity extends AppCompatActivity {
                 timerValue++;
                 progressBar.setProgress(100);
 
-                Intent intent = new Intent(DashboardActivity.this, TimeOutActivity.class);
-                startActivity(intent);
+                domanda.setText("@string/timeOut");
 
             }
         }.start();
 
-        domanda = findViewById(R.id.domanda);
-        primaOpzione = findViewById(R.id.primaRisposta);
-        secondaOpzione = findViewById(R.id.secondaRisposta);
-        terzaOpzione = findViewById(R.id.terzaRisposta);
+        setColorButtons();
 
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
@@ -82,6 +101,9 @@ public class DashboardActivity extends AppCompatActivity {
         setListenersToViews(idOggettoDiInteresse);
         assegnazioneList();
         setAllData();
+
+        //menu
+        onCreateBottomNavigation();
 
     }
 
@@ -105,40 +127,32 @@ public class DashboardActivity extends AppCompatActivity {
             posizioneCliccata = 3;
             prossimaDomanda(terzaOpzione, idOgg);
         });
-
-        exitImageView = findViewById(R.id.exitImg);
-        exitImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(DashboardActivity.this, ProfileActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
     }
 
     public void setAllData () {
-            domanda.setText(modelClass.getDomanda());
-            primaOpzione.setText(modelClass.getPrimaOpzione());
-            secondaOpzione.setText(modelClass.getSecondaOpzione());
-            terzaOpzione.setText(modelClass.getTerzaOpzione());
-        }
+        domanda.setText(modelClass.getDomanda());
+        primaOpzione.setText(modelClass.getPrimaOpzione());
+        secondaOpzione.setText(modelClass.getSecondaOpzione());
+        terzaOpzione.setText(modelClass.getTerzaOpzione());
+    }
 
     public void assegnazioneList () {
-            allQuestionsLilst = list;
-            Collections.shuffle(allQuestionsLilst);
-            modelClass = list.get(i);
-        }
+        allQuestionsLilst = list;
+        Collections.shuffle(allQuestionsLilst);
+        modelClass = list.get(i);
+    }
 
     private boolean esitoOpzione (Button opzione){
-            return opzione.getText().equals(modelClass.getRispostaCorretta());
-        }
+        return opzione.getText().equals(modelClass.getRispostaCorretta());
+    }
 
     public void prossimaDomanda (Button opzione, String idOgg){
         //Conto quali sono le opzioni corrette o sbagliate totali
         if (esitoOpzione(opzione)) {
-                correttaCount++;
-                // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
-                GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
-                bgShape1.setColor(Color.parseColor("#00FF00"));
+            correttaCount++;
+            // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
+            GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+            bgShape1.setColor(Color.parseColor("#00FF00"));
 
         } else {
 
@@ -159,17 +173,21 @@ public class DashboardActivity extends AppCompatActivity {
 
         }
 
-            //Se non si trova nell'ultima domanda vado nella domanda successiva, altrimenti vado in RisultatoQuizActivity
+        //Se non si trova nell'ultima domanda vado nella domanda successiva, altrimenti vado in RisultatoQuizActivity
         if (i < list.size() - 1) {
             i++;
             modelClass = list.get(i);
             setAllData();
         } else {
             Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+            //Prendo l'oggetto passato dall'intent
+            String urlImmagineOggetto = getIntent().getExtras().getString("url");
+
             intent.putExtra("idOggetto", idOgg);
             intent.putExtra("quesiti", list);
             intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
             intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
+            intent.putExtra("url",urlImmagineOggetto);
             startActivity(intent);
             finish();
         }
@@ -196,5 +214,40 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onPause () {
         super.onPause();
         countDownTimer.cancel();
+    }
+
+    public void setColorButtons(){
+        GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
+        GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
+        GradientDrawable bgShape3 = (GradientDrawable) terzaOpzione.getBackground();
+        bgShape1.setColor(Color.parseColor("#ffffff"));
+        bgShape2.setColor(Color.parseColor("#ffffff"));
+        bgShape3.setColor(Color.parseColor("#ffffff"));
+    }
+
+    public void onCreateBottomNavigation(){
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNav.setSelectedItemId(R.id.share);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_scan:
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_profile:
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+
+            return false;
+        });
     }
 }

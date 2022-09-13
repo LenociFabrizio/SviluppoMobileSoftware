@@ -49,6 +49,9 @@
     <string name="descrizioneMetaMatera">È conosciuta in tutto il mondo per gli storici rioni Sassi, che ne fanno una delle città ancora abitate più antiche al mondo.</string>
     <string name="percorsi_preferiti">Percorsi preferiti</string>
     <string name="prova_domanda" >prova domanda</string>
-
+    //RISULTATO QUIZ
+    <string name="punteggio" >punteggio</string>
+    //DASHBOARD_ACTIVITY
+    <string name="timeOut" >tempo scaduto!</string>
 
 </resources>

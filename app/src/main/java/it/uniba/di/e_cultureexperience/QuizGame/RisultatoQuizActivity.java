@@ -1,6 +1,8 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -10,10 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,6 +28,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class RisultatoQuizActivity extends AppCompatActivity {
@@ -36,6 +43,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     //Roba per Output classifica aggiornata
     private ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
     private ListView listViewClassifica;
+    private ImageView immagineOggetto;
+
+    //pulsante riprova
+    private Button esitoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +62,14 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
         final String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
+
+        immagineOggetto = findViewById(R.id.immagine);
+        //carico url immagine e la faccio vedere a schermo
+        String urlImmagineOggetto = getIntent().getExtras().getString("url");
+
+        Picasso.with(this)
+                .load(urlImmagineOggetto)
+                .into(immagineOggetto);
 
         db.collection(collectionPath)
                 .get()
@@ -116,29 +135,26 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
 
         TextView descrizioneEsito = findViewById(R.id.esitoText);
-        Button esitoBtn = findViewById(R.id.resultButton);
+        esitoBtn = findViewById(R.id.resultButton);
         TextView risultato = findViewById(R.id.risultatoText);
+        setColorButton();
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
 
 
         esitoBtn.setOnClickListener(v -> {
+
             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("quesiti", list);
             intent.putExtra("idOggetto", idOggettoDiInteresse);
+            intent.putExtra("url", urlImmagineOggetto);
             getApplicationContext().startActivity(intent);
             finish();
         });
 
-        ImageView exitImageView = findViewById(R.id.exitResultBtn);
-        exitImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(RisultatoQuizActivity.this, ProfileActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
+        onCreateBottomNavigation();
     }
 
 
@@ -209,5 +225,36 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                         listViewClassifica.setAdapter(customAdapter);
                     }//Fine if
                 });
+    }
+
+    public void setColorButton(){
+        GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
+        bgShape1.setColor(Color.parseColor("#ffffff"));
+    }
+
+    public void onCreateBottomNavigation(){
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNav.setSelectedItemId(R.id.share);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            switch (item.getItemId()){
+                case R.id.nav_home:
+                    startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_scan:
+                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.nav_profile:
+                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+
+            return false;
+        });
     }
 }

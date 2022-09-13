@@ -1,64 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizGame.DashboardActivity">
+    tools:context=".QuizGame.DashboardActivity"
+    tools:layout_editor_absoluteX="-3dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <ImageView
-        android:id="@+id/exitImg"
-        android:layout_width="62dp"
-        android:layout_height="42dp"
-        android:contentDescription="@string/todo"
-        android:rotation="-180"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222"
-        app:srcCompat="@drawable/ic_baseline_exit_to_app_24" />
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/Theme.ECultureExperience.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/immagine"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="fitXY"
+                android:contentDescription="cane" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.ECultureExperience.PopupOverlay" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="615dp"
-        android:layout_height="391dp"
+        android:layout_width="600dp"
+        android:layout_height="300dp"
         android:rotation="90"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.614"
-        app:srcCompat="@drawable/rounded_rectangle" />
+        app:srcCompat="@drawable/rounded_rectangle"
+        android:layout_marginTop="0dip"
+        android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/secondaRisposta"
-        android:layout_width="251dp"
-        android:layout_height="78dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/button2"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.627" />
-
-    <Button
-        android:id="@+id/terzaRisposta"
-        android:layout_width="251dp"
-        android:layout_height="78dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/button3"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.799" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="273dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="-400dip"
+        android:layout_gravity="center"
+         />
 
     <TextView
         android:id="@+id/domanda"
@@ -68,61 +68,63 @@
         android:text="@string/prova_domanda"
         android:textColor="#000000"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="399dp"
-        android:layout_height="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/domanda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.441" />
+        android:layout_marginHorizontal="80dp"
+        android:layout_marginVertical="160dp"/>
 
     <Button
         android:id="@+id/primaRisposta"
-        android:layout_width="251dp"
-        android:layout_height="78dp"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
         android:background="@drawable/rounded_button_quiz_game"
         android:text="@string/button"
-        android:textColor="#000000"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.456" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/domanda_numero"
         android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.908" />
+        android:layout_marginTop="295dip"
+        android:layout_marginHorizontal="80dp"/>
+    <Button
+        android:id="@+id/secondaRisposta"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:background="@drawable/rounded_button_quiz_game"
+        android:text="@string/button"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_marginTop="380dip"
+        android:layout_marginHorizontal="80dp"/>
+    <Button
+        android:id="@+id/terzaRisposta"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:background="@drawable/rounded_button_quiz_game"
+        android:text="@string/button"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:layout_marginTop="470dip"
+        android:layout_marginHorizontal="80dp"/>
 
     <TextView
         android:id="@+id/numeroDomandaTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.943" />
+        android:layout_width="100dp"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="150dp"
+        android:layout_marginTop="30dip"
+        android:gravity="center"
+        android:text="@string/domanda_numero"
+        android:textColor="#000000" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/icons_color"
+        app:itemRippleColor="@color/dark_grey"
+        app:itemTextColor="@color/icons_color"
+        app:labelVisibilityMode="selected"
+        android:layout_marginTop="550dip"
+        app:menu="@menu/bottom_navigation" />
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
