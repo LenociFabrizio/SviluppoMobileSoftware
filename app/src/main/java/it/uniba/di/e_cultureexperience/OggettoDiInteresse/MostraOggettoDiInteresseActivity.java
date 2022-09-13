@@ -2,6 +2,7 @@ package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
@@ -44,21 +46,13 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
     private TextView descrizioneOggetto, bluetoothOggetto;
     private ImageView immagineOggetto;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oggetto_di_interesse);
 
-        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
-        }
-        if (Build.VERSION.SDK_INT >= 19) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
 
         //Prendo l'oggetto passato dall'intent
         OggettoDiInteresse oggettoDiInteresse = getIntent().getExtras().getParcelable("oggettoDiInteresse");
@@ -79,13 +73,13 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
 
         Toolbar mToolbar = findViewById(R.id.toolbar_oggettodiinteresse);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(oggettoDiInteresse.getNome());
 
         CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbar);
-        collapsingLayout.setExpandedTitleColor(Color.parseColor("#ffffff"));
-        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor("#000000"));
+        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
+        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
 
         //OGGETTI PER FIREBASE
         FirebaseFirestore db;
@@ -162,5 +156,11 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
 
             return false;
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

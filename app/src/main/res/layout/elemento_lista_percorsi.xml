@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/Theme.ECultureExperience">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +23,6 @@
             android:layout_toStartOf="@+id/txt_durata"
             android:maxLines="1"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
@@ -34,6 +34,7 @@
             android:layout_below="@+id/txt_nomePercorso"
             android:layout_toStartOf="@+id/txt_durata"
             android:maxLines="2"
+
             android:textAlignment="textStart"
             android:textSize="12sp" />
 

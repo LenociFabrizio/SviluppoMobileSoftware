@@ -17,7 +17,6 @@
             android:id="@+id/image_citta"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@drawable/round_outline"
             android:clipToOutline="true"
             android:cropToPadding="true"
             android:outlineProvider="background"
@@ -39,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
                 android:id="@+id/txt_descrizione"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textColor="@color/black"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="" />

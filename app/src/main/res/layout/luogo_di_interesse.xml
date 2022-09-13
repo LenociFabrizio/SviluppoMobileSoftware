@@ -29,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:contentScrim="@color/grey_50"
                 android:fitsSystemWindows="true"
+                app:contentScrim="?android:colorPrimary"
                 android:id="@+id/collapsing_toolbar"
                 app:toolbarId="@id/toolbar_luogodiinteresse">
 
@@ -50,7 +50,7 @@
                     android:background="@android:color/transparent"
                     app:layout_collapseMode="pin"
                     app:menu="@menu/secondary_top_menu"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
                 <ToggleButton
                     android:id="@+id/favoriteToggleButton"
@@ -105,8 +105,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_percorsi"
-                    android:layout_marginTop="4dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
 
                     android:layout_marginBottom="@dimen/text_margin" />
 
