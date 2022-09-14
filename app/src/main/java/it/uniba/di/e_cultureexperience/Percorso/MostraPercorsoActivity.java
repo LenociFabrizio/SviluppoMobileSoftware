@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -11,16 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
@@ -29,12 +31,14 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView nomePercorso, descrizionePercorso, durataPercorso;
     private ListView listViewOggetti;
+    private RatingBar ratingStars;
+
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
-    private ExtendedFloatingActionButton avviaPercorsoButton;
 
-    private ArrayList<OggettoDiInteresse> oggettoDiInteresse = new ArrayList<>();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String collectionPathValutazione, collectionPathOggetti;
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -64,17 +68,35 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
         durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
+        ratingStars = findViewById(R.id.ratingBar);
 
-        letturaOggetti(percorso);
+        //S T A R T - Rating stars
+        //TODO: decidere posizione del Rating stars
+        collectionPathValutazione = "percorsi/" + percorso.getId() + "/valutazione";
+        //TODO: mostrare la media della valutazione
+        letturaValutazione(collectionPathValutazione);
+
+        ratingStars.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            /**
+             * Se la valutazione data è maggiore di 0 (ha votato), allora salvo la valutazione in un contenitore unico per tutti gli utenti così da poter fare una media
+             */
+            if(rating > 0){
+                scritturaValutazioneDatabase(collectionPathValutazione, rating);
+            }
+        });
+        //F I N I S H - Rating stars
+
+        collectionPathOggetti = "percorsi/" + percorso.getId() + "/oggetti";
+        letturaOggetti(collectionPathOggetti);
 
         onCreateBottomNavigation();
 
     }
 
-    public void letturaOggetti(Percorso percorso){
+    public void letturaOggetti(String collectionPath){
         ArrayList<String> idOggettiList = new ArrayList<>();
 
-        db.collection("/percorsi/"+percorso.getId()+"/oggetti")
+        db.collection(collectionPath)
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
@@ -132,5 +154,136 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
             return false;
         });
+    }
+
+    /**
+     * Funzione atomica di scrittura su db dato un map<string, object> e la collectionPath
+     * @param valutazione
+     * @param collectionPath
+     */
+    public void addDoc(Map<String, Object> valutazione, String collectionPath){
+
+        db.collection(collectionPath)
+                .add(valutazione)
+                .addOnSuccessListener(documentReference -> Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId()))
+                .addOnFailureListener(e -> Log.w("TAG", "Error adding document", e));
+    }
+
+    /**
+     * Funzione atomica di eliminazione di un documento su db attraverso la collectinoPath e l'id del documento da eliminare
+     * @param collectionPath
+     * @param documentReference
+     */
+    public void deleteDoc(String collectionPath, String documentReference)
+    {
+        db.collection(collectionPath).document(documentReference)
+                .delete()
+                .addOnSuccessListener(aVoid ->
+                        Log.d("Delete", "DocumentSnapshot successfully deleted!"))
+                .addOnFailureListener(e ->
+                        Log.w("Delete", "Error deleting document", e));
+    }
+
+    /**
+     * scrive la valutazione su db: se il db è vuoto scrivo la nuova valutazione,
+     * se esiste già allora l'aggiorno
+     * altrimenti se non è vuota ma la valutazione dal seguente utente non è stata ancora data, allora l'aggiungo
+     * @param collectionPath
+     * @param rating
+     */
+    public void scritturaValutazioneDatabase(String collectionPath, float rating){
+        Map<String, Object> valutazione = new HashMap<>();
+        valutazione.put("idUtente", fAuth.getUid());
+        valutazione.put("valutazione", rating);
+
+        db.collection(collectionPath)
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()) {
+
+                        int sizeDataBase = task.getResult().size(), singolaRigaDatabase = 0;
+                        boolean valutazioneEsistente = false;
+                        if(sizeDataBase != 0){
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                singolaRigaDatabase++;
+
+                                String idUtenteDataBase = document.getString("idUtente");
+                                //se è stata trovata una valutazione fatta dallo stesso utente la elimino e l'aggiorno
+                                if(Objects.equals(fAuth.getUid(), idUtenteDataBase)){
+                                    deleteDoc(collectionPath, document.getId());
+
+                                    addDoc(valutazione, collectionPath);
+                                    valutazioneEsistente = true;
+                                }//fine if
+
+                                if (!valutazioneEsistente && singolaRigaDatabase == sizeDataBase){
+                                    addDoc(valutazione, collectionPath);
+                                }
+                            }//fine for
+                        }else{
+                            addDoc(valutazione, collectionPath);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Controllo se ha già inserito precedentemente una valutazione
+     */
+    public void letturaValutazione(String collectionPath){
+
+        db.collection(collectionPath)
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()){
+
+                        final int sizeDataBase = task.getResult().size();
+                        if (sizeDataBase != 0) {
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                String idUtenteDatabase = document.getString("idUtente");
+                                double valutazione = document.getDouble("valutazione");
+
+                                if(idUtenteDatabase.equals(fAuth.getUid())){
+                                    ratingStars.setRating((float) valutazione);
+                                }
+                            }//fine for
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Calcolo della media valutazione per un determinato oggetto di interesse (WIP)
+     * @param collectionPath
+     */
+    public void calcoloMediaValutazione(String collectionPath){
+
+        db.collection(collectionPath)
+                .get()
+                .addOnCompleteListener(task -> {
+
+                    if (task.isSuccessful()){
+
+                        int sizeDataBase = task.getResult().size();
+                        if (sizeDataBase != 0) {
+                            double sommaValutazioni = 0;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                double valutazione = document.getDouble("valutazione");
+
+                                sommaValutazioni = valutazione + sommaValutazioni;
+                            }//fine for
+                            float mediaValutazione = (float) sommaValutazioni/sizeDataBase;
+                            ratingStars.setRating(mediaValutazione);
+                            //TODO: controllare se funziona questa riga di codice
+                            ratingStars.setClickable(false);
+                        }
+                    }
+                });
     }
 }
