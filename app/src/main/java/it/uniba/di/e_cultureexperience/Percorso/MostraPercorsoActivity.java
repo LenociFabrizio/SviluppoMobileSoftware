@@ -29,12 +29,11 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView nomePercorso, descrizionePercorso, durataPercorso;
     private ListView listViewOggetti;
-<<<<<<< Updated upstream
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
     private ExtendedFloatingActionButton avviaPercorsoButton;
-=======
+
     private ArrayList<OggettoDiInteresse> oggettoDiInteresse = new ArrayList<>();
->>>>>>> Stashed changes
+
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
