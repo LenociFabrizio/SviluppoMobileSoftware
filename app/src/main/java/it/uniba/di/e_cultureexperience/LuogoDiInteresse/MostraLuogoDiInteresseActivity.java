@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -56,6 +57,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.luogo_di_interesse);
+
+        Toast.makeText(getApplicationContext(),"LISTA PERCORSI",Toast.LENGTH_SHORT).show();
 
         percorsi = new ArrayList<>();
         list_view_percorsi = findViewById(R.id.lista_percorsi);
@@ -120,6 +123,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        Toast.makeText(getApplicationContext(),"share22!!!",Toast.LENGTH_SHORT).show();
+
         onBackPressed();
         return true;
     }
@@ -134,6 +139,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Toast.makeText(getApplicationContext(),"share!!!",Toast.LENGTH_SHORT).show();
+
 
         switch (item.getItemId()) {
             case R.id.share:
@@ -157,8 +164,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
-
-
     }
 
     public void setPercorsi(LuogoDiInteresse luogo){

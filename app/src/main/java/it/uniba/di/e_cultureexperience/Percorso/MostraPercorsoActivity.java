@@ -3,10 +3,14 @@ package it.uniba.di.e_cultureexperience.Percorso;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -23,6 +27,7 @@ import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
@@ -41,15 +46,12 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     private String collectionPathValutazione, collectionPathOggetti;
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostra_percorso);
+
+        Toast.makeText(getApplicationContext(),"Percorso scelto",Toast.LENGTH_SHORT).show();
+
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
@@ -154,6 +156,49 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
             return false;
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.share:
+                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
+
+                startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                return true;
+
+            case R.id.favourite_btn:
+                //va aggiunta la stessa funzione
+                //onFavoriteToggleClick();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+
+
     }
 
     /**
