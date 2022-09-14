@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,13 +56,16 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
 
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
+
 
         //prendo i riferimenti degli elementi del layout
         nomePercorso = findViewById(R.id.nome);
@@ -330,5 +334,9 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
     }
+
+
 }

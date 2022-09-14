@@ -26,7 +26,7 @@
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar"
+            android:theme="@style/Theme.MyApplication3.NoActionBar"
             />
         <activity
             android:name=".Percorso.AvviaPercorsoActivity"
@@ -81,7 +81,7 @@
         <activity
             android:name=".Accesso.ProfileActivity"
             android:exported="true"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
+            android:theme="@style/Theme.MyApplication3.NoActionBar"/>
         <activity android:name=".QuizGame.DashboardActivity"
             android:exported="true" />
 

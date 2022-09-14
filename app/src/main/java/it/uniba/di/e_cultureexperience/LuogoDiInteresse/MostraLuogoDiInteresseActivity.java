@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,14 +52,12 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     final String collectionPath = "luoghiPreferiti";
     private ToggleButton favorite;
-
+    private MenuItem favouriteItem;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.luogo_di_interesse);
-
-        Toast.makeText(getApplicationContext(),"LISTA PERCORSI",Toast.LENGTH_SHORT).show();
 
         percorsi = new ArrayList<>();
         list_view_percorsi = findViewById(R.id.lista_percorsi);
@@ -123,8 +122,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        Toast.makeText(getApplicationContext(),"share22!!!",Toast.LENGTH_SHORT).show();
-
         onBackPressed();
         return true;
     }
@@ -133,14 +130,45 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+        favouriteItem = menu.findItem(R.id.favourite_btn);
 
+        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+        db.collection(collectionPath)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        final int sizeDataBase = task.getResult().size();
+                        if (sizeDataBase != 0) {
+                            boolean luogoPreferitoEsistente = false;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String idUtenteDatabase = document.getString("idUtente");
+                                String nomeLuogoDatabase = document.getString("nome");
+                                //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
+                                if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
+
+
+                                    favouriteItem.setChecked(true);
+                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
+                                    luogoPreferitoEsistente = true;
+
+
+                                }
+                            }//fine for
+                            if (!luogoPreferitoEsistente){
+                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
+                                favouriteItem.setChecked(false);
+                            }
+                        }
+                    }
+                });
+
+        Toast.makeText(this,"valore iniziale",Toast.LENGTH_SHORT).show();
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(getApplicationContext(),"share!!!",Toast.LENGTH_SHORT).show();
-
 
         switch (item.getItemId()) {
             case R.id.share:
@@ -154,8 +182,19 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 return true;
 
             case R.id.favourite_btn:
-                //va aggiunta la stessa funzione
-                //onFavoriteToggleClick();
+                //Toast.makeText(this, item.toString(),Toast.LENGTH_SHORT).show();
+                onFavoriteToggleClick2(item);
+
+
+                if(item.isChecked()){
+
+                    Toast.makeText(this, "checked",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this, "unchecked",Toast.LENGTH_SHORT).show();
+                }
+
+                item.setChecked(!item.isChecked());
                 return true;
 
             default:
@@ -164,6 +203,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+
+
     }
 
     public void setPercorsi(LuogoDiInteresse luogo){
@@ -191,30 +232,39 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
      * @param luogo
      */
     public void isLuogoPreferito(LuogoDiInteresse luogo){
-
+        final int[] value = new int[1];
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
                         final int sizeDataBase = task.getResult().size();
                         if (sizeDataBase != 0) {
-                            boolean luogoPreferito = false;
+                            boolean luogoPreferitoEsistente = false;
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String idUtenteDatabase = document.getString("idUtente");
                                 String nomeLuogoDatabase = document.getString("nome");
                                 //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
                                 if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
                                     favorite.setChecked(true);
-                                    luogoPreferito = true;
+                                    favouriteItem.setChecked(true);
+                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
+                                    luogoPreferitoEsistente = true;
+                                    value[0] = 2;
+
                                 }
                             }//fine for
-                            if (!luogoPreferito){
+                            if (!luogoPreferitoEsistente){
                                 favorite.setChecked(false);
+                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
+                                favouriteItem.setChecked(false);
                             }
                         }
                     }
                 });
     }
+
+
+
     /**
      * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo
      * @param view
@@ -228,6 +278,40 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
          * se favoriteBtn ha il checked TRUE(sta già nei preferiti) allora se lo clicco elimino, altrimenti il contrario
          */
         if(favorite.isChecked()){
+            db.collection(collectionPath)
+                    .get()
+                    .addOnCompleteListener(task1 -> {
+
+                        if (task1.isSuccessful()) {
+
+                            int sizeDataBase = task1.getResult().size();
+                            if(sizeDataBase == 0){
+                                scritturaLuogoDatabase(luogo, fAuth.getUid());
+                                return;
+                            }
+
+                            scritturaLuogoDatabase(luogo, fAuth.getUid());
+                        }else{
+                            Log.e("Error", "Errore server metaPreferita.");
+                        }
+                    });
+        }else{
+            eliminazioneLuogoDatabase(luogo, fAuth.getUid());
+        }
+
+    }
+
+    public void onFavoriteToggleClick2(MenuItem item) {
+
+        //prendo l' oggetto passato dall' intent
+        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+        /**
+         * se favoriteBtn ha il checked TRUE(sta già nei preferiti) allora se lo clicco elimino, altrimenti il contrario
+         */
+
+        if(item.isChecked()){
+
             db.collection(collectionPath)
                     .get()
                     .addOnCompleteListener(task1 -> {

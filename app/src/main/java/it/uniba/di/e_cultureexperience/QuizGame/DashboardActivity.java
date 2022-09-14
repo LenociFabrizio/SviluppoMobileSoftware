@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
@@ -69,6 +70,9 @@ public class DashboardActivity extends AppCompatActivity {
         secondaOpzione = findViewById(R.id.secondaRisposta);
         terzaOpzione = findViewById(R.id.terzaRisposta);
         immagineOggetto = findViewById(R.id.immagine);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
@@ -251,5 +255,11 @@ public class DashboardActivity extends AppCompatActivity {
         bgShape1.setColor(Color.parseColor("#ffffff"));
         bgShape2.setColor(Color.parseColor("#ffffff"));
         bgShape3.setColor(Color.parseColor("#ffffff"));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
