@@ -1,12 +1,9 @@
 package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,52 +11,59 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
-
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
 import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
 
-public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MostraOggettoDiInteresseActivity extends AppCompatActivity implements OnMapReadyCallback {
     private TextView descrizioneOggetto, bluetoothOggetto;
     private ImageView immagineOggetto;
     private Button quizBtn, puzzleBtn;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private GoogleMap map;
 
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oggetto_di_interesse);
+
+        // Get the SupportMapFragment and request notification when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync(this);
+        }
 
         //Prendo l'oggetto passato dall'intent
         Intent intent = getIntent();
@@ -189,4 +193,41 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
+    /*
+     * Manipulates the map when it's available.
+     * The API invokes this callback when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user receives a prompt to install
+     * Play services inside the SupportMapFragment. The API invokes this method after the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Add a marker in Sydney, Australia,
+        // and move the map's camera to the same location.
+        map = googleMap;
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(latLng);
+                markerOptions.title(latLng.latitude+" : "+ latLng.longitude)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                map.clear();
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                map.addMarker(markerOptions);
+            }
+        });
+    }
+
+
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        LatLng sydney = new LatLng(-33.852, 151.211);
+//        googleMap.addMarker(new MarkerOptions()
+//                .position(sydney)
+//                .title("Marker in Sydney"));
+//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10f));
+//    }
 }

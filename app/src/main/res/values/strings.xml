@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">E-Culture Experience</string>
     <string name="email" translatable="false">Email</string>
+   <string name="maps_api_key" translatable="false">AIzaSyCaigPsW_Hi2BkKpgeprK-WJ3k_zpoQliA</string>
     <string name="inserisci_il_tuo_indirizzo_e_ti_invieremo_una_email_dove_poter_resettare_la_tua_password">Enter your address and we will send you an email where you can reset your password</string>
     <string name="che_sbadato">Than careless!</string>
     <string name="richiedi_reset">Request reset</string>
