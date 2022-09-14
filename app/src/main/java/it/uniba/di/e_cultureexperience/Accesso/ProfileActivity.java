@@ -39,6 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.sun.xml.bind.v2.TODO;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
@@ -60,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
     String TAG;
 
     RadioGroup radioGroup;
-    RadioButton radioButton;
+    RadioButton radioIta,radioEng,selectedLanguage;
 
 
     @Override
@@ -69,8 +70,12 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Log.e("lingua",Locale.getDefault().getLanguage());
 
+
+        Locale current = getResources().getConfiguration().locale;
+
+
+        Log.e("lingua", current.getLanguage());
 
         TextView email = findViewById(R.id.emailView);
         fAuth = FirebaseAuth.getInstance();
@@ -79,15 +84,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         Button itaBtn = findViewById(R.id.btn_ita);
         radioGroup = findViewById(R.id.radio_group);
+        radioIta = findViewById(R.id.radio_ita);
+        radioEng = findViewById(R.id.radio_eng);
 
-
-
-        if(Locale.getDefault().getLanguage().equals("it")){
-
+        if(current.getLanguage().equals("it")){
+            radioIta.setChecked(true);
         }
         else{
-
+            radioEng.setChecked(true);
         }
+
+
         itaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -311,5 +318,18 @@ public class ProfileActivity extends AppCompatActivity {
     public void goToPreferiti(View v){
         Intent intent = new Intent(this, MostraLuogoDiInteressePreferitoActivity.class);
         startActivity(intent);
+    }
+
+    public void checkRadioGroup(View v){
+        int radioButtonId = radioGroup.getCheckedRadioButtonId();
+        selectedLanguage =findViewById(radioButtonId);
+        String textId = selectedLanguage.toString();
+        if(textId.substring(textId.lastIndexOf("/radio")).contains("/radio_ita")){
+            setLocale("it");
+        }
+        else{
+            setLocale("en-rGB");
+        }
+
     }
 }
