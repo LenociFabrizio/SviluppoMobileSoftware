@@ -62,7 +62,9 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_oggetto_di_interesse);
 
         //Prendo l'oggetto passato dall'intent
-        OggettoDiInteresse oggettoDiInteresse = getIntent().getExtras().getParcelable("oggettoDiInteresse");
+        Intent intent = getIntent();
+        OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
+        boolean scannerizzato = intent.getBooleanExtra("scannerizzato", false);
 
         descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         immagineOggetto = findViewById(R.id.immagineOggetto);
@@ -95,26 +97,26 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            //ha un quiz, rendo visibile il bottone del quiz
-
-                            quizBtn.setVisibility(View.VISIBLE);
-                            //quando clicca sul bottone gli passo l' array contenente i quesiti
-                            ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
-                                quesiti.add(temp);
-                            }
-                            quizBtn.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View v) {
-                                    //quando viene premuto, lancia l' intent esplicito
-                                    Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
-                                    i.putExtra("idOggetto", oggettoDiInteresse.getId());
-                                    i.putExtra("quesiti", quesiti);
-                                    getApplicationContext().startActivity(i);
+                            if(task.getResult().size() > 0 && scannerizzato) {
+                                //ha un quiz, rendo visibile il bottone del quiz(se è stato scannerizzato)
+                                quizBtn.setVisibility(View.VISIBLE);
+                                ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
+                                    quesiti.add(temp);
                                 }
-                            });
+                                quizBtn.setOnClickListener(new View.OnClickListener() {
+                                    public void onClick(View v) {
+                                        //quando viene premuto, lancia l' intent esplicito
+                                        Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
+                                        i.putExtra("idOggetto", oggettoDiInteresse.getId());
+                                        i.putExtra("quesiti", quesiti);
+                                        getApplicationContext().startActivity(i);
+                                    }
+                                });
+                            }
                         } else {
                             //non ha nessun quiz, rimane invisibile
                             Log.w("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
@@ -126,13 +128,16 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity {
         db.collection("/oggetti/")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        puzzleBtn.setVisibility(View.VISIBLE);
-                        puzzleBtn.setOnClickListener(v -> {
-                            Intent i = new Intent(getApplicationContext(), PuzzleGame.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.putExtra("urlImmagine", oggettoDiInteresse.getUrl_immagine());
-                            getApplicationContext().startActivity(i);
-                        });
+                        if(task.getResult().size() > 0 && scannerizzato) {
+                            //ha un puzzle, rendo visibile il bottone del puzzle(se è stato scannerizzato)
+                            puzzleBtn.setVisibility(View.VISIBLE);
+                            puzzleBtn.setOnClickListener(v -> {
+                                Intent i = new Intent(getApplicationContext(), PuzzleGame.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.putExtra("urlImmagine", oggettoDiInteresse.getUrl_immagine());
+                                getApplicationContext().startActivity(i);
+                            });
+                        }
                     } else {
                         Log.w("Error", "Lettura non avvenua url_immagine oggetto", task.getException());
                     }

@@ -112,6 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     android:text="Quiz" />
 
                 <Button
@@ -121,8 +122,8 @@
                     android:layout_below="@+id/title_attivita"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="4dp"
+                    android:visibility="gone"
                     android:text="Puzzle" />
-
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

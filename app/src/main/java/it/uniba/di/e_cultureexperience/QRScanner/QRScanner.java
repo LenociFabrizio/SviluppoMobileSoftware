@@ -68,6 +68,7 @@ public class QRScanner extends AppCompatActivity {
                                             oggettoDiInteresse.setId(document.getId());
                                             Intent intent = new Intent(QRScanner.this, MostraOggettoDiInteresseActivity.class);
                                             intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);
+                                            intent.putExtra("scannerizzato", true);
                                             startActivity(intent);
                                         }
                                     });

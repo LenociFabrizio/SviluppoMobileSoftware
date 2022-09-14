@@ -91,6 +91,7 @@ public class OggettiDiInteresseAdapter implements ListAdapter {
                 //quando viene premuto, lancia l' intent esplicito
                 Intent i = new Intent(context, MostraOggettoDiInteresseActivity.class);
                 i.putExtra("oggettoDiInteresse", oggettoDiInteresse);
+                i.putExtra("scannerizzato", false);
                 Log.d("OggettoDiInteresseAdapter => ", oggettoDiInteresse.toString());
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
