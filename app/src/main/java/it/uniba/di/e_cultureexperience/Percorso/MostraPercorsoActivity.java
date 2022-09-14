@@ -29,7 +29,7 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView nomePercorso, descrizionePercorso, durataPercorso;
     private ListView listViewOggetti;
-    private ArrayList<OggettoDiInteresse> oggettoDiInteresse = new ArrayList<>();
+    private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
     private ExtendedFloatingActionButton avviaPercorsoButton;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -101,10 +101,10 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                             {
                                 OggettoDiInteresse temp = document.toObject(OggettoDiInteresse.class);
                                 temp.setId(document.getId());
-                                oggettoDiInteresse.add(temp);
+                                oggettiDiInteresse.add(temp);
                             }
                         }
-                        OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggettoDiInteresse);
+                        OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggettiDiInteresse);
                         listViewOggetti.setAdapter(customAdapter);
                     } else {
                         Log.e("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());

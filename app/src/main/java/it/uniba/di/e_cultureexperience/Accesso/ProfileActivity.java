@@ -214,7 +214,6 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             requestStoragePermission();
         }
-
     }
 
     private void requestStoragePermission() {

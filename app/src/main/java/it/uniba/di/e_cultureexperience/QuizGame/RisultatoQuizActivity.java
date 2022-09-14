@@ -55,6 +55,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         setContentView(R.layout.activity_risultato_quiz);
 
         final String idOggettoDiInteresse = getIntent().getExtras().getString("idOggetto");
+
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
@@ -62,7 +63,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         int numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
 
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
-        final String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
+        String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
         immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
@@ -135,7 +136,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //F I N I S H - Mostrare Output classifica aggiornata
 
 
-        TextView descrizioneEsito = findViewById(R.id.esitoText);
         esitoBtn = findViewById(R.id.resultButton);
         TextView risultato = findViewById(R.id.risultatoText);
         setColorButton();
@@ -202,14 +202,17 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
     public void letturaClassifica(String collectionPath){
 
+
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
                         int sizeDataBase = task.getResult().size(),  countRigaClassifica = 0;
+
                         //svuoto per non creare doppioni ogni volta che viene riprovato il quiz
                         classificaList.clear();
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
 
                             countRigaClassifica++;
