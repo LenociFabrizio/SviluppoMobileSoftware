@@ -185,7 +185,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
                                 String idUtenteDataBase = document.getString("idUtente");
 
-//                                assert idUtenteDataBase != null;
                                 if(Objects.equals(fAuth.getUid(), idUtenteDataBase)){
                                     String nicknameDatabase = document.getString("nickname");
                                     utente.put("idUtente", fAuth.getUid());

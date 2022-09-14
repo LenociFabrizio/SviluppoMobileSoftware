@@ -29,8 +29,12 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView nomePercorso, descrizionePercorso, durataPercorso;
     private ListView listViewOggetti;
+<<<<<<< Updated upstream
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
     private ExtendedFloatingActionButton avviaPercorsoButton;
+=======
+    private ArrayList<OggettoDiInteresse> oggettoDiInteresse = new ArrayList<>();
+>>>>>>> Stashed changes
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -58,17 +62,9 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         nomePercorso = findViewById(R.id.nome);
         descrizionePercorso = findViewById(R.id.descrizione);
         durataPercorso = findViewById(R.id.durata);
-        avviaPercorsoButton = findViewById(R.id.avviaPercorsoBtn);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
         durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
-
-        avviaPercorsoButton.setOnClickListener(v -> {
-            //Devo passare gli oggetti che sono contenuti nel percorso scelto dall'utente
-            Intent intent = new Intent(this, AvviaPercorsoActivity.class);
-            intent.putExtra("percorso", percorso);
-            startActivity(intent);
-        });
 
         letturaOggetti(percorso);
 
