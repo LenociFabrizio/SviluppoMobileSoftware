@@ -40,10 +40,6 @@
             android:theme="@style/Theme.MyApplication3.NoActionBar"
             />
         <activity
-            android:name=".Percorso.AvviaPercorsoActivity"
-            android:exported="false"
-            android:theme="@style/Theme.ECultureExperience" />
-        <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
         <activity
