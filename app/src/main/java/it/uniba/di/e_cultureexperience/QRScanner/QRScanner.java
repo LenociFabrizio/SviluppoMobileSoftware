@@ -20,7 +20,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.MostraOggettoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
-import it.uniba.di.e_cultureexperience.Percorso.AvviaPercorsoActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class QRScanner extends AppCompatActivity {

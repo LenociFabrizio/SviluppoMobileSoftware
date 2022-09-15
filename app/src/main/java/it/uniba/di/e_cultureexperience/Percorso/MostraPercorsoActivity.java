@@ -1,10 +1,13 @@
 package it.uniba.di.e_cultureexperience.Percorso;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -35,9 +39,10 @@ import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
-    private TextView nomePercorso, descrizionePercorso, durataPercorso;
+    private TextView nomePercorso, descrizionePercorso, durataPercorso, numeroVotazioni;
     private ListView listViewOggetti;
-    private RatingBar ratingStars;
+    private RatingBar ratingStarsMedio;
+    private Button openDialogBtn;
 
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
@@ -74,21 +79,18 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
         durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
-        ratingStars = findViewById(R.id.ratingBar);
+        ratingStarsMedio = findViewById(R.id.ratingBar);
+        openDialogBtn = findViewById(R.id.btnOpenDialog);
+        numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
 
         //S T A R T - Rating stars
         //TODO: decidere posizione del Rating stars
         collectionPathValutazione = "percorsi/" + percorso.getId() + "/valutazione";
-        //TODO: mostrare la media della valutazione
-        letturaValutazione(collectionPathValutazione);
 
-        ratingStars.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
-            /**
-             * Se la valutazione data è maggiore di 0 (ha votato), allora salvo la valutazione in un contenitore unico per tutti gli utenti così da poter fare una media
-             */
-            if(rating > 0){
-                scritturaValutazioneDatabase(collectionPathValutazione, rating);
-            }
+        calcoloMediaValutazione(collectionPathValutazione);
+
+        openDialogBtn.setOnClickListener(v -> {
+            writeRating(percorso, collectionPathValutazione);
         });
         //F I N I S H - Rating stars
 
@@ -282,7 +284,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     /**
      * Controllo se ha già inserito precedentemente una valutazione
      */
-    public void letturaValutazione(String collectionPath){
+    public void letturaValutazione(String collectionPath, RatingBar rating){
 
         db.collection(collectionPath)
                 .get()
@@ -299,7 +301,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 double valutazione = document.getDouble("valutazione");
 
                                 if(idUtenteDatabase.equals(fAuth.getUid())){
-                                    ratingStars.setRating((float) valutazione);
+                                    rating.setRating((float) valutazione);
                                 }
                             }//fine for
                         }
@@ -319,23 +321,57 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()){
 
-                        int sizeDataBase = task.getResult().size();
-                        if (sizeDataBase != 0) {
+                        int numeroVotanti = task.getResult().size();
+                        if (numeroVotanti != 0) {
                             double sommaValutazioni = 0;
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
                                 double valutazione = document.getDouble("valutazione");
 
                                 sommaValutazioni = valutazione + sommaValutazioni;
-                            }//fine for
-                            float mediaValutazione = (float) sommaValutazioni/sizeDataBase;
-                            ratingStars.setRating(mediaValutazione);
-                            //TODO: controllare se funziona questa riga di codice
-                            ratingStars.setClickable(false);
+                            }
+                            float mediaValutazione = (float) sommaValutazioni/numeroVotanti;
+                            ratingStarsMedio.setRating(mediaValutazione);
+                            numeroVotazioni.setText("(" + numeroVotanti + ")");
+
+                            ratingStarsMedio.setClickable(false);
                         }
                     }
                 });
 
+
+    }
+
+    /**
+     * Apre un nuovo Dialog che permette all'utente di inserire una valutazione attraverso il ratingBar a stella
+     * @param percorso
+     * @param collectionPathValutazione
+     */
+    public void writeRating(Percorso percorso, String collectionPathValutazione){
+
+        Dialog rankDialog = new Dialog(MostraPercorsoActivity.this, R.style.Base_Theme_AppCompat_Dialog_Alert);
+        rankDialog.setContentView(R.layout.rank_dialog);
+        rankDialog.setCancelable(true);
+
+        RatingBar ratingStarsDialog = (RatingBar) rankDialog.findViewById(R.id.ratingBarDialog);
+        //Setting iniziale del ratingStars con il voto precedentemente inserito
+        letturaValutazione(collectionPathValutazione, ratingStarsDialog);
+        //Scrittura e aggiornamento del voto
+        ratingStarsDialog.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
+            //Se la valutazione data è maggiore di 0 (ha votato), allora salvo la valutazione in un contenitore unico per tutti gli utenti
+            if(rating > 0){
+                scritturaValutazioneDatabase(collectionPathValutazione, rating);
+            }
+        });
+
+        TextView titoloDialog = (TextView) rankDialog.findViewById(R.id.titleRating);
+        titoloDialog.setText("Dai un voto a: " + percorso.getNome());
+
+        Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
+        updateButton.setOnClickListener(v -> rankDialog.dismiss());
+
+        rankDialog.show();
 
     }
 
