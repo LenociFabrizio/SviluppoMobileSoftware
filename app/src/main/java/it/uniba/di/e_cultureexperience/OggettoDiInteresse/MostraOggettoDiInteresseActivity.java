@@ -19,7 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,11 +59,8 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         setContentView(R.layout.activity_oggetto_di_interesse);
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(this);
 
         //Prendo l'oggetto passato dall'intent
         Intent intent = getIntent();
@@ -204,30 +201,26 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions()
+                .position(sydney)
+                .title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-        map = googleMap;
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(latLng.latitude+" : "+ latLng.longitude)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                map.clear();
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                map.addMarker(markerOptions);
-            }
-        });
+//        map = googleMap;
+//
+//        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                markerOptions.title(latLng.latitude+" : "+ latLng.longitude)
+//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+//                map.clear();
+//                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+//                map.addMarker(markerOptions);
+//            }
+//        });
     }
-
-
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//        LatLng sydney = new LatLng(-33.852, 151.211);
-//        googleMap.addMarker(new MarkerOptions()
-//                .position(sydney)
-//                .title("Marker in Sydney"));
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10f));
-//    }
 }
