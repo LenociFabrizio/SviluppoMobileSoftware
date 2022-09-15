@@ -98,7 +98,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            if(task.getResult().size() > 0 && scannerizzato) {
+                            if(task.getResult().size() > 0 ) {
                                 //ha un quiz, rendo visibile il bottone del quiz(se è stato scannerizzato)
                                 quizBtn.setVisibility(View.VISIBLE);
                                 ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
@@ -129,7 +129,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         db.collection("/oggetti/")
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        if(task.getResult().size() > 0 && scannerizzato) {
+                        if(task.getResult().size() > 0) {
                             //ha un puzzle, rendo visibile il bottone del puzzle(se è stato scannerizzato)
                             puzzleBtn.setVisibility(View.VISIBLE);
                             puzzleBtn.setOnClickListener(v -> {

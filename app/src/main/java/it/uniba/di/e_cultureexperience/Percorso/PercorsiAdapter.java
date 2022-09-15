@@ -11,16 +11,20 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
 public class PercorsiAdapter implements ListAdapter {
     ArrayList<Percorso> arrayList;
+    List<LuogoDiInteresse> arrayListFiltered;
     Context context;
 
     public PercorsiAdapter(Context context, ArrayList<Percorso> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
+
     }
 
     @Override

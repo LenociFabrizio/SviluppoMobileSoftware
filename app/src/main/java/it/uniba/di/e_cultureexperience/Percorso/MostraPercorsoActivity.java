@@ -181,11 +181,12 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.share:
-                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+                Percorso percorso = getIntent().getExtras().getParcelable("percorso");
 
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere il"+percorso.getNome()+"\n\n"+percorso.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
