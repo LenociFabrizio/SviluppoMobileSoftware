@@ -2,6 +2,9 @@ package it.uniba.di.e_cultureexperience.Percorso;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,7 +20,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,8 +66,9 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
-<<<<<<< Updated upstream
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
+        //setto il colore dei pulsanti
+        //setColorButtons();
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
@@ -71,17 +77,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
-=======
-        /*
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        */
-        //prendo l' oggetto passato dall' intent
-        Percorso percorso = getIntent().getExtras().getParcelable("percorso");
-
-        //getSupportActionBar().setTitle(percorso.getNome());
->>>>>>> Stashed changes
-
 
         //prendo i riferimenti degli elementi del layout
         nomePercorso = findViewById(R.id.nome);
@@ -345,6 +340,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                             float mediaValutazione = (float) sommaValutazioni/numeroVotanti;
                             ratingStarsMedio.setRating(mediaValutazione);
                             numeroVotazioni.setText("(" + numeroVotanti + ")");
+                            numeroVotazioni.setTextColor(Color.parseColor("#ffffff"));
 
                             ratingStarsMedio.setClickable(false);
                         }
@@ -382,7 +378,21 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
         updateButton.setOnClickListener(v -> rankDialog.dismiss());
 
+        ratingStarsMedio=ratingStarsDialog;
         rankDialog.show();
+
+    }
+
+    public void setColorButtons(){
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_share_24);
+        Drawable unwrappedDrawable2 = AppCompatResources.getDrawable(this, R.drawable.toggle_selector);
+
+        assert unwrappedDrawable != null;
+        assert unwrappedDrawable2 != null;
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+        DrawableCompat.setTint(wrappedDrawable, Color.WHITE);
+        DrawableCompat.setTint(wrappedDrawable2, Color.RED);
 
     }
 

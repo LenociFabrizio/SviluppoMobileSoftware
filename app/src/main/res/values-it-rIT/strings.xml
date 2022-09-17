@@ -54,5 +54,6 @@
     //DASHBOARD_ACTIVITY
     <string name="timeOut" >Tempo scaduto!</string>
     <string name="turnAround" >torna indietro</string>
-
+    //MOSTRA PERCORSO
+    <string name="voto" >dai un punteggio al percorso!</string>
 </resources>
