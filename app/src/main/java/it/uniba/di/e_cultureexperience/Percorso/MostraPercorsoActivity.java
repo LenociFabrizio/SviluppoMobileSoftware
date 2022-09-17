@@ -61,6 +61,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
+<<<<<<< Updated upstream
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
 
         //prendo l' oggetto passato dall' intent
@@ -70,6 +71,16 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
+=======
+        /*
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        */
+        //prendo l' oggetto passato dall' intent
+        Percorso percorso = getIntent().getExtras().getParcelable("percorso");
+
+        //getSupportActionBar().setTitle(percorso.getNome());
+>>>>>>> Stashed changes
 
 
         //prendo i riferimenti degli elementi del layout
