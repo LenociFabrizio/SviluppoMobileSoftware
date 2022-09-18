@@ -21,19 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation" />
 
-    <ImageView
-        android:id="@+id/copertinaImage"
-        android:layout_width="411dp"
-        android:layout_height="156dp"
-        android:background="#3F51B5"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileImage"
         android:layout_width="147dp"
@@ -45,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.097"
+        app:layout_constraintVertical_bias="0.065"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -58,10 +45,10 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <TextView
         android:id="@+id/nicknameView"
@@ -169,31 +156,18 @@
             android:id="@+id/radio_ita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Italiano"
-            android:onClick="checkRadioGroup"/>
+            android:minHeight="48dp"
+            android:onClick="checkRadioGroup"
+            android:text="Italiano" />
 
         <RadioButton
             android:id="@+id/radio_eng"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inglese"
-            android:onClick="checkRadioGroup"/>
+            android:minHeight="48dp"
+            android:onClick="checkRadioGroup"
+            android:text="Inglese" />
 
     </RadioGroup>
-    <Button
-        android:id="@+id/btn_ita"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ita"
-        app:layout_constraintStart_toEndOf="@+id/changePasswordView"
-        app:layout_constraintTop_toBottomOf="@+id/preferitiView" />
-
-    <Button
-        android:id="@+id/btn_eng"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="eng"
-        app:layout_constraintStart_toEndOf="@+id/btn_ita"
-        app:layout_constraintTop_toBottomOf="@+id/preferitiView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

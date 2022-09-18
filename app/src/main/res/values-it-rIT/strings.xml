@@ -56,5 +56,5 @@
     <string name="turnAround" >torna indietro</string>
     <string name="review">recensione</string>
     <string name="reviews">recensioni</string>
-
+    <string name="voto" >dai un punteggio al percorso!</string>
 </resources>

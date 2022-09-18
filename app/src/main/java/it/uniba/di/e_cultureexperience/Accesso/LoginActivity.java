@@ -12,10 +12,15 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.nio.charset.Charset;
+import java.util.Random;
+
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class LoginActivity extends AppCompatActivity {
+
     private static EditText txtEmailLogin, txtPasswordLogin;
     private FirebaseAuth fAuth;
     private ToggleButton visibility;
@@ -33,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
         CheckBox rememberBox = findViewById(R.id.checkBox);
         visibility = findViewById(R.id.visibilityToggleButton);
 
+
+
         loginBtn.setOnClickListener(v -> loginBtnClick());
 
         txtGoToRegistration.setOnClickListener(v -> goToRegistration());
@@ -45,11 +52,6 @@ public class LoginActivity extends AppCompatActivity {
 
         if(checkbox.equals("true")){
             Intent intent = new Intent(LoginActivity.this, DashboardMeteActivity.class);
-
-            //mi carico il segnalino dal first access activity
-            boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
-            //immetto segnalino in dashboard mete
-            intent.putExtra("segnalino",loginGoogle);
 
             startActivity(intent);
         }
@@ -75,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    //todo: mettere *** quando digiti la password
+
     public void loginBtnClick(){
         String email = txtEmailLogin.getText().toString().trim();
         String password = txtPasswordLogin.getText().toString().trim();
@@ -94,15 +96,9 @@ public class LoginActivity extends AppCompatActivity {
         (fAuth.signInWithEmailAndPassword(email, password)).addOnCompleteListener(task -> {
 
             if(task.isSuccessful()){
-                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Login effettuato", Toast.LENGTH_LONG).show();
 
-                Intent i = new Intent(LoginActivity.this, /*QUI*/DashboardMeteActivity.class);
-
-                //mi carico il segnalino dal first activity
-                boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
-                //immetto segnalino in dashboard mete
-                i.putExtra("segnalino",loginGoogle);
-
+                Intent i = new Intent(LoginActivity.this, DashboardMeteActivity.class);
                 startActivity(i);
                 finish();
             }else{

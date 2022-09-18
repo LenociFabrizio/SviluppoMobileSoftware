@@ -94,8 +94,22 @@
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/menu/menu_mostra_luogo_di_interesse2.xml" value="0.16" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/menu/secondary_top_menu.xml" value="0.264" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/menu/top_menu.xml" value="0.264" />
+<<<<<<< HEAD
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1" />
+=======
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_first_access.xml" value="0.12033195020746888" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_percorso.xml" value="0.33" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_registration.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_risultato_quiz.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/rank_dialog.xml" value="0.1" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/bottom_navigation.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/menu_mostra_luogo_di_interesse2.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/secondary_top_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/top_menu.xml" value="0.36666666666666664" />
+>>>>>>> 673b838dd52e3fa6118475b78aa34aa3fbdfc95e
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_content.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/round_outline.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />

@@ -1,7 +1,11 @@
 package it.uniba.di.e_cultureexperience.Percorso;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,7 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -62,6 +68,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
+        //setto il colore dei pulsanti
+        //setColorButtons();
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
@@ -70,7 +78,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
-
 
         //prendo i riferimenti degli elementi del layout
         nomePercorso = findViewById(R.id.nome);
@@ -313,6 +320,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
      * Calcolo della media valutazione per un determinato oggetto di interesse (WIP)
      * @param collectionPath
      */
+    @SuppressLint("DefaultLocale")
     public void calcoloMediaValutazione(String collectionPath){
 
         db.collection(collectionPath)
@@ -332,14 +340,14 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 sommaValutazioni = valutazione + sommaValutazioni;
                             }
                             float media = (float) sommaValutazioni/numeroVotanti;
-                            mediaValutazione.setText(String.valueOf(media));
+
+                            mediaValutazione.setText(String.format("%.02f", media));
                             if(numeroVotanti > 1){
                                 numeroVotazioni.setText( numeroVotanti +  getString(R.string.reviews));
                             }
                             else{
                                 numeroVotazioni.setText( numeroVotanti +  getString(R.string.review));
                             }
-
 
 
                         }
@@ -380,7 +388,21 @@ public class MostraPercorsoActivity extends AppCompatActivity {
             rankDialog.dismiss();
         });
 
+
         rankDialog.show();
+
+    }
+
+    public void setColorButtons(){
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_share_24);
+        Drawable unwrappedDrawable2 = AppCompatResources.getDrawable(this, R.drawable.toggle_selector);
+
+        assert unwrappedDrawable != null;
+        assert unwrappedDrawable2 != null;
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
+        DrawableCompat.setTint(wrappedDrawable, Color.WHITE);
+        DrawableCompat.setTint(wrappedDrawable2, Color.RED);
 
     }
 
