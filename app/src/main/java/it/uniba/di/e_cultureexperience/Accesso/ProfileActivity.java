@@ -14,7 +14,6 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,7 +38,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.sun.xml.bind.v2.TODO;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
@@ -47,7 +45,6 @@ import java.util.Locale;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
-import it.uniba.di.e_cultureexperience.QuizGame.StartGame;
 import it.uniba.di.e_cultureexperience.R;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -55,13 +52,12 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView nickname;
     private final int TAKE_IMAGE_CODE = 10001;
     private int CAMERA_PERMISSION_CODE = 1;
-    private FirebaseAuth fAuth;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
-    String TAG;
 
-    RadioGroup radioGroup;
-    RadioButton radioIta,radioEng,selectedLanguage;
+    private RadioGroup radioGroup;
+    private RadioButton radioIta, radioEng, selectedLanguage;
 
 
     @Override
@@ -70,19 +66,14 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-
         Locale current = getResources().getConfiguration().locale;
-
 
         Log.e("lingua", current.getLanguage());
 
         TextView email = findViewById(R.id.emailView);
-        fAuth = FirebaseAuth.getInstance();
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
-        Button itaBtn = findViewById(R.id.btn_ita);
         radioGroup = findViewById(R.id.radio_group);
         radioIta = findViewById(R.id.radio_ita);
         radioEng = findViewById(R.id.radio_eng);
@@ -95,68 +86,55 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        itaBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setLocale("it");
-                }
-        });
-
-        Button engBtn = findViewById(R.id.btn_eng);
-
-        engBtn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   setLocale("en-rGB");
-               }
-           }
-        );
-
-        //foto profilo
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            if (user.getPhotoUrl() != null) {
-                Glide.with(this).load(user.getPhotoUrl()).into(profileImageView);
+            if(user.isAnonymous()){
+                email.setText("Sei ospite!");
+                nickname.setText(fAuth.getUid());
+            }else{
+                if (user.getPhotoUrl() != null) {
+                    Glide.with(this).load(user.getPhotoUrl()).into(profileImageView);
+                }
+                email.setText(fAuth.getCurrentUser().getEmail());
+                setNickname();
             }
+
         }
 
-        //Faccio visualizzare l'email, password con cui ha effettuato l'accesso
-        email.setText(fAuth.getCurrentUser().getEmail());
+        onCreateBottomNavigation();
+    }
 
-        //Ricercare il proprio nickname con idDB == idLocale
-        db.collection("utenti")
+    /**
+     * Ricerca il proprio nickname nel database collectinPath e lo mostro in output
+     */
+    public void setNickname(){
+
+        String collectionPath = "utenti";
+        db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
 
                     if (task.isSuccessful()) {
 
-                        if (task.getResult() != null) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            String nicknameDataBase = document.getString("nickname");
+                            String idDataBase = document.getString("idUtente");
 
-                                String nicknameDataBase = document.getString("nickname");
-                                String idDataBase = document.getString("idUtente");
-                                Log.d("FETCH", document.getId() + " leggo=> " + nicknameDataBase);
+                            if (idDataBase.equals(fAuth.getUid())) {
+                                nickname.setText(nicknameDataBase);
+                                return;
 
-                                if (idDataBase.equals(fAuth.getUid())) {
-                                    Log.d("ID UTENTE UGUALE", idDataBase + " = " + fAuth.getUid());
-                                    nickname.setText(nicknameDataBase);
-                                    return;
-
-                                } else {
-                                    Log.d("Errir", "ID non trovato");
-                                }
+                            } else {
+                                Log.d("Error", "ID non trovato");
                             }
-                        } else {
-                            Log.d("Error", "Database utenti vuoto");
                         }
                     } else {
                         Log.w("Error", "Error getting documents.", task.getException());
                     }
-
                 });
-        onCreateBottomNavigation();
     }
+
 
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -185,12 +163,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
             return false;
         });
-    }
-
-    //TEST
-    public void launchQuizGame(View view){
-        Intent i = new Intent(ProfileActivity.this, StartGame.class);
-        startActivity(i);
     }
 
     public void changePassw(View v){
@@ -274,12 +246,12 @@ public class ProfileActivity extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getCurrentUser(). getUid();
         StorageReference reference = FirebaseStorage.getInstance().getReference().child("profileImages").child(uid + ".jpeg");
 
-        reference.putBytes(baos.toByteArray()).addOnSuccessListener(taskSnapshot -> getDownloadUrl(reference)).addOnFailureListener(e -> Log.e(TAG, "onFailure: ", e.getCause()));
+        reference.putBytes(baos.toByteArray()).addOnSuccessListener(taskSnapshot -> getDownloadUrl(reference)).addOnFailureListener(e -> Log.e("TAG", "onFailure: ", e.getCause()));
     }
 
     private void getDownloadUrl(StorageReference reference){
         reference.getDownloadUrl().addOnSuccessListener(uri -> {
-            Log.d(TAG, "onSuccess: " + uri);
+            Log.d("TAG", "onSuccess: " + uri);
             setUserProfileUrl(uri);
         });
     }
@@ -289,17 +261,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
 
-        user.updateProfile(request).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(ProfileActivity.this,"Updated succesfully", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
-            }
-        });
+        user.updateProfile(request)
+                .addOnSuccessListener(unused -> Toast.makeText(ProfileActivity.this,"Updated succesfully", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show());
     }
 
     public void setLocale(String lang) {
