@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="2dip">
+    android:layout_centerVertical="true"
+    android:padding="@dimen/text_margin">
 
     <TextView
         android:id="@+id/titleRating"
@@ -33,14 +34,17 @@
         tools:ignore="SpeakableTextPresentCheck"
         android:progressBackgroundTint="@color/light_grey"/>
 
-    <Button
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/rank_dialog_button"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dip"
-        android:focusable="false"
-        android:text="CONFERMA"
-        android:textColor="#FFF8C6"
-        android:textSize="20dip" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:contentDescription="Conferma"
+        android:gravity="center"
+        android:text="Conferma"
+        android:textAlignment="center"
+        android:theme="@style/Theme.MyApplication3.FloatingButton" />
+
 
 </LinearLayout>

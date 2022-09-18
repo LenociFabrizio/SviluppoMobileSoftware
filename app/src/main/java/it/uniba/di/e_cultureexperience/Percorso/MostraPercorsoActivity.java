@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,9 +40,8 @@ import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
-    private TextView nomePercorso, descrizionePercorso, durataPercorso, numeroVotazioni;
+    private TextView nomePercorso, descrizionePercorso, durataPercorso, numeroVotazioni, mediaValutazione;
     private ListView listViewOggetti;
-    private RatingBar ratingStarsMedio;
     private Button openDialogBtn;
 
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
@@ -79,9 +79,9 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
         durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
-        ratingStarsMedio = findViewById(R.id.ratingBar);
         openDialogBtn = findViewById(R.id.btnOpenDialog);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
+        mediaValutazione = findViewById(R.id.rating_avg);
 
         //S T A R T - Rating stars
         //TODO: decidere posizione del Rating stars
@@ -331,11 +331,17 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                                 sommaValutazioni = valutazione + sommaValutazioni;
                             }
-                            float mediaValutazione = (float) sommaValutazioni/numeroVotanti;
-                            ratingStarsMedio.setRating(mediaValutazione);
-                            numeroVotazioni.setText("(" + numeroVotanti + ")");
+                            float media = (float) sommaValutazioni/numeroVotanti;
+                            mediaValutazione.setText(String.valueOf(media));
+                            if(numeroVotanti > 1){
+                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.reviews));
+                            }
+                            else{
+                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.review));
+                            }
 
-                            ratingStarsMedio.setClickable(false);
+
+
                         }
                     }
                 });
@@ -368,8 +374,11 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         TextView titoloDialog = (TextView) rankDialog.findViewById(R.id.titleRating);
         titoloDialog.setText("Dai un voto a: " + percorso.getNome());
 
-        Button updateButton = (Button) rankDialog.findViewById(R.id.rank_dialog_button);
-        updateButton.setOnClickListener(v -> rankDialog.dismiss());
+        ExtendedFloatingActionButton updateButton = rankDialog.findViewById(R.id.rank_dialog_button);
+        updateButton.setOnClickListener(v -> {
+            Toast.makeText(this,"Hai valutato correttamente il percorso",Toast.LENGTH_SHORT).show();
+            rankDialog.dismiss();
+        });
 
         rankDialog.show();
 

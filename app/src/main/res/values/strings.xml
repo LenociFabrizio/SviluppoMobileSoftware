@@ -141,7 +141,8 @@
     <string name="punteggio" >score</string>
     <string name="timeOut" >time out!!</string>
     <string name="turnAround" >turn around</string>
-
+    <string name="review" >review</string>
+    <string name="reviews" >reviews</string>
 
 
 </resources>

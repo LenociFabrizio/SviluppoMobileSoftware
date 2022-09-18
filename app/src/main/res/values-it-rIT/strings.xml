@@ -54,5 +54,7 @@
     //DASHBOARD_ACTIVITY
     <string name="timeOut" >Tempo scaduto!</string>
     <string name="turnAround" >torna indietro</string>
+    <string name="review">recensione</string>
+    <string name="reviews">recensioni</string>
 
 </resources>
