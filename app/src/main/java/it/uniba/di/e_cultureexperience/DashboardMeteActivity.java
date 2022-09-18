@@ -43,12 +43,13 @@ public class DashboardMeteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        list_view_mete = findViewById(R.id.lista_luoghi);
+        list_view_mete.setLayoutManager(new LinearLayoutManager(this));
 
         FirebaseFirestore db;
 
         mete = new ArrayList<>();
 
-        list_view_mete = findViewById(R.id.lista_luoghi);
         db = FirebaseFirestore.getInstance();
 
         db.collection("mete").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -117,7 +118,10 @@ public class DashboardMeteActivity extends AppCompatActivity {
     }
 
 
-
+    public void onResume() {
+        super.onResume();
+        list_view_mete.setAdapter(customAdapter);
+    }
 
 
     @Override

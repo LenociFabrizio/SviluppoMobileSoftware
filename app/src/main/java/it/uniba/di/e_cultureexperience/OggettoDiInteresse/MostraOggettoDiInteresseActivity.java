@@ -46,11 +46,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MostraOggettoDiInteresseActivity extends AppCompatActivity implements OnMapReadyCallback {
-    private TextView descrizioneOggetto, bluetoothOggetto;
-    private ImageView immagineOggetto;
     private Button quizBtn, puzzleBtn;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private GoogleMap map;
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @SuppressLint("ResourceType")
     @Override
@@ -60,16 +57,18 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         // Get the SupportMapFragment and request notification when the map is ready to be used.
         SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        supportMapFragment.getMapAsync(this);
+        if (supportMapFragment != null) {
+            supportMapFragment.getMapAsync(this);
+        }
 
         //Prendo l'oggetto passato dall'intent
         Intent intent = getIntent();
         OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
         boolean scannerizzato = intent.getBooleanExtra("scannerizzato", false);
 
-        descrizioneOggetto = findViewById(R.id.descrizioneTxt);
-        immagineOggetto = findViewById(R.id.immagineOggetto);
-        bluetoothOggetto  = findViewById(R.id.bluetoothIdTxt);
+        TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
+        ImageView immagineOggetto = findViewById(R.id.immagineOggetto);
+        TextView bluetoothOggetto = findViewById(R.id.bluetoothIdTxt);
         quizBtn = findViewById(R.id.btn_quiz);
         puzzleBtn = findViewById(R.id.btn_puzzleGame);
 
@@ -190,37 +189,14 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         return super.onSupportNavigateUp();
     }
 
-    /*
-     * Manipulates the map when it's available.
-     * The API invokes this callback when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user receives a prompt to install
-     * Play services inside the SupportMapFragment. The API invokes this method after the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng sydney = new LatLng(-33.852, 151.211);
+        Intent intent = getIntent();
+        OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
+        LatLng coordinate = new LatLng(oggettoDiInteresse.getLatitudine(), oggettoDiInteresse.getLongitudine());
         googleMap.addMarker(new MarkerOptions()
-                .position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
-//        map = googleMap;
-//
-//        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//            @Override
-//            public void onMapClick(LatLng latLng) {
-//                MarkerOptions markerOptions = new MarkerOptions();
-//                markerOptions.position(latLng);
-//                markerOptions.title(latLng.latitude+" : "+ latLng.longitude)
-//                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//                map.clear();
-//                map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-//                map.addMarker(markerOptions);
-//            }
-//        });
+                .position(coordinate)
+                .title(oggettoDiInteresse.getNome()));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
     }
 }

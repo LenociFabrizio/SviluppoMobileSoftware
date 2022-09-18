@@ -31,7 +31,7 @@ public class QRScanner extends AppCompatActivity {
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setPrompt("Stringa per il flash");
         integrator.setOrientationLocked(true);
-        integrator.setCaptureActivity(Capture.class);
+        //integrator.setCaptureActivity(Capture.class);
         integrator.initiateScan();
     }
 

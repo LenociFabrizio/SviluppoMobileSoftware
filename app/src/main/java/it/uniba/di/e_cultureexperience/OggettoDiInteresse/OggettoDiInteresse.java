@@ -5,16 +5,18 @@ import android.os.Parcelable;
 
 public final class OggettoDiInteresse implements Parcelable {
     private String id, nome, descrizione, url_immagine, bluetooth_id;
-    private boolean visitato;
+    private double latitudine, longitudine;
 
     public OggettoDiInteresse(){}
 
-    public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id) {
+    public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id, double latitudine, double longitudine) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.url_immagine = url_immagine;
         this.bluetooth_id = bluetooth_id;
+        this.latitudine = latitudine;
+        this.longitudine = longitudine;
     }
 
     public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id, boolean visitato) {
@@ -23,7 +25,6 @@ public final class OggettoDiInteresse implements Parcelable {
         this.descrizione = descrizione;
         this.url_immagine = url_immagine;
         this.bluetooth_id = bluetooth_id;
-        this.visitato = visitato;
     }
 
     protected OggettoDiInteresse(Parcel in) {
@@ -32,6 +33,8 @@ public final class OggettoDiInteresse implements Parcelable {
         descrizione = in.readString();
         url_immagine = in.readString();
         bluetooth_id = in.readString();
+        latitudine = in.readDouble();
+        longitudine = in.readDouble();
     }
 
     public static final Creator<OggettoDiInteresse> CREATOR = new Creator<OggettoDiInteresse>() {
@@ -58,6 +61,8 @@ public final class OggettoDiInteresse implements Parcelable {
         parcel.writeString(descrizione);
         parcel.writeString(url_immagine);
         parcel.writeString(bluetooth_id);
+        parcel.writeDouble(latitudine);
+        parcel.writeDouble(longitudine);
     }
 
     public String getId() { return id; }
@@ -96,12 +101,20 @@ public final class OggettoDiInteresse implements Parcelable {
         this.bluetooth_id = bluetooth_id;
     }
 
-    public boolean isVisitato() {
-        return visitato;
+    public double getLatitudine() {
+        return latitudine;
     }
 
-    public void setVisitato(boolean visitato) {
-        this.visitato = visitato;
+    public void setLatitudine(double latitudine) {
+        this.latitudine = latitudine;
+    }
+
+    public double getLongitudine() {
+        return longitudine;
+    }
+
+    public void setLongitudine(double longitudine) {
+        this.longitudine = longitudine;
     }
 
     @Override
