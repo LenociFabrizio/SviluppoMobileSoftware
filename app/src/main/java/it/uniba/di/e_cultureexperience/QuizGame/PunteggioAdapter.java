@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import it.uniba.di.e_cultureexperience.R;
@@ -77,6 +79,15 @@ class PunteggioAdapter implements ListAdapter {
 
         }
         return convertView;
+    }
+    
+    public TextView getPunteggio(int position, @NonNull View convertView){
+        final SingolaRigaClassifica singolaRigaClassifica = arrayList.get(position);
+        //Punteggio
+        TextView txtPunteggio = convertView.findViewById(R.id.txt_punteggio);
+        txtPunteggio.setText(""+singolaRigaClassifica.getPunteggio());
+
+        return txtPunteggio;
     }
 
     @Override

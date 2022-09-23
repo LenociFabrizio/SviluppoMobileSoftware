@@ -23,14 +23,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -94,6 +91,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -167,6 +165,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 

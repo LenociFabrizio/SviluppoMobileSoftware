@@ -1,20 +1,22 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -27,10 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import it.uniba.di.e_cultureexperience.Accesso.LoginActivity;
-import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class RisultatoQuizActivity extends AppCompatActivity {
@@ -47,8 +48,11 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     private ImageView immagineOggetto;
 
     //pulsante riprova
-    private Button esitoBtn;
+    private Button riprovaBtn;
+    private Button esciBtn;
+    private Button shareBtn;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +121,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                                     }
                                 }
                                 //Se sono arrivato alla fine e non ho ancora trovato l'utente, allora scrivo perchè vuol dire che è il suo primo record effettuato del quiz
-                                if(countRigaClassifica == sizeDataBase && recordTrovato == false){
+                                if(countRigaClassifica == sizeDataBase && !recordTrovato){
                                     ricercaNicknameConScrittura(numeroRisposteCorrette, collectionPath);
                                 }
                             }//fine for
@@ -135,20 +139,22 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         //F I N I S H - Mostrare Output classifica aggiornata
 
-
-        esitoBtn = findViewById(R.id.resultButton);
+        riprovaBtn = findViewById(R.id.tryAgainBtn);
+        esciBtn = findViewById(R.id.btnEsci);
+        shareBtn = findViewById(R.id.btnCondividi);
         TextView risultato = findViewById(R.id.risultatoText);
+        //modifico il colore dei pulsanti di questa activity
         setColorButton();
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
 
 
-        esitoBtn.setOnClickListener(v -> {
+        riprovaBtn.setOnClickListener(v -> {
 
-            GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
+            GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
             bgShape1.setColor(Color.parseColor("#000000"));
-            esitoBtn.setTextColor(Color.parseColor("#ffffff"));
+            riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
 
             Intent intent = new Intent(getApplicationContext(), DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -157,6 +163,28 @@ public class RisultatoQuizActivity extends AppCompatActivity {
             intent.putExtra("url", urlImmagineOggetto);
             getApplicationContext().startActivity(intent);
             finish();
+        });
+
+        esciBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), DashboardMeteActivity.class);
+                startActivity(i);
+            }
+        });
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, "Vieni a vedere "  + "\n\n" + "\n\n" + "Scaricati l'app ECulture-Experience!");
+
+                startActivity(Intent.createChooser(intent, "Condividi il luogo di interesse"));
+
+            }
         });
 
     }
@@ -234,7 +262,11 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     }
 
     public void setColorButton(){
-        GradientDrawable bgShape1 = (GradientDrawable) esitoBtn.getBackground();
+        GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
         bgShape1.setColor(Color.parseColor("#ffffff"));
+        GradientDrawable bgShape2 = (GradientDrawable) esciBtn.getBackground();
+        GradientDrawable bgShape3 = (GradientDrawable) shareBtn.getBackground();
+        bgShape2.setColor(Color.parseColor("#ffffff"));
+        bgShape3.setColor(Color.parseColor("#ffffff"));
     }
 }

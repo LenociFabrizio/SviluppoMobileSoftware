@@ -144,6 +144,9 @@
     <string name="review" >review</string>
     <string name="reviews" >reviews</string>
     <string name="voto" >score the course</string>
+    <string name="classifica">Ranking</string>
+
+
 
 
 </resources>

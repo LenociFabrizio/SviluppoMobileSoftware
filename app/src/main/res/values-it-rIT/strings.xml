@@ -39,6 +39,7 @@
     <string name="risultatoFinale">Risultato finale</string>
     <string name="riprova">Riprova!</string>
     <string name="gioca">Gioca!</string>
+    <string name="classifica">Classifica</string>
     //START GAME
     <string name="tempoScaduto">Tempo Scaduto!</string>
     <string name="vaiVia">Esci</string>

@@ -27,8 +27,7 @@
             <ImageView
                 android:id="@+id/immagine"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:contentDescription="cane"
+                android:layout_height="match_parent"
                 android:scaleType="fitXY" />
 
             <androidx.appcompat.widget.Toolbar
@@ -41,42 +40,40 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-
+    <TextView
+        android:id="@+id/classificaText"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:text="@string/classifica"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/lista_classifica"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
 
     <ListView
         android:id="@+id/lista_classifica"
         android:layout_width="250dp"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintTop_toBottomOf="@+id/classificaText"
+        tools:layout_editor_absoluteY="266dp" />
 
     <TextView
         android:id="@+id/risultatoText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="textview"
+
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/resultButton"
+        app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintHorizontal_bias="0.639"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
-        app:layout_constraintVertical_bias="0.741" />
-
-    <Button
-        android:id="@+id/resultButton"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/riprova"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_classifica" />
+        app:layout_constraintVertical_bias="0.545" />
 
     <TextView
         android:id="@+id/esitoText"
@@ -84,12 +81,49 @@
         android:layout_height="wrap_content"
         android:text="@string/punteggio"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/resultButton"
+        app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
         app:layout_constraintEnd_toStartOf="@+id/risultatoText"
-        app:layout_constraintHorizontal_bias="0.657"
+        app:layout_constraintHorizontal_bias="0.65"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
-        app:layout_constraintVertical_bias="0.763" />
+        app:layout_constraintVertical_bias="0.572" />
+
+    <Button
+        android:id="@+id/tryAgainBtn"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_button_quiz_game"
+        android:text="@string/riprova"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
+        app:layout_constraintVertical_bias="0.42" />
+
+    <Button
+        android:id="@+id/btnEsci"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="112dp"
+        android:background="@drawable/rounded_button_quiz_game"
+        android:text="@string/esci"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tryAgainBtn"
+        app:layout_constraintVertical_bias="0.38" />
+
+    <Button
+        android:id="@+id/btnCondividi"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="116dp"
+        android:background="@drawable/rounded_button_quiz_game"
+        android:text="@string/share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tryAgainBtn"
+        app:layout_constraintVertical_bias="0.38" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
