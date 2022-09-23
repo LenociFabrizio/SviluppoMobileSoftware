@@ -5,12 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -19,7 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
@@ -39,16 +36,15 @@ import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
-    private TextView nomePercorso, descrizionePercorso, durataPercorso, numeroVotazioni, mediaValutazione;
+    private TextView numeroVotazioni;
+    private TextView mediaValutazione;
     private ListView listViewOggetti;
-    private Button openDialogBtn;
 
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
@@ -56,14 +52,13 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     private String collectionPathValutazione, collectionPathOggetti;
+    private Float mediaStelle;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mostra_percorso);
-
-        Toast.makeText(getApplicationContext(),"Percorso scelto",Toast.LENGTH_SHORT).show();
-
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
 
@@ -80,13 +75,13 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(percorso.getNome());
 
         //prendo i riferimenti degli elementi del layout
-        nomePercorso = findViewById(R.id.nome);
-        descrizionePercorso = findViewById(R.id.descrizione);
-        durataPercorso = findViewById(R.id.durata);
+        TextView nomePercorso = findViewById(R.id.nome);
+        TextView descrizionePercorso = findViewById(R.id.descrizione);
+        TextView durataPercorso = findViewById(R.id.durata);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
         durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
-        openDialogBtn = findViewById(R.id.btnOpenDialog);
+        Button openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
         mediaValutazione = findViewById(R.id.rating_avg);
 
@@ -95,6 +90,11 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         collectionPathValutazione = "percorsi/" + percorso.getId() + "/valutazione";
 
         calcoloMediaValutazione(collectionPathValutazione);
+
+        //String s=Float.toString(mediaStelle);
+        //Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+
+        System.out.println("000000000000000ms=" + mediaStelle);
 
         openDialogBtn.setOnClickListener(v -> {
             writeRating(percorso, collectionPathValutazione);
@@ -145,6 +145,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("NonConstantResourceId")
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -185,6 +186,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -195,7 +197,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere il"+percorso.getNome()+"\n\n"+percorso.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere il "+percorso.getNome()+"\n\n"+"\n\n"+percorso.getDescrizione()+"\n\n"+ "valutazione media:"+mediaStelle+"/5"+"\n\n"+"Scaricati l'app ECulture-Experience!");
 
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
@@ -319,9 +321,11 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     /**
      * Calcolo della media valutazione per un determinato oggetto di interesse (WIP)
      * @param collectionPath
+     * @return
      */
-    @SuppressLint("DefaultLocale")
-    public void calcoloMediaValutazione(String collectionPath){
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
+    public Float calcoloMediaValutazione(String collectionPath){
+        
 
         db.collection(collectionPath)
                 .get()
@@ -340,6 +344,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 sommaValutazioni = valutazione + sommaValutazioni;
                             }
                             float media = (float) sommaValutazioni/numeroVotanti;
+                            mediaStelle = (float) sommaValutazioni / numeroVotanti;
+
 
                             mediaValutazione.setText(String.format("%.02f", media));
                             if(numeroVotanti > 1){
@@ -353,7 +359,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                         }
                     }
                 });
-
+        
+        return mediaStelle;
 
     }
 
@@ -403,8 +410,5 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         Drawable wrappedDrawable2 = DrawableCompat.wrap(unwrappedDrawable2);
         DrawableCompat.setTint(wrappedDrawable, Color.WHITE);
         DrawableCompat.setTint(wrappedDrawable2, Color.RED);
-
     }
-
-
 }
