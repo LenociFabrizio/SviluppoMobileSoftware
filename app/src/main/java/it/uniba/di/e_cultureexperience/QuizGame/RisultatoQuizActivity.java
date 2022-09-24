@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,10 +26,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class RisultatoQuizActivity extends AppCompatActivity {
@@ -66,16 +64,21 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         int numeroRisposteSbagliate = getIntent().getIntExtra("RISPOSTA_SBAGLIATA", 0);
         int numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
 
+        //variabile punteggio quiz, la uso per condividerla se clicca il pulsante shareBTn
+        AtomicLong punteggioMassimo= new AtomicLong();
+
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
         String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
         immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
-
         Picasso.with(this)
                 .load(urlImmagineOggetto)
                 .into(immagineOggetto);
+
+        //carico il nome del percorso (per condividelo se clicca il bottone share)
+        String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
 
         db.collection(collectionPath)
                 .get()
@@ -99,7 +102,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
                                 String idDataBase = document.getString("idUtente");
                                 long punteggioDataBase = document.getLong("punteggio");
-
+                                punteggioMassimo.set(punteggioDataBase);
                                 //Controllo se c'è stato già un punteggio vecchio fatto dallo stesso utente
                                 if(Objects.equals(fAuth.getUid(), idDataBase)){
                                     recordTrovato = true;
@@ -143,6 +146,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         esciBtn = findViewById(R.id.btnEsci);
         shareBtn = findViewById(R.id.btnCondividi);
         TextView risultato = findViewById(R.id.risultatoText);
+
         //modifico il colore dei pulsanti di questa activity
         setColorButton();
 
@@ -168,6 +172,12 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         esciBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //cambio il colore in nero (solo al tocco)
+                GradientDrawable bgShape1 = (GradientDrawable) esciBtn.getBackground();
+                bgShape1.setColor(Color.parseColor("#000000"));
+                esciBtn.setTextColor(Color.parseColor("#ffffff"));
+
+                //esco dall'activity
                 Intent i = new Intent(getApplicationContext(), DashboardMeteActivity.class);
                 startActivity(i);
             }
@@ -176,12 +186,15 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+                //cambio il colore in nero (solo al tocco)
+                GradientDrawable bgShape1 = (GradientDrawable) shareBtn.getBackground();
+                bgShape1.setColor(Color.parseColor("#000000"));
+                shareBtn.setTextColor(Color.parseColor("#ffffff"));
 
+                //avvio intent share
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Vieni a vedere "  + "\n\n" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-
+                intent.putExtra(Intent.EXTRA_TEXT, "nel percorso ''"+nomeOggetto+ "'' il mio miglior punteggio è:"+ punteggioMassimo+ "/"+numeroRisposteTotali+"\n\n" +"Prova a battermi!"+ "\n\n" + "Scaricati l'app ECulture-Experience!");
                 startActivity(Intent.createChooser(intent, "Condividi il luogo di interesse"));
 
             }

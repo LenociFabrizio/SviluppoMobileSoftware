@@ -11,12 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,11 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.MostraOggettoDiInteresseActivity;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -76,7 +68,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
-
         Picasso.with(this)
                 .load(urlImmagineOggetto)
                 .into(immagineOggetto);
@@ -89,6 +80,11 @@ public class DashboardActivity extends AppCompatActivity {
                 progressBar.setProgress((int) timerValue * 100 / (20000 / 1000));
             }
 
+            /**
+             * Quando il timer scade, elimino due pulsanti e ne rimane solo uno (secondaOpzione), che se cliccato esce dall'activity
+             *
+             */
+
             @Override
             public void onFinish() {
                 timerValue++;
@@ -98,6 +94,7 @@ public class DashboardActivity extends AppCompatActivity {
                 primaOpzione.setVisibility(View.GONE);
                 terzaOpzione.setVisibility(View.GONE);
                 secondaOpzione.setText(R.string.vaiVia);
+
 
                 secondaOpzione.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -211,16 +208,21 @@ public class DashboardActivity extends AppCompatActivity {
             modelClass = list.get(i);
             setAllData();
         } else {
-            Intent intent = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+            Intent i = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
             //Prendo l'oggetto passato dall'intent
             String urlImmagineOggetto = getIntent().getExtras().getString("url");
+            //carico il nome del percorso (per condividelo nel risultatoQuiz)
+            String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
 
-            intent.putExtra("idOggetto", idOgg);
-            intent.putExtra("quesiti", list);
-            intent.putExtra("RISPOSTA_CORRETTA", correttaCount);
-            intent.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
-            intent.putExtra("url",urlImmagineOggetto);
-            startActivity(intent);
+
+            i.putExtra("idOggetto", idOgg);
+            i.putExtra("quesiti", list);
+            i.putExtra("RISPOSTA_CORRETTA", correttaCount);
+            i.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
+            i.putExtra("url",urlImmagineOggetto);
+            i.putExtra("nomeOggetto",nomeOggetto);
+
+            startActivity(i);
             finish();
         }
     }

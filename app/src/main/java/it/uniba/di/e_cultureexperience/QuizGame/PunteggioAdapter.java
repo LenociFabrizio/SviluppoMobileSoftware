@@ -80,15 +80,6 @@ class PunteggioAdapter implements ListAdapter {
         }
         return convertView;
     }
-    
-    public TextView getPunteggio(int position, @NonNull View convertView){
-        final SingolaRigaClassifica singolaRigaClassifica = arrayList.get(position);
-        //Punteggio
-        TextView txtPunteggio = convertView.findViewById(R.id.txt_punteggio);
-        txtPunteggio.setText(""+singolaRigaClassifica.getPunteggio());
-
-        return txtPunteggio;
-    }
 
     @Override
     public int getItemViewType(int position) {

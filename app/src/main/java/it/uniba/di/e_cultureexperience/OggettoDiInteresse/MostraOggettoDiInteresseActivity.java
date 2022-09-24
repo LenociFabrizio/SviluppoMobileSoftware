@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +66,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         //Prendo l'oggetto passato dall'intent
         Intent intent = getIntent();
         OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
+
         boolean scannerizzato = intent.getBooleanExtra("scannerizzato", false);
 
         TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
@@ -113,6 +116,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                                         i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
                                         i.putExtra("idOggetto", oggettoDiInteresse.getId());
                                         i.putExtra("quesiti", quesiti);
+                                        i.putExtra("nomeOggetto",oggettoDiInteresse.getNome());
                                         getApplicationContext().startActivity(i);
                                     }
                                 });
@@ -157,6 +161,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         win.setAttributes(winParams);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //Set Home Selected

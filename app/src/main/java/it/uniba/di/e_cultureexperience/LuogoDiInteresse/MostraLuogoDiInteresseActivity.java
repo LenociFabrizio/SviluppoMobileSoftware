@@ -161,7 +161,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                     }
                 });
 
-        Toast.makeText(this,"valore iniziale",Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -176,15 +175,12 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
-
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
 
             case R.id.favourite_btn:
                 //Toast.makeText(this, item.toString(),Toast.LENGTH_SHORT).show();
                 onFavoriteToggleClick2(item);
-
-
                 if(item.isChecked()){
 
                     Toast.makeText(this, "checked",Toast.LENGTH_SHORT).show();
@@ -195,15 +191,11 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
                 item.setChecked(!item.isChecked());
                 return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
-
-
     }
 
     public void setPercorsi(LuogoDiInteresse luogo){
