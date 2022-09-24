@@ -2,128 +2,136 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/layout_luogo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizGame.RisultatoQuizActivity">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+    android:descendantFocusability="blocksDescendants"
+    tools:context=".LuogoDiInteresse.MostraLuogoDiInteresseActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent"
         android:fitsSystemWindows="true"
-        android:theme="@style/Theme.ECultureExperience.AppBarOverlay"
-        tools:ignore="MissingConstraints">
+        >
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true" >
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?android:colorPrimary"
+                android:id="@+id/collapsing_toolbar"
+                app:toolbarId="@id/toolbar_luogodiinteresse">
+
+
+                <ImageView
+                    android:id="@+id/immagine"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
+                    android:contentDescription="immagine"
+                    app:layout_collapseMode="parallax"/>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar_luogodiinteresse"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin"
+                    app:menu="@menu/secondary_top_menu"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:fillViewport="true"
+            android:layout_marginBottom="60dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <ImageView
-                android:id="@+id/immagine"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY" />
+                android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.ECultureExperience.PopupOverlay" />
+                <TextView
+                    android:id="@+id/classificaText"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="140dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:text="@string/classifica"
+                    android:textSize="30sp" />
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+                <ListView
+                    android:id="@+id/lista_classifica"
+                    android:layout_width="250dp"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/classificaText"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="75dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
+                    app:layout_constraintTop_toBottomOf="@+id/classificaText"
+                    tools:layout_editor_absoluteY="266dp"
+                    android:layout_marginTop="10dp"/>
 
-    <TextView
-        android:id="@+id/classificaText"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:gravity="center"
-        android:text="@string/classifica"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@+id/lista_classifica"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+                <TextView
+                    android:id="@+id/risultatoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lista_classifica"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="250dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="24sp"
+                    />
 
+                <TextView
+                    android:id="@+id/esitoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/lista_classifica"
+                    android:layout_marginHorizontal="120dp"
+                    android:text="@string/punteggio"
+                    android:textSize="24sp"
+                    android:layout_marginTop="10dp"/>
 
-    <ListView
-        android:id="@+id/lista_classifica"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/classificaText"
-        tools:layout_editor_absoluteY="266dp" />
+                <Button
+                    android:id="@+id/tryAgainBtn"
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/risultatoText"
+                    android:background="@drawable/rounded_button_quiz_game"
 
-    <TextView
-        android:id="@+id/risultatoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginHorizontal="80dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/riprova" />
 
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.639"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
-        app:layout_constraintVertical_bias="0.545" />
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
 
-    <TextView
-        android:id="@+id/esitoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/punteggio"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
-        app:layout_constraintEnd_toStartOf="@+id/risultatoText"
-        app:layout_constraintHorizontal_bias="0.65"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
-        app:layout_constraintVertical_bias="0.572" />
-
-    <Button
-        android:id="@+id/tryAgainBtn"
-        android:layout_width="180dp"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/riprova"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lista_classifica"
-        app:layout_constraintVertical_bias="0.42" />
-
-    <Button
-        android:id="@+id/btnEsci"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="112dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/esci"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tryAgainBtn"
-        app:layout_constraintVertical_bias="0.38" />
-
-    <Button
-        android:id="@+id/btnCondividi"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginEnd="116dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/share"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tryAgainBtn"
-        app:layout_constraintVertical_bias="0.38" />
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

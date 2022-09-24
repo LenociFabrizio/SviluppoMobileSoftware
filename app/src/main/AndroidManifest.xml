@@ -68,7 +68,9 @@
             android:name=".Accesso.RegistrationActivity"
             android:exported="true"
             android:parentActivityName=".Accesso.FirstAccessActivity" />
-        <activity android:name=".QuizGame.RisultatoQuizActivity" />
+        <activity
+            android:name=".QuizGame.RisultatoQuizActivity"
+            android:theme="@style/Theme.MyApplication3.NoActionBar"/>
         <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
             android:name=".QuizGame.StartGame"

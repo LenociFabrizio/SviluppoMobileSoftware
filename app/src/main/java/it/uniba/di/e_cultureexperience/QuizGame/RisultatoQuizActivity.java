@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -143,8 +145,8 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //F I N I S H - Mostrare Output classifica aggiornata
 
         riprovaBtn = findViewById(R.id.tryAgainBtn);
-        esciBtn = findViewById(R.id.btnEsci);
-        shareBtn = findViewById(R.id.btnCondividi);
+        //esciBtn = findViewById(R.id.btnEsci);
+        //shareBtn = findViewById(R.id.btnCondividi);
         TextView risultato = findViewById(R.id.risultatoText);
 
         //modifico il colore dei pulsanti di questa activity
@@ -168,7 +170,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
             getApplicationContext().startActivity(intent);
             finish();
         });
-
+        /*
         esciBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,9 +201,47 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
             }
         });
-
+        */
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.share:
+                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
+                startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                return true;
+
+            case R.id.favourite_btn:
+                //Toast.makeText(this, item.toString(),Toast.LENGTH_SHORT).show();
+                if(item.isChecked()){
+
+                    Toast.makeText(this, "checked",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this, "unchecked",Toast.LENGTH_SHORT).show();
+                }
+
+                item.setChecked(!item.isChecked());
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
         //scrittura
@@ -277,9 +317,12 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     public void setColorButton(){
         GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
         bgShape1.setColor(Color.parseColor("#ffffff"));
+
+        /*
         GradientDrawable bgShape2 = (GradientDrawable) esciBtn.getBackground();
         GradientDrawable bgShape3 = (GradientDrawable) shareBtn.getBackground();
         bgShape2.setColor(Color.parseColor("#ffffff"));
         bgShape3.setColor(Color.parseColor("#ffffff"));
+        */
     }
 }
