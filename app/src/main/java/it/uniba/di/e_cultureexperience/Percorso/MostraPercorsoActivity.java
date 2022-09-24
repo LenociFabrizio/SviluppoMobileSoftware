@@ -61,6 +61,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mostra_percorso);
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
+        listViewOggetti.setDividerHeight(0);
 
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
         //setto il colore dei pulsanti

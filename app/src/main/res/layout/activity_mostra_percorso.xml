@@ -154,6 +154,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/btnVotoDelPercorso" />
 
                 <ListView
+                    android:drawSelectorOnTop="true"
+                    android:listSelector="#777777"
                     android:id="@+id/lista_oggetti"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"

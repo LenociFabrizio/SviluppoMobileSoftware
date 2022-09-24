@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.databinding.tool.util.L;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +15,11 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,6 +31,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,10 +47,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
@@ -56,8 +67,11 @@ public class ProfileActivity extends AppCompatActivity {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
 
+
     private RadioGroup radioGroup;
     private RadioButton radioIta, radioEng, selectedLanguage;
+    private ListView listaMenu;
+    List<String> menuArray = new ArrayList<String>();
 
 
     @Override
@@ -77,6 +91,31 @@ public class ProfileActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radio_group);
         radioIta = findViewById(R.id.radio_ita);
         radioEng = findViewById(R.id.radio_eng);
+
+
+        listaMenu = findViewById(R.id.lista_menu);
+        listaMenu.setDividerHeight(0);
+
+
+
+        menuArray.add("Mete preferite");
+        menuArray.add("Modifica profilo");
+        menuArray.add("Preferenza app");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, menuArray );
+        listaMenu.setAdapter(arrayAdapter);
+
+        listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if(position == 0)
+                    startActivity(new Intent(ProfileActivity.this, MostraLuogoDiInteressePreferitoActivity.class));
+                if(position == 1)
+                    startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
+
+            }
+        });
+
 
         if(current.getLanguage().equals("it")){
             radioIta.setChecked(true);
@@ -163,11 +202,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
             return false;
         });
-    }
-
-    public void changePassw(View v){
-        Intent i = new Intent(ProfileActivity.this, ForgotPasswordActivity.class);
-        startActivity(i);
     }
 
     public void signOut(View v){
@@ -277,11 +311,6 @@ public class ProfileActivity extends AppCompatActivity {
         Intent refresh = new Intent(this, ProfileActivity.class);
         startActivity(refresh);
         finish();
-    }
-
-    public void goToPreferiti(View v){
-        Intent intent = new Intent(this, MostraLuogoDiInteressePreferitoActivity.class);
-        startActivity(intent);
     }
 
     public void checkRadioGroup(View v){
