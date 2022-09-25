@@ -98,16 +98,19 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 .load(urlImmagineOggetto)
                 .into(immagineOggetto);
 
-        //carico la toolbar, actionBar
+        //dichiaro la tuggleBar in alto
         Toolbar mToolbar = findViewById(R.id.toolbar_risultatoQuiz);
+
+        //operazioni tuggleBar, azioni generali
         setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setTitle(luogo.getNome());
+
         CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbarQuiz);
         Log.e("colore",getResources().getString(R.color.black));
         collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
         collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
+
 
         db.collection(collectionPath)
                 .get()

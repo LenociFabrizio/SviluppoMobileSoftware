@@ -3,10 +3,13 @@ package it.uniba.di.e_cultureexperience.QuizGame;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -24,8 +27,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -50,11 +56,15 @@ public class PuzzleGame extends AppCompatActivity {
     //Creating drawable's vector 1d
     Drawable[] imageSplittedDrawableOneDimension = new Drawable[NUMERO_SPLIT_X * NUMERO_SPLIT_Y];
     Drawable[] randomImages = new Drawable[imageSplittedDrawableOneDimension.length];
-
+    //testo (aggiornato pragmaticamente) per il timer
     private TextView countdown;
-
+    //segnalino per sapere se si può spostare il pezzo di foto al posto dell'immagine nera o bianca
     private boolean verificaSpostamento = false;
 
+    //spazio in cui verra caricata l'immagine per il puzzle
+    private ImageView immagineOggetto;
+
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,9 +72,26 @@ public class PuzzleGame extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this);
+        immagineOggetto = findViewById(R.id.immagineQuiz);
 
-
+        //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");
+        //carico l'url all'interno della ImageView
+        Picasso.with(this)
+                .load(url)
+                .into(immagineOggetto);
+
+        //operazioni Toolbar
+        Toolbar mToolbar = findViewById(R.id.toolbar_puzzle);
+        setSupportActionBar(mToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setTitle(oggettoDiInteresse.getNome());
+
+        CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbar);
+        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
+        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
+
 
         int DURATA_TIMER = 5;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
