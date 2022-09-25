@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,7 +32,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
-import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
@@ -63,7 +59,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     //elementi per la tuggleBar
     private MenuItem favouriteItem;
     final String collectionPath = "luoghiPreferiti";
-    private ToggleButton favorite;
 
     //ELEMENTI PER IL TASTO SHARE
     //variabile punteggioMassimo del quiz, la uso per condividerla se si clicca il pulsante shareBTn
