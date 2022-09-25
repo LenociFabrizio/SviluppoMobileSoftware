@@ -208,7 +208,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
         favouriteItem = menu.findItem(R.id.favourite_btn);
-        Toast.makeText(getApplicationContext(),"onCreateOptionsMenu",Toast.LENGTH_SHORT).show();
 
         LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
