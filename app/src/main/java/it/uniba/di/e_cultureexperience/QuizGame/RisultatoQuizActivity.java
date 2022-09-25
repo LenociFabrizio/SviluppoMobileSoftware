@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,10 +14,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,25 +39,42 @@ import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
+/**
+ *************IL TASTO FAVOURITE NON è STATO ANCORA IMPLEMENTATO*************
+ */
+
 public class RisultatoQuizActivity extends AppCompatActivity {
 
     private ArrayList<QuesitoQuiz> list;
 
-    //Roba per aggiornamento del database per la classifica
+    //Informazioni per aggiornamento del database per la classifica
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-    //Roba per Output classifica aggiornata
-    private ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
+    //Informazioni per Output classifica aggiornata
+    private final ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
     private ListView listViewClassifica;
-    private ImageView immagineOggetto;
 
     //pulsante riprova
     private Button riprovaBtn;
     private Button esciBtn;
     private Button shareBtn;
 
-    @SuppressLint("SetTextI18n")
+    //elementi per la tuggleBar
+    private MenuItem favouriteItem;
+    final String collectionPath = "luoghiPreferiti";
+    private ToggleButton favorite;
+
+    //ELEMENTI PER IL TASTO SHARE
+    //variabile punteggioMassimo del quiz, la uso per condividerla se si clicca il pulsante shareBTn
+    AtomicLong punteggioMassimo= new AtomicLong();
+    //variabile usata nel tasto share
+    private int numeroRisposteTotali;
+
+    public RisultatoQuizActivity() {
+    }
+
+    @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,23 +86,28 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
         int numeroRisposteSbagliate = getIntent().getIntExtra("RISPOSTA_SBAGLIATA", 0);
-        int numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
-
-        //variabile punteggio quiz, la uso per condividerla se clicca il pulsante shareBTn
-        AtomicLong punteggioMassimo= new AtomicLong();
+        numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
 
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
         String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
-        immagineOggetto = findViewById(R.id.immagine);
+        ImageView immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
         Picasso.with(this)
                 .load(urlImmagineOggetto)
                 .into(immagineOggetto);
 
-        //carico il nome del percorso (per condividelo se clicca il bottone share)
-        String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+        //carico la toolbar, actionBar
+        Toolbar mToolbar = findViewById(R.id.toolbar_risultatoQuiz);
+        setSupportActionBar(mToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setTitle(luogo.getNome());
+        CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbarQuiz);
+        Log.e("colore",getResources().getString(R.color.black));
+        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
+        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
 
         db.collection(collectionPath)
                 .get()
@@ -145,8 +172,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //F I N I S H - Mostrare Output classifica aggiornata
 
         riprovaBtn = findViewById(R.id.tryAgainBtn);
-        //esciBtn = findViewById(R.id.btnEsci);
-        //shareBtn = findViewById(R.id.btnCondividi);
         TextView risultato = findViewById(R.id.risultatoText);
 
         //modifico il colore dei pulsanti di questa activity
@@ -170,43 +195,52 @@ public class RisultatoQuizActivity extends AppCompatActivity {
             getApplicationContext().startActivity(intent);
             finish();
         });
-        /*
-        esciBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //cambio il colore in nero (solo al tocco)
-                GradientDrawable bgShape1 = (GradientDrawable) esciBtn.getBackground();
-                bgShape1.setColor(Color.parseColor("#000000"));
-                esciBtn.setTextColor(Color.parseColor("#ffffff"));
-
-                //esco dall'activity
-                Intent i = new Intent(getApplicationContext(), DashboardMeteActivity.class);
-                startActivity(i);
-            }
-        });
-
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //cambio il colore in nero (solo al tocco)
-                GradientDrawable bgShape1 = (GradientDrawable) shareBtn.getBackground();
-                bgShape1.setColor(Color.parseColor("#000000"));
-                shareBtn.setTextColor(Color.parseColor("#ffffff"));
-
-                //avvio intent share
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "nel percorso ''"+nomeOggetto+ "'' il mio miglior punteggio è:"+ punteggioMassimo+ "/"+numeroRisposteTotali+"\n\n" +"Prova a battermi!"+ "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent, "Condividi il luogo di interesse"));
-
-            }
-        });
-        */
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
+        return true;
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+        favouriteItem = menu.findItem(R.id.favourite_btn);
+        Toast.makeText(getApplicationContext(),"onCreateOptionsMenu",Toast.LENGTH_SHORT).show();
+
+        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
+
+        db.collection(collectionPath)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        final int sizeDataBase = task.getResult().size();
+                        if (sizeDataBase != 0) {
+                            boolean luogoPreferitoEsistente = false;
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String idUtenteDatabase = document.getString("idUtente");
+                                String nomeLuogoDatabase = document.getString("nome");
+                                //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
+                                if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
+
+
+                                    favouriteItem.setChecked(true);
+                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
+                                    luogoPreferitoEsistente = true;
+
+
+                                }
+                            }//fine for
+                            if (!luogoPreferitoEsistente){
+                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
+                                favouriteItem.setChecked(false);
+                            }
+                        }
+                    }
+                });
+
         return true;
     }
 
@@ -216,11 +250,12 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.share:
-                LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
-
+                //carico il nome del percorso (per condividelo se clicca il bottone share)
+                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+                //intent share del tuggle bar
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere "+luogo.getNome()+"\n\n"+luogo.getDescrizione()+"\n\n"+"Scaricati l'app ECulture-Experience!");
+                intent.putExtra(Intent.EXTRA_TEXT,"nel percorso ''"+nomeOggetto+ "'' il mio miglior punteggio è:"+ punteggioMassimo+ "/"+numeroRisposteTotali+"\n\n" +"Prova a battermi!"+ "\n\n" + "Scaricati l'app ECulture-Experience!");
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
 
@@ -317,12 +352,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     public void setColorButton(){
         GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
         bgShape1.setColor(Color.parseColor("#ffffff"));
-
-        /*
-        GradientDrawable bgShape2 = (GradientDrawable) esciBtn.getBackground();
-        GradientDrawable bgShape3 = (GradientDrawable) shareBtn.getBackground();
-        bgShape2.setColor(Color.parseColor("#ffffff"));
-        bgShape3.setColor(Color.parseColor("#ffffff"));
-        */
     }
+
+    /**
+     * IL TASTO FAVOURITE NON è STATO ANCORA IMPLEMENTATO
+     */
+
 }

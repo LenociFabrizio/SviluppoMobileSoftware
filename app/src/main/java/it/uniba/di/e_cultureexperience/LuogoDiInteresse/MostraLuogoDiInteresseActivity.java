@@ -129,6 +129,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
         favouriteItem = menu.findItem(R.id.favourite_btn);
+        Toast.makeText(getApplicationContext(),"onCreateOptionsMenu",Toast.LENGTH_SHORT).show();
 
         LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
@@ -331,8 +332,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
      * @param luogo
      * @param idUtente
      */
-    public void scritturaLuogoDatabase(LuogoDiInteresse luogo, String idUtente)
-    {
+    public void scritturaLuogoDatabase(LuogoDiInteresse luogo, String idUtente) {
         Map<String, String> luogoScelto = new HashMap<>();
         luogoScelto.put("nome", luogo.getNome());
         luogoScelto.put("descrizione", luogo.getDescrizione());
@@ -381,8 +381,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> Log.w("TAG", "Error adding document", e));
     }
 
-    public void eliminazioneLuogoDatabase(LuogoDiInteresse luogo, String idUtente)
-    {
+    public void eliminazioneLuogoDatabase(LuogoDiInteresse luogo, String idUtente){
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
