@@ -58,7 +58,7 @@ import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements ListItemAdapter.ItemClickListener{
 
     private TextView nickname;
     private final int TAKE_IMAGE_CODE = 10001;
@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private RadioButton radioIta, radioEng, selectedLanguage;
-    private ListView listaMenu;
+    private RecyclerView listaMenu;
     List<String> menuArray = new ArrayList<String>();
 
 
@@ -94,27 +94,31 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         listaMenu = findViewById(R.id.lista_menu);
-        listaMenu.setDividerHeight(0);
+        listaMenu.setLayoutManager(new LinearLayoutManager(this));
+
+        ListItemAdapter adapter = new ListItemAdapter(menuArray,this);
+        adapter.setClickListener(this);
+        listaMenu.setAdapter(adapter);
 
 
-
-        menuArray.add("Mete preferite");
-        menuArray.add("Modifica profilo");
+        menuArray.add(getString(R.string.favourite_destination));
+        menuArray.add(getString(R.string.edit_profile));
         menuArray.add("Preferenza app");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, menuArray );
-        listaMenu.setAdapter(arrayAdapter);
+        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, menuArray );
+        //listaMenu.setAdapter(arrayAdapter);
 
-        listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 if(position == 0)
                     startActivity(new Intent(ProfileActivity.this, MostraLuogoDiInteressePreferitoActivity.class));
                 if(position == 1)
                     startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
-
+                if(position == 2)
+                    startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
             }
-        });
+        });*/
 
 
         if(current.getLanguage().equals("it")){
@@ -324,5 +328,15 @@ public class ProfileActivity extends AppCompatActivity {
             setLocale("en-rGB");
         }
 
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        if(position == 0)
+            startActivity(new Intent(ProfileActivity.this, MostraLuogoDiInteressePreferitoActivity.class));
+        if(position == 1)
+            startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
+        if(position == 2)
+            startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
     }
 }

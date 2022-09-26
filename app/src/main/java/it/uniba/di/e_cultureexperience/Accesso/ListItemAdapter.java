@@ -16,12 +16,14 @@ import java.util.List;
 
 import it.uniba.di.e_cultureexperience.R;
 
-public class ListItemAdapter extends RecyclerView.Adapter {
+public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.viewProfileHolder> {
 
-    List vociMenu;
+    List<String> vociMenu = new ArrayList<String>();
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
     Context context;
 
-    public ListItemAdapter(List vociMenu, Context context) {
+    public ListItemAdapter(List<String> vociMenu, Context context) {
         this.vociMenu = vociMenu;
         this.context = context;
     }
@@ -30,37 +32,30 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     @Override
     public viewProfileHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_lista_profilo, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
         viewProfileHolder viewHolder = new viewProfileHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        viewProfileHolder viewHolder = (viewProfileHolder) holder;
+    public void onBindViewHolder(@NonNull viewProfileHolder holder, int position) {
+              holder.getName().setText(vociMenu.get(position));
 
-        viewHolder.getName().setText(vociMenu.get(position).toString());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View view) {
-                                                       Toast.makeText(view.getContext(),vociMenu.get(position).toString(),Toast.LENGTH_SHORT);
-                                                   }
-                                               }
-
-        );
     }
+
 
     @Override
     public int getItemCount() {
         return vociMenu.size();
     }
 
-    public class viewProfileHolder extends RecyclerView.ViewHolder{
+    public class viewProfileHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView name;
         public viewProfileHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.mtrl_list_item_text);
+            name = itemView.findViewById(android.R.id.text1);
+            itemView.setOnClickListener(this);
         }
 
         public TextView getName() {
@@ -70,6 +65,22 @@ public class ListItemAdapter extends RecyclerView.Adapter {
         public void setName(TextView name) {
             this.name = name;
         }
+
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+        }
+    }
+
+
+    // allows clicks events to be caught
+    void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    // parent activity will implement this method to respond to click events
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
     }
 
 }

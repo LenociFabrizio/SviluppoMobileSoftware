@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="64dp"
+        android:background="?attr/selectableItemBackground"
         android:paddingHorizontal="8dp"
         android:paddingVertical="8dp">
 
@@ -23,7 +24,8 @@
             android:layout_toStartOf="@+id/txt_durata"
             android:maxLines="1"
             android:textAlignment="textStart"
-            android:textSize="12sp" />
+            android:textSize="14sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txt_descrizione"
@@ -34,7 +36,6 @@
             android:layout_below="@+id/txt_nomePercorso"
             android:layout_toStartOf="@+id/txt_durata"
             android:maxLines="2"
-
             android:textAlignment="textStart"
             android:textSize="12sp" />
 

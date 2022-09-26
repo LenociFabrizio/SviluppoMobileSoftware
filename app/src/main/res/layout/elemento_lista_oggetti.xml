@@ -13,11 +13,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:background="?attr/selectableItemBackground"
         android:minHeight="64dp"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="16dp"
         android:layout_gravity="center"
         >
 

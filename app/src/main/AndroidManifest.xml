@@ -18,27 +18,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECultureExperience"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".Accesso.EditProfileActivity"
+            android:exported="false"
+            android:label="@string/edit_profile"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar" />
 
-        <uses-library android:name="org.apache.http.legacy"
-            android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/maps_api_key" />
 
         <activity
             android:name=".LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity"
-            android:label="@string/percorsi_preferiti"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/percorsi_preferiti" />
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyApplication3.NoActionBar"
-            />
+            android:theme="@style/Theme.MyApplication3.NoActionBar" />
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
@@ -46,7 +50,6 @@
             android:name=".LuogoDiInteresse.MostraLuogoDiInteresseActivity"
             android:label="@string/app_name"
             android:parentActivityName=".DashboardMeteActivity"
-
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
         <activity
             android:name=".Accesso.FirstAccessActivity"
@@ -70,15 +73,15 @@
             android:parentActivityName=".Accesso.FirstAccessActivity" />
         <activity
             android:name=".QuizGame.RisultatoQuizActivity"
-            android:theme="@style/Theme.MyApplication3.NoActionBar"/>
+            android:theme="@style/Theme.MyApplication3.NoActionBar" />
         <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
             android:name=".QuizGame.StartGame"
             android:exported="false" />
         <activity
             android:name=".QuizGame.PuzzleGame"
-            android:theme="@style/Theme.MyApplication3.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.MyApplication3.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,10 +94,10 @@
         <activity
             android:name=".Accesso.ProfileActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyApplication3.NoActionBar"/>
-        <activity android:name=".QuizGame.DashboardActivity"
+            android:theme="@style/Theme.MyApplication3.NoActionBar" />
+        <activity
+            android:name=".QuizGame.DashboardActivity"
             android:exported="true" />
-
         <activity android:name=".QRScanner.QRScanner" />
         <activity
             android:name=".QRScanner.Capture"

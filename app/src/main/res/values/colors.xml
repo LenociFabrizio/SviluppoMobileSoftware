@@ -12,7 +12,7 @@
     <color name="light_grey">#FFCED6D9</color>
     <color name="dark_grey">#2B2B2B</color>
     <color name="gov_blue">#FF003560</color>
-
+    <color name="burgundy_red">#FF9B0000</color>
 
     <color name="primaryColor">@color/gov_blue</color>
     <color name="primaryLightColor">#3d5e8e</color>

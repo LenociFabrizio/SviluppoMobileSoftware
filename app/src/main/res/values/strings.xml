@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">E-Culture Experience</string>
     <string name="email" translatable="false">Email</string>
-   <string name="maps_api_key" translatable="false">AIzaSyCaigPsW_Hi2BkKpgeprK-WJ3k_zpoQliA</string>
+    <string name="maps_api_key" translatable="false">AIzaSyCaigPsW_Hi2BkKpgeprK-WJ3k_zpoQliA</string>
     <string name="inserisci_il_tuo_indirizzo_e_ti_invieremo_una_email_dove_poter_resettare_la_tua_password">Enter your address and we will send you an email where you can reset your password</string>
     <string name="che_sbadato">Than careless!</string>
     <string name="richiedi_reset">Request reset</string>
@@ -137,16 +137,27 @@
     <string name="percorsi">Routes</string>
     <string name="avviaPercorso">Start Route</string>
     <string name="descrizioneMetaMatera">It is known worldwide for its historic Sassi districts, making it one of the oldest still-inhabited cities in the world.</string>
-    <string name="prova_domanda" >test ask</string>
-    <string name="punteggio" >score</string>
-    <string name="timeOut" >time out!!</string>
-    <string name="turnAround" >turn around</string>
-    <string name="review" >review</string>
-    <string name="reviews" >reviews</string>
-    <string name="voto" >score the course</string>
+    <string name="prova_domanda">test ask</string>
+    <string name="punteggio">score</string>
+    <string name="timeOut">time out!!</string>
+    <string name="turnAround">turn around</string>
+    <string name="review">review</string>
+    <string name="reviews">reviews</string>
+    <string name="voto">Score the course</string>
     <string name="classifica">Ranking</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
-
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="language_eng">English</string>
+    <string name="language_ita">Italian</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="favourite_destination">Favourite destination</string>
 
 
 </resources>

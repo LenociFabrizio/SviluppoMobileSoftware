@@ -58,9 +58,13 @@
     <string name="review">recensione</string>
     <string name="reviews">recensioni</string>
     //MOSTRA PERCORSO ACTIVITY
-    <string name="voto" >vota il percorso</string>
-
-
+    <string name="voto" >Valuta il percorso</string>
+    <string name="language_eng">Inglese</string>
+    <string name="language_ita">Italiano</string>
+    <string name="next">Prossimo</string>
+    <string name="previous">Precedente</string>
+    <string name="edit_profile">Modifica profilo</string>
+    <string name="favourite_destination">Mete preferite</string>
 
 
 </resources>
