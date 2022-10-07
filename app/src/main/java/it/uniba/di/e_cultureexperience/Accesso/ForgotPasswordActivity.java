@@ -7,13 +7,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import it.uniba.di.e_cultureexperience.R;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    private EditText txtEmailReset;
-    private Button resetPasswordBtn;
+    private MaterialButton resetPasswordBtn;
+
+    private TextInputEditText editTextEmail;
+    private TextInputLayout layoutEmail;
+
     FirebaseAuth fAuth;
 
     @Override
@@ -21,8 +28,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
-        txtEmailReset = findViewById(R.id.emailReset);
         resetPasswordBtn = findViewById(R.id.resetBtn);
+
+        editTextEmail = findViewById(R.id.emailInputEditText);
+        layoutEmail = findViewById(R.id.emailTextInputLayout);
+
         fAuth = FirebaseAuth.getInstance();
 
         resetPasswordBtn.setOnClickListener(v -> resetPassword());
@@ -30,19 +40,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void resetPassword(){
 
-        String email = txtEmailReset.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
 
-        if(email.isEmpty()){
-            txtEmailReset.setError("Email richiesta!");
-            txtEmailReset.requestFocus();
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches() || email.isEmpty()){
+            //txtEmailReset.setError("Email richiesta!");
+            //txtEmailReset.requestFocus();
+            layoutEmail.setError("Inserisci correttamente email d'accesso");
+            layoutEmail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            txtEmailReset.setError("Controlla email inserita!");
-            txtEmailReset.requestFocus();
-            return;
-        }
 
         fAuth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
             if(task.isSuccessful()){

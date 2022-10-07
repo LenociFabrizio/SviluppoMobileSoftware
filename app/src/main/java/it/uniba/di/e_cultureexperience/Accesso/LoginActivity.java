@@ -11,39 +11,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.nio.charset.Charset;
 import java.util.Random;
 
+import it.uniba.di.e_cultureexperience.Bluetooth.MainActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class LoginActivity extends AppCompatActivity {
+    private TextInputEditText editTextPassword, editTextEmail;
+    private TextInputLayout layoutPassword, layoutEmail;
 
-    private static EditText txtEmailLogin, txtPasswordLogin;
-    private FirebaseAuth fAuth;
-    private ToggleButton visibility;
-
+    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        txtEmailLogin = findViewById(R.id.emailLogin);
-        txtPasswordLogin = findViewById(R.id.passwordLogin);
-        fAuth = FirebaseAuth.getInstance();
-        Button loginBtn = findViewById(R.id.loginBtn);
-        TextView txtGoToRegistration = findViewById(R.id.registrationTxt);
-        CheckBox rememberBox = findViewById(R.id.checkBox);
-        visibility = findViewById(R.id.visibilityToggleButton);
+        editTextEmail = findViewById(R.id.emailInputEditText);
+        layoutEmail = findViewById(R.id.emailTextInputLayout);
 
+        editTextPassword = findViewById(R.id.passwordInputEditText);
+        layoutPassword = findViewById(R.id.passwordTextInputLayout);
 
+        TextView registrationTxt = findViewById(R.id.registrationTextView);
+        registrationTxt.setOnClickListener(view -> {
+            //todo: cambiare context di destinazione
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+        });
 
-        loginBtn.setOnClickListener(v -> loginBtnClick());
-
-        txtGoToRegistration.setOnClickListener(v -> goToRegistration());
-
+        CheckBox rememberBox = findViewById(R.id.rememberMe);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -52,8 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 
         if(checkbox.equals("true")){
             Intent intent = new Intent(LoginActivity.this, DashboardMeteActivity.class);
-
             startActivity(intent);
+            finish();
         }
 
         rememberBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -75,24 +80,31 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
-    public void loginBtnClick(){
-        String email = txtEmailLogin.getText().toString().trim();
-        String password = txtPasswordLogin.getText().toString().trim();
+    public void loginBtnClick(View view) {
+
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
         //Controllo email vuota
         if(email.isEmpty()){
-            txtEmailLogin.setError("Email richiesta!");
-            txtEmailLogin.requestFocus();
+            layoutEmail.setError("Inserisci email d'accesso");
+            layoutEmail.requestFocus();
             return;
+        }else{
+            layoutEmail.setError("");
         }
+
         //Controllo password vuota
         if(password.isEmpty()){
-            txtPasswordLogin.setError("Password richiesta!");
-            txtPasswordLogin.requestFocus();
+            layoutPassword.setError("Inserisci password d'accesso");
+            layoutPassword.requestFocus();
             return;
+        }else{
+            layoutEmail.setError("");
         }
+
         (fAuth.signInWithEmailAndPassword(email, password)).addOnCompleteListener(task -> {
 
             if(task.isSuccessful()){
@@ -112,22 +124,4 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void goToRegistration(){
-        Intent intent = new Intent(this, RegistrationActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /**
-     * Permette di visualizzare la password oppure di nasconderla
-     */
-    public void onVisibiblityToggleButton(View view) {
-        int PASSWORD_INPUT_TYPE;
-        if(visibility.isChecked())
-            PASSWORD_INPUT_TYPE = 129;
-        else
-            PASSWORD_INPUT_TYPE = 1;
-
-        txtPasswordLogin.setInputType(PASSWORD_INPUT_TYPE);
-    }
 }

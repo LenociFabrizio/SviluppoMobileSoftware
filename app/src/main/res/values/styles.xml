@@ -21,6 +21,7 @@
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/gov_blue</item>
         <item name="android:textColor">@color/black</item>
+
     </style>
 
     <style name="Theme.MyApplication3.Inside" parent="Theme.AppCompat.Light">
@@ -50,9 +51,36 @@
     </style>
 
 
-    <style name="Theme.ECultureExperience.Button.TextButton"
-        parent="Widget.MaterialComponents.Button.TextButton">
+    <style name="Theme.ECultureExperience.Button.TextButton"  parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">@color/primaryColor</item>
+    </style>
+
+
+    <!-- TEXT INPUT LAYOUT -->
+   <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="hintTextColor">@color/gov_blue</item>
+    </style>
+   <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/gov_blue</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="colorOnSurface">@color/black</item>
+        <item name="colorError">@color/burgundy_red</item>
+    </style>
+
+
+    <!-- MATERIAL BUTTON -->
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorButtonNormal">@color/primaryColor</item>
+        <item name="android:textColor">@color/white</item>
+
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/white</item>
     </style>
 
 </resources>
