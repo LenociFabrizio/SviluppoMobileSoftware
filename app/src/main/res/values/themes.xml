@@ -16,13 +16,19 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="colorAccent">@color/gov_blue</item>
+
+
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <item name="checkboxStyle">@style/Widget.App.CheckBox</item>
+
 
     </style>
 
-    <style name="Theme.ECultureExperience.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+    <style name="Theme.ECultureExperience.NoActionBar" parent="Theme.ECultureExperience">
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.ECultureExperience.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

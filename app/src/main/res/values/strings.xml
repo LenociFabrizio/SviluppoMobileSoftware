@@ -158,6 +158,7 @@
     <string name="language_ita">Italian</string>
     <string name="edit_profile">Edit profile</string>
     <string name="favourite_destination">Favourite destination</string>
+    <string name="nickname">Nickname</string>
 
 
 </resources>

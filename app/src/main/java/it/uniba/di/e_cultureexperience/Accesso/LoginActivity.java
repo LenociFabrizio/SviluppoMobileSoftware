@@ -49,8 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         CheckBox rememberBox = findViewById(R.id.rememberMe);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         SharedPreferences preferences = getSharedPreferences("checkbox", MODE_PRIVATE);
         String checkbox = preferences.getString("remember","");
@@ -79,6 +78,13 @@ public class LoginActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        TextView registerText = findViewById(R.id.registrationTextView);
+        registerText.setOnClickListener(view -> {
+            //todo: cambiare context
+            Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
+            startActivity(i);
         });
     }
 

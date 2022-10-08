@@ -83,4 +83,14 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
+
+    <!-- CHECK BOX -->
+    <style name="Widget.App.CheckBox" parent="Widget.MaterialComponents.CompoundButton.CheckBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.CheckBox</item>
+    </style>
+
+    <style name="ThemeOverlay.App.CheckBox" parent="">
+        <item name="colorOnSurface">@color/gov_blue</item>
+        <item name="colorSecondary">@color/white</item>
+    </style>
 </resources>
