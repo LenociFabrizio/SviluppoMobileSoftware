@@ -67,9 +67,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
 
-
-    private RadioGroup radioGroup;
-    private RadioButton radioIta, radioEng, selectedLanguage;
     private RecyclerView listaMenu;
     List<String> menuArray = new ArrayList<String>();
 
@@ -87,11 +84,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         TextView email = findViewById(R.id.emailView);
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
-
-        radioGroup = findViewById(R.id.radio_group);
-        radioIta = findViewById(R.id.radio_ita);
-        radioEng = findViewById(R.id.radio_eng);
-
 
         listaMenu = findViewById(R.id.lista_menu);
         listaMenu.setLayoutManager(new LinearLayoutManager(this));
@@ -119,14 +111,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
                     startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
             }
         });*/
-
-
-        if(current.getLanguage().equals("it")){
-            radioIta.setChecked(true);
-        }
-        else{
-            radioEng.setChecked(true);
-        }
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -317,18 +301,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         finish();
     }
 
-    public void checkRadioGroup(View v){
-        int radioButtonId = radioGroup.getCheckedRadioButtonId();
-        selectedLanguage =findViewById(radioButtonId);
-        String textId = selectedLanguage.toString();
-        if(textId.substring(textId.lastIndexOf("/radio")).contains("/radio_ita")){
-            setLocale("it");
-        }
-        else{
-            setLocale("en-rGB");
-        }
 
-    }
 
     @Override
     public void onItemClick(View view, int position) {
