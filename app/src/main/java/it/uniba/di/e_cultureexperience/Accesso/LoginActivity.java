@@ -3,22 +3,17 @@ package it.uniba.di.e_cultureexperience.Accesso;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.nio.charset.Charset;
-import java.util.Random;
 
 import it.uniba.di.e_cultureexperience.Bluetooth.MainActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
@@ -27,9 +22,8 @@ import it.uniba.di.e_cultureexperience.R;
 public class LoginActivity extends AppCompatActivity {
     private TextInputEditText editTextPassword, editTextEmail;
     private TextInputLayout layoutPassword, layoutEmail;
-
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView registrationTxt = findViewById(R.id.registrationTextView);
         registrationTxt.setOnClickListener(view -> {
-            //todo: cambiare context di destinazione
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
         });
@@ -82,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
 
         TextView registerText = findViewById(R.id.registrationTextView);
         registerText.setOnClickListener(view -> {
-            //todo: cambiare context
             Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(i);
         });
@@ -128,6 +120,27 @@ public class LoginActivity extends AppCompatActivity {
     public void forgotTxtClick(View v){
         Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(i);
+    }
+
+    /**
+     * Permette di accedere senza inserimento di email e password. Crea un utente anonimo in Firebase authentication
+     * @param v
+     */
+    public void guestLogin(View v){
+
+        fAuth.signInAnonymously()
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success
+                        Intent i = new Intent(LoginActivity.this, DashboardMeteActivity.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }
