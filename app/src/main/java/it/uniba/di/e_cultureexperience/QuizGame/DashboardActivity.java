@@ -23,6 +23,7 @@ import java.util.Objects;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
+//todo: cambiare nome activity
 public class DashboardActivity extends AppCompatActivity {
     //OGGETTI PER PROGRESS BAR
     private ProgressBar progressBar;

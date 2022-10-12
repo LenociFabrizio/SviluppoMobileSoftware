@@ -199,7 +199,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         editor.apply();
 
         fAuth.signOut();
-        Intent i = new Intent(ProfileActivity.this, FirstAccessActivity.class);
+        Intent i = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(i);
         finish();
     }
