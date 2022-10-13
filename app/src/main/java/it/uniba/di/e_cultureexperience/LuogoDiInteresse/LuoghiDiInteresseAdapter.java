@@ -47,7 +47,7 @@ public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInter
     @Override
     public LuoghiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LuoghiViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.elemento_lista_luoghi, parent, false)
+                LayoutInflater.from(context).inflate(R.layout.mete_card, parent, false)
         );
     }
 
@@ -65,7 +65,6 @@ public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInter
 
                         @Override
                         public void onError() {
-                            //holder.image.setImageResource(R.drawable.apple);
                         }
                     });
         }
@@ -126,8 +125,8 @@ public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInter
         public LuoghiViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image_citta);
-            textView = itemView.findViewById(R.id.txt_descrizione);
             txtName = itemView.findViewById(R.id.txt_nomeCitta);
+            textView = itemView.findViewById(R.id.txt_descrizione);
         }
     }
 }
