@@ -50,7 +50,7 @@ public class PuzzleGame extends AppCompatActivity {
     private GridView gridView;
     private ImageAdapter imageAdapter;
 
-    private int posizioneBlanco;
+    private int posizioneBlanco; 
     private Drawable black;
 
     //Creating drawable's vector 1d
