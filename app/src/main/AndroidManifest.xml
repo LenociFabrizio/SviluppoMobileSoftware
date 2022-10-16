@@ -70,12 +70,6 @@
         </activity>
 
         <activity
-            android:name=".Accesso.RegistrationActivity"
-            android:exported="true"
-            android:parentActivityName=".Accesso.FirstAccessActivity"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
-
-        <activity
             android:name=".QuizGame.RisultatoQuizActivity"
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
 
@@ -116,6 +110,6 @@
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />
 
-</application>
+    </application>
 
 </manifest>
