@@ -53,11 +53,9 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
     //pulsante riprova
     private Button riprovaBtn;
-    private Button esciBtn;
-    private Button shareBtn;
 
     //elementi per la tuggleBar
-    private MenuItem favouriteItem;
+    private MenuItem shareItem;
     final String collectionPath = "luoghiPreferiti";
 
     //ELEMENTI PER IL TASTO SHARE
@@ -201,46 +199,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
-        favouriteItem = menu.findItem(R.id.favourite_btn);
-
-        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
-
-        db.collection(collectionPath)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
-                        final int sizeDataBase = task.getResult().size();
-                        if (sizeDataBase != 0) {
-                            boolean luogoPreferitoEsistente = false;
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String idUtenteDatabase = document.getString("idUtente");
-                                String nomeLuogoDatabase = document.getString("nome");
-                                //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
-                                if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
-
-
-                                    favouriteItem.setChecked(true);
-                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
-                                    luogoPreferitoEsistente = true;
-
-
-                                }
-                            }//fine for
-                            if (!luogoPreferitoEsistente){
-                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
-                                favouriteItem.setChecked(false);
-                            }
-                        }
-                    }
-                });
-
-        return true;
-    }
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -252,22 +210,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 //intent share del tuggle bar
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"nel percorso ''"+nomeOggetto+ "'' il mio miglior punteggio è:"+ punteggioMassimo+ "/"+numeroRisposteTotali+"\n\n" +"Prova a battermi!"+ "\n\n" + "Scaricati l'app ECulture-Experience!");
+                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
 
-            case R.id.favourite_btn:
-                //Toast.makeText(this, item.toString(),Toast.LENGTH_SHORT).show();
-                if(item.isChecked()){
-
-                    Toast.makeText(this, "checked",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(this, "unchecked",Toast.LENGTH_SHORT).show();
-                }
-
-                item.setChecked(!item.isChecked());
-                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -276,7 +222,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     }
 
     public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
-        //scrittura
         db.collection(collectionPath)
                 .add(utente)
                 .addOnSuccessListener(documentReference -> Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId()))
@@ -350,9 +295,5 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
         bgShape1.setColor(Color.parseColor("#ffffff"));
     }
-
-    /**
-     * IL TASTO FAVOURITE NON è STATO ANCORA IMPLEMENTATO
-     */
 
 }
