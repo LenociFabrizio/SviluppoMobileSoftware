@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.databinding.tool.util.L;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,13 +14,7 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,8 +28,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,8 +44,6 @@ import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 
@@ -68,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
     private ImageView profileImageView;
 
     private RecyclerView listaMenu;
-    List<String> menuArray = new ArrayList<String>();
+    private List<String> menuArray = new ArrayList<String>();
 
 
     @Override
@@ -117,7 +106,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         if (user != null) {
             if(user.isAnonymous()){
                 email.setText("Sei ospite!");
-                nickname.setText(fAuth.getUid());
+                nickname.setText("@ECE" + fAuth.getUid().substring(1, 4));
             }else{
                 if (user.getPhotoUrl() != null) {
                     Glide.with(this).load(user.getPhotoUrl()).into(profileImageView);
@@ -149,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
                             String idDataBase = document.getString("idUtente");
 
                             if (idDataBase.equals(fAuth.getUid())) {
-                                nickname.setText(nicknameDataBase);
+                                nickname.setText("@" + nicknameDataBase);
                                 return;
 
                             } else {
@@ -310,6 +299,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         if(position == 1)
             startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
         if(position == 2)
-            startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+            startActivity(new Intent(ProfileActivity.this, CambiaLinguaActivity.class));
     }
 }

@@ -19,7 +19,7 @@
         android:theme="@style/Theme.ECultureExperience"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".Accesso.EditProfileActivity"
+            android:name=".Accesso.CambiaLinguaActivity"
             android:exported="false"
             android:label="@string/edit_profile"
             android:theme="@style/Theme.ECultureExperience.NoActionBar" />
