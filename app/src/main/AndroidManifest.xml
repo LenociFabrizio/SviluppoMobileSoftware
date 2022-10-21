@@ -98,7 +98,7 @@
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
 
         <activity
-            android:name=".QuizGame.DashboardActivity"
+            android:name=".QuizGame.QuizGameActivity"
             android:exported="true" />
 
         <activity

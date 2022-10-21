@@ -33,7 +33,7 @@ public class StartGame extends AppCompatActivity {
 
         //Al click del bottone, inizio a giocare
         startButton.setOnClickListener(v -> {
-            Intent intent = new Intent(StartGame.this, DashboardActivity.class);
+            Intent intent = new Intent(StartGame.this, QuizGameActivity.class);
             startActivity(intent);
             finish();
         });

@@ -24,7 +24,7 @@ import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 //todo: cambiare nome activity
-public class DashboardActivity extends AppCompatActivity {
+public class QuizGameActivity extends AppCompatActivity {
     //OGGETTI PER PROGRESS BAR
     private ProgressBar progressBar;
     private CountDownTimer countDownTimer;
@@ -51,7 +51,7 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_quiz_game);
 
         //numeroDomanda = findViewById(R.id.numeroDomandaTV);
 
@@ -103,7 +103,7 @@ public class DashboardActivity extends AppCompatActivity {
                         GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
                         bgShape1.setColor(Color.parseColor("#000000"));
                         secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
-                        Intent i= new Intent(DashboardActivity.this, DashboardMeteActivity.class);
+                        Intent i= new Intent(QuizGameActivity.this, DashboardMeteActivity.class);
 
                         //i.putExtra("url",urlImmagineOggetto);
                         startActivity(i);
@@ -209,7 +209,7 @@ public class DashboardActivity extends AppCompatActivity {
             modelClass = list.get(i);
             setAllData();
         } else {
-            Intent i = new Intent(DashboardActivity.this, RisultatoQuizActivity.class);
+            Intent i = new Intent(QuizGameActivity.this, RisultatoQuizActivity.class);
             //Prendo l'oggetto passato dall'intent
             String urlImmagineOggetto = getIntent().getExtras().getString("url");
             //carico il nome del percorso (per condividelo nel risultatoQuiz)
