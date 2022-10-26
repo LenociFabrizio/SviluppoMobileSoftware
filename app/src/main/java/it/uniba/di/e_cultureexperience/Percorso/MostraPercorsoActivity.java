@@ -388,9 +388,9 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         });
 
         TextView titoloDialog = (TextView) rankDialog.findViewById(R.id.titleRating);
-        titoloDialog.setText("Dai un voto a: " + percorso.getNome());
+        titoloDialog.setText("Valuta il percorso");
 
-        ExtendedFloatingActionButton updateButton = rankDialog.findViewById(R.id.rank_dialog_button);
+        Button updateButton = rankDialog.findViewById(R.id.rank_dialog_button);
         updateButton.setOnClickListener(v -> {
             Toast.makeText(this,"Hai valutato correttamente il percorso",Toast.LENGTH_SHORT).show();
             rankDialog.dismiss();
