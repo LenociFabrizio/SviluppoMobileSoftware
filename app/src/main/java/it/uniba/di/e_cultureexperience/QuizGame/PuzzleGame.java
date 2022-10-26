@@ -64,6 +64,9 @@ public class PuzzleGame extends AppCompatActivity {
     //spazio in cui verra caricata l'immagine per il puzzle
     private ImageView immagineOggetto;
 
+    //creo prima la variabile del timer per poterla eliminare quando esco dall'activity
+    CountDownTimer cdt;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,11 +96,11 @@ public class PuzzleGame extends AppCompatActivity {
         collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
 
 
-        int DURATA_TIMER = 5;
+        int DURATA_TIMER = 1;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
         countdown = findViewById(R.id.countdownTextView);
 
-        new CountDownTimer(durataTimer, COUNTDOWN_INTERVAL) {
+        cdt= new CountDownTimer(durataTimer, COUNTDOWN_INTERVAL) {
             @Override
             public void onTick(long l) {
 
@@ -366,8 +369,10 @@ public class PuzzleGame extends AppCompatActivity {
      */
     private void goBack() {
         Intent i = new Intent(this, DashboardMeteActivity.class);
+        cdt.cancel();
         startActivity(i);
         finish();
+
     }
 
     public void riordina(){
