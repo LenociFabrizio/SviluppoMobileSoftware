@@ -41,7 +41,7 @@ public class TimeOutActivity extends AppCompatActivity {
                 .into(immagineOggetto);
 
         retryBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(TimeOutActivity.this, DashboardActivity.class);
+            Intent intent = new Intent(TimeOutActivity.this, QuizGameActivity.class);
             intent.putExtra("url",urlImmagineOggetto);
             startActivity(intent);
             finish();

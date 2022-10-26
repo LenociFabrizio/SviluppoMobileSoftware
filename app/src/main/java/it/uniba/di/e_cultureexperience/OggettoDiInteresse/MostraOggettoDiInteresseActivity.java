@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,8 +20,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -39,7 +36,7 @@ import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
-import it.uniba.di.e_cultureexperience.QuizGame.DashboardActivity;
+import it.uniba.di.e_cultureexperience.QuizGame.QuizGameActivity;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -111,7 +108,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                                 quizBtn.setOnClickListener(new View.OnClickListener() {
                                     public void onClick(View v) {
                                         //quando viene premuto, lancia l' intent esplicito
-                                        Intent i = new Intent(getApplicationContext(), DashboardActivity.class);
+                                        Intent i = new Intent(getApplicationContext(), QuizGameActivity.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
                                         i.putExtra("idOggetto", oggettoDiInteresse.getId());
