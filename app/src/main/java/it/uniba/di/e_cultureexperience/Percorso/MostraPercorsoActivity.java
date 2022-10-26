@@ -404,7 +404,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     public void setColorButtons(){
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_baseline_share_24);
         Drawable unwrappedDrawable2 = AppCompatResources.getDrawable(this, R.drawable.toggle_selector);
-
         assert unwrappedDrawable != null;
         assert unwrappedDrawable2 != null;
         Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
