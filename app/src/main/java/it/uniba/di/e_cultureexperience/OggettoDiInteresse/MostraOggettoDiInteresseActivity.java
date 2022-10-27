@@ -64,8 +64,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         Intent intent = getIntent();
         OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
 
-        boolean scannerizzato = intent.getBooleanExtra("scannerizzato", false);
-
         TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         ImageView immagineOggetto = findViewById(R.id.immagineOggetto);
         TextView bluetoothOggetto = findViewById(R.id.bluetoothIdTxt);

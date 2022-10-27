@@ -140,27 +140,14 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintTop_toBottomOf="@+id/btnVotoDelPercorso" />
 
-                <TextView
-                    android:id="@+id/durata"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_below="@+id/descrizione"
-                    android:layout_marginHorizontal="@dimen/text_margin"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/round_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    app:layout_constraintTop_toBottomOf="@+id/btnVotoDelPercorso" />
-
                 <ListView
-                    android:drawSelectorOnTop="true"
-                    android:listSelector="#777777"
                     android:id="@+id/lista_oggetti"
                     android:layout_width="match_parent"
                     android:layout_height="600dp"
-                    android:layout_below="@+id/durata"
-                    android:layout_marginTop="10dp" />
+                    android:layout_below="@+id/descrizione"
+                    android:layout_marginTop="10dp"
+                    android:drawSelectorOnTop="true"
+                    android:listSelector="#777777" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

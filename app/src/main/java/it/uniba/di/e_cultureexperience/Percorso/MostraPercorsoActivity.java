@@ -78,10 +78,10 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         //prendo i riferimenti degli elementi del layout
         TextView nomePercorso = findViewById(R.id.nome);
         TextView descrizionePercorso = findViewById(R.id.descrizione);
-        TextView durataPercorso = findViewById(R.id.durata);
+        //TextView durataPercorso = findViewById(R.id.durata);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
-        durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
+        //durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
         Button openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
         mediaValutazione = findViewById(R.id.rating_avg);
