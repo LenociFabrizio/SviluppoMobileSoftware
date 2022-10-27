@@ -26,23 +26,13 @@
             android:fitsSystemWindows="true" >
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbarQuiz"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?android:colorPrimary"
-                android:id="@+id/collapsing_toolbarQuiz"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@id/toolbar_luogodiinteresse">
-
-
-                <ImageView
-                    android:id="@+id/immagine"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:fitsSystemWindows="true"
-                    android:contentDescription="immagine"
-                    app:layout_collapseMode="parallax"/>
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar_risultatoQuiz"
@@ -120,14 +110,27 @@
                     android:layout_width="250dp"
                     android:layout_height="70dp"
                     android:layout_below="@+id/risultatoText"
-                    android:background="@drawable/rounded_button_quiz_game"
-
-                    android:textSize="24sp"
-                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
+
                     android:layout_marginHorizontal="80dp"
                     android:layout_marginTop="25dp"
-                    android:text="@string/riprova" />
+                    android:background="@drawable/rounded_button_quiz_game"
+                    android:gravity="center"
+                    android:text="@string/riprova"
+                    android:textSize="24sp" />
+                <Button
+                    android:id="@+id/shareButtonQuiz"
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:layout_below="@+id/tryAgainBtn"
+                    android:layout_gravity="center_horizontal"
+
+                    android:layout_marginHorizontal="80dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/rounded_button_quiz_game"
+                    android:gravity="center"
+                    android:text="@string/share"
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

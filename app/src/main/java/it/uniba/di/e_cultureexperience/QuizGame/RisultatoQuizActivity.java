@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,6 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
+import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
 /**
@@ -50,6 +53,8 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
     //pulsante riprova
     private Button riprovaBtn;
+    //pulsante condividi
+    private Button condividi;
 
     //elementi per la tuggleBar
     private MenuItem shareItem;
@@ -60,9 +65,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     AtomicLong punteggioMassimo= new AtomicLong();
     //variabile usata nel tasto share
     private int numeroRisposteTotali;
-
-    public RisultatoQuizActivity() {
-    }
 
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
@@ -84,10 +86,12 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         ImageView immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
-        Picasso.with(this)
+
+        /*Picasso.with(this)
                 .load(urlImmagineOggetto)
                 .into(immagineOggetto);
-
+                
+         */
         //dichiaro la tuggleBar in alto
         Toolbar mToolbar = findViewById(R.id.toolbar_risultatoQuiz);
 
@@ -164,8 +168,38 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         //F I N I S H - Mostrare Output classifica aggiornata
 
+        //mostra pulsante per riprovare
         riprovaBtn = findViewById(R.id.tryAgainBtn);
         TextView risultato = findViewById(R.id.risultatoText);
+
+        //mostra pusante per condividere punteggio
+        condividi = findViewById(R.id.shareButtonQuiz);
+
+        condividi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
+                bgShape1.setColor(Color.parseColor("#000000"));
+                condividi.setTextColor(Color.parseColor("#ffffff"));
+
+                //attendi alcuni secondi prima di cambiare colore al pulsante
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        // yourMethod();
+                        bgShape1.setColor(Color.parseColor("#ffffff"));
+                        condividi.setTextColor(Color.parseColor("#000000"));
+                    }
+                }, 400);
+
+                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+                //intent share del tuggle bar
+                Intent intent =new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
+                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
+            }
+        });
 
         //modifico il colore dei pulsanti di questa activity
         setColorButton();
@@ -190,6 +224,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         });
     }
 
+    /*
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -208,7 +243,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 Intent intent =new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
+                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
                 return true;
 
             default:
@@ -217,6 +252,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    */
 
     public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
         db.collection(collectionPath)
@@ -290,7 +326,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
     public void setColorButton(){
         GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
+        GradientDrawable bgShape2 = (GradientDrawable) condividi.getBackground();
+
         bgShape1.setColor(Color.parseColor("#ffffff"));
+        bgShape2.setColor(Color.parseColor("#ffffff"));
     }
 
 }

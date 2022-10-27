@@ -78,6 +78,8 @@
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/menu/top_menu.xml" value="0.3026041666666667" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1005" />
         <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-Culture-Experience/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-culture_Experience/app/src/main/res/layout/activity_quiz_game.xml" value="0.3067708333333333" />
+        <entry key="..\:/UNIVERSITA/Sviluppo di mobile software/E-culture_Experience/app/src/main/res/layout/activity_risultato_quiz.xml" value="0.3067708333333333" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_dashboard.xml" value="0.16" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Users/endrit/Desktop/ECulture/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -140,7 +142,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VisualizationToolProject">

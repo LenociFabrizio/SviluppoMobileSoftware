@@ -96,7 +96,7 @@ public class PuzzleGame extends AppCompatActivity {
         collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
 
 
-        int DURATA_TIMER = 1;
+        int DURATA_TIMER = 5;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
         countdown = findViewById(R.id.countdownTextView);
 
