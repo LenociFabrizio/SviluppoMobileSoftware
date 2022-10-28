@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -86,20 +88,10 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         menuArray.add(getString(R.string.edit_profile));
         menuArray.add("Preferenza app");
 
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, menuArray );
-        //listaMenu.setAdapter(arrayAdapter);
-
-        /*listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(position == 0)
-                    startActivity(new Intent(ProfileActivity.this, MostraLuogoDiInteressePreferitoActivity.class));
-                if(position == 1)
-                    startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
-                if(position == 2)
-                    startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
-            }
-        });*/
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        listaMenu.addItemDecoration(dividerItemDecoration);
+        listaMenu.setAdapter(adapter);
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

@@ -327,7 +327,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public Float calcoloMediaValutazione(String collectionPath){
         
-
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {

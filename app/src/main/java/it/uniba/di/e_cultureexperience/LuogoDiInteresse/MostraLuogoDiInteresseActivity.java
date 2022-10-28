@@ -209,6 +209,11 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                             temp.setId(document.getId());
                             percorsi.add(temp);
                         }
+                        /**
+                         * Se è stato importato un file .json "PercorsoECTool"
+                         * allora: percorso percorso = lettura file json
+                         * add list
+                         */
                         PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
                         list_view_percorsi.setAdapter(customAdapter);
                     } else {
