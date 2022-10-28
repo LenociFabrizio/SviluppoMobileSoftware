@@ -47,7 +47,7 @@ public class LuoghiDiInteresseAdapter extends RecyclerView.Adapter<LuoghiDiInter
     @Override
     public LuoghiViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new LuoghiViewHolder(
-                LayoutInflater.from(context).inflate(R.layout.mete_card, parent, false)
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.mete_card, parent, false)
         );
     }
 
