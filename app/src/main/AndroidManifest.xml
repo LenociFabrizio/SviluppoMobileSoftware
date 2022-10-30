@@ -43,7 +43,8 @@
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyApplication3.NoActionBar" />
+            android:label="@string/percorsi_preferiti"
+             />
 
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"

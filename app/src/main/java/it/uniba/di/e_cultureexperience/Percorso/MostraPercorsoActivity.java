@@ -22,6 +22,8 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -37,6 +39,7 @@ import java.util.Objects;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter2;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
 import it.uniba.di.e_cultureexperience.R;
@@ -44,7 +47,8 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView numeroVotazioni;
     private TextView mediaValutazione;
-    private ListView listViewOggetti;
+    //private ListView listViewOggetti;
+    private RecyclerView listViewOggetti;
 
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
@@ -61,17 +65,15 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mostra_percorso);
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
-        listViewOggetti.setDividerHeight(0);
+        listViewOggetti.setLayoutManager(new LinearLayoutManager(this));
 
-        Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
         //setto il colore dei pulsanti
         //setColorButtons();
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
 
@@ -137,7 +139,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 oggettiDiInteresse.add(temp);
                             }
                         }
-                        OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggettiDiInteresse);
+                        OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2( getApplicationContext(), oggettiDiInteresse);
+                        listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));
                         listViewOggetti.setAdapter(customAdapter);
                     } else {
                         Log.e("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
@@ -182,7 +185,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+        getMenuInflater().inflate(R.menu.percorso_top_menu, menu);
 
         return true;
     }
@@ -349,10 +352,10 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                             mediaValutazione.setText(String.format("%.02f", media));
                             if(numeroVotanti > 1){
-                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.reviews));
+                                numeroVotazioni.setText( numeroVotanti +" "+  getString(R.string.reviews));
                             }
                             else{
-                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.review));
+                                numeroVotazioni.setText( numeroVotanti +" "+  getString(R.string.review));
                             }
 
 
