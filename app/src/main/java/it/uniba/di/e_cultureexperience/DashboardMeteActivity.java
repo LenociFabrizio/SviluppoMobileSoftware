@@ -26,7 +26,7 @@ import java.util.List;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
-import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 
 public class DashboardMeteActivity extends AppCompatActivity {
 

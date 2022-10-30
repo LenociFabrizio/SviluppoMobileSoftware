@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;

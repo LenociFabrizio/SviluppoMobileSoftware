@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class OggettiDiInteresseAvviaPercorsoAdapter implements ListAdapter {

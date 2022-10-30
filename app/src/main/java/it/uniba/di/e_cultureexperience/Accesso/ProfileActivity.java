@@ -46,7 +46,7 @@ import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class ProfileActivity extends AppCompatActivity implements ListItemAdapter.ItemClickListener{

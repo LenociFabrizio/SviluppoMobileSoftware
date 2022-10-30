@@ -1,4 +1,4 @@
-package it.uniba.di.e_cultureexperience.QRScanner;
+package it.uniba.di.e_cultureexperience;
 
 import android.Manifest;
 import android.content.DialogInterface;

@@ -18,7 +18,7 @@ import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
