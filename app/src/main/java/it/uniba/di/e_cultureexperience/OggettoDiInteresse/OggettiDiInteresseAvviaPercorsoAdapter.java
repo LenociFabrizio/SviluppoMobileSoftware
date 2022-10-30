@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class OggettiDiInteresseAvviaPercorsoAdapter implements ListAdapter {
@@ -93,7 +93,7 @@ public class OggettiDiInteresseAvviaPercorsoAdapter implements ListAdapter {
 
             Button scannerQrCode = convertView.findViewById(R.id.qrScannerBtn);
             scannerQrCode.setOnClickListener(v -> {
-                Intent intent = new Intent(context, QRScanner.class);
+                Intent intent = new Intent(context, QrCodeScanner.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             });

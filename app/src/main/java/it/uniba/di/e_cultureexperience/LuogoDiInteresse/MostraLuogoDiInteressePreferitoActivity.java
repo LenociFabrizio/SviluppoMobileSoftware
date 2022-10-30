@@ -18,7 +18,7 @@ import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
@@ -102,7 +102,7 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
 
                 case R.id.nav_scan:
                     //entro nell'altra activity immettendo il segnalino appena caricato
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
 

@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class TimeOutActivity extends AppCompatActivity {
@@ -73,7 +73,7 @@ public class TimeOutActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:

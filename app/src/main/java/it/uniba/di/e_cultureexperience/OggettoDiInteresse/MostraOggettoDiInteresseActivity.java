@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
 import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
@@ -170,7 +170,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:

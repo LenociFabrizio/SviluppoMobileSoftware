@@ -26,7 +26,7 @@ import java.util.List;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QRScanner.QrCodeScanner;
 
 public class DashboardMeteActivity extends AppCompatActivity {
 
@@ -75,7 +75,7 @@ public class DashboardMeteActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     return true;
 
                 case R.id.nav_profile:

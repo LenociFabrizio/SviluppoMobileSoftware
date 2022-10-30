@@ -102,11 +102,11 @@
             android:exported="true" />
 
         <activity
-            android:name=".QRScanner.QRScanner" />
+            android:name=".QRScanner.QrCodeScanner" />
 
         <activity
             android:name=".QRScanner.Capture"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme" />
 
