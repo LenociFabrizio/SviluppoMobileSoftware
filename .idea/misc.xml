@@ -114,6 +114,7 @@
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_border.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_button.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/drawable/rounded_button_quiz_game.xml" value="0.1895" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout-v28/elemento_lista_percorsi.xml" value="0.264" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_edit_profile.xml" value="0.1" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_elemento_lista_classifica.xml" value="0.4" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_forgot_password.xml" value="0.176" />
@@ -131,10 +132,10 @@
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_attivita.xml" value="0.3786707882534776" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.536" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_oggetti.xml" value="0.3773148148148148" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.2" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_percorsi.xml" value="0.536" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_profilo.xml" value="0.1945288753799392" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/lista_luoghi.xml" value="0.176" />
-        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.4" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/mete_card.xml" value="0.1945288753799392" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/oggetto_di_interesse.xml" value="0.2" />
         <entry key="..\:/Users/nicol/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/percorso.xml" value="0.264" />

@@ -1,43 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.ECultureExperience"
     android:orientation="vertical"
-    android:theme="@style/Theme.ECultureExperience">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
         android:background="?attr/selectableItemBackground"
+        android:minHeight="64dp"
+        android:paddingVertical="8dp"
         android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp">
+        android:layout_gravity="center"
+        >
 
 
 
-        <TextView
-            android:id="@+id/txt_nomePercorso"
-            android:layout_width="match_parent"
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_toStartOf="@+id/txt_durata"
-            android:maxLines="1"
-            android:textAlignment="textStart"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:id="@+id/blocco_percorso"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="20dp"
 
-        <TextView
-            android:id="@+id/txt_descrizione"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignLeft="@+id/txt_durata"
-            android:layout_below="@+id/txt_nomePercorso"
-            android:layout_toStartOf="@+id/txt_durata"
-            android:maxLines="2"
-            android:textAlignment="textStart"
-            android:textSize="12sp" />
+
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_nomePercorso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_descrizione"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:maxLines="3"
+                android:text="Description" />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txt_durata"
@@ -47,12 +60,14 @@
             android:layout_marginEnd="16dp"
             android:layout_toLeftOf="@+id/btn_vediPercorso"
             android:background="@color/secondaryColor"
-            android:drawableLeft="@drawable/ic_baseline_timer_24"
             android:drawablePadding="4dp"
             android:gravity="center"
             android:paddingHorizontal="4dp"
             android:paddingVertical="2dp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            app:drawableLeftCompat="@drawable/ic_baseline_timer_24" />
+
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btn_vediPercorso"
@@ -66,6 +81,9 @@
             app:srcCompat="@drawable/ic_baseline_chevron_right_24" />
 
 
+
     </RelativeLayout>
+
+
 
 </LinearLayout>
