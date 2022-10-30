@@ -35,10 +35,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
-/**
- *************IL TASTO FAVOURITE NON è STATO ANCORA IMPLEMENTATO*************
- */
-
 public class RisultatoQuizActivity extends AppCompatActivity {
 
     private ArrayList<QuesitoQuiz> list;
@@ -51,9 +47,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     private final ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
     private ListView listViewClassifica;
 
-    //pulsante riprova
     private Button riprovaBtn;
-    //pulsante condividi
     private Button condividi;
 
     //elementi per la tuggleBar
@@ -69,6 +63,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risultato_quiz);
 
@@ -76,6 +71,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
+
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
         int numeroRisposteSbagliate = getIntent().getIntExtra("RISPOSTA_SBAGLIATA", 0);
         numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
@@ -93,15 +89,11 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 
          */
         //dichiaro la tuggleBar in alto
-        Toolbar mToolbar = findViewById(R.id.toolbar_risultatoQuiz);
 
-        CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbarQuiz);
         Log.e("colore",getResources().getString(R.color.black));
-        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
-        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
+
 
         //operazioni tuggleBar, azioni generali
-        setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -167,6 +159,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //S T A R T - Mostrare Output classifica aggiornata
 
         listViewClassifica = findViewById(R.id.lista_classifica);
+        listViewClassifica.setDividerHeight(0);
         letturaClassifica(collectionPath);
 
         //F I N I S H - Mostrare Output classifica aggiornata
@@ -204,8 +197,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
             }
         });
 
-        //modifico il colore dei pulsanti di questa activity
-        setColorButton();
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
@@ -227,13 +218,13 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         });
     }
 
-    /*
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-
+/*
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -327,12 +318,5 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 });
     }
 
-    public void setColorButton(){
-        GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
-        GradientDrawable bgShape2 = (GradientDrawable) condividi.getBackground();
-
-        bgShape1.setColor(Color.parseColor("#ffffff"));
-        bgShape2.setColor(Color.parseColor("#ffffff"));
-    }
 
 }

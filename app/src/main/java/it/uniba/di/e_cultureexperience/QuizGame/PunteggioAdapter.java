@@ -1,5 +1,6 @@
 package it.uniba.di.e_cultureexperience.QuizGame;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ class PunteggioAdapter implements ListAdapter {
         return false;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -68,14 +70,14 @@ class PunteggioAdapter implements ListAdapter {
 
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.activity_elemento_lista_classifica, null);
-
+            convertView.setEnabled(false);
             //Nickname
             TextView txtNickname = convertView.findViewById(R.id.txt_nicknname);
             txtNickname.setText(singolaRigaClassifica.getNickname());
 
             //Punteggio
             TextView txtPunteggio = convertView.findViewById(R.id.txt_punteggio);
-            txtPunteggio.setText(""+singolaRigaClassifica.getPunteggio());
+            txtPunteggio.setText(""+singolaRigaClassifica.getPunteggio() + " pt" );
 
         }
         return convertView;
