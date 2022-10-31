@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -83,13 +84,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
 
-        /*Picasso.with(this)
-                .load(urlImmagineOggetto)
-                .into(immagineOggetto);
-                
-         */
         //dichiaro la tuggleBar in alto
-
         Log.e("colore",getResources().getString(R.color.black));
 
 
@@ -171,22 +166,21 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //mostra pusante per condividere punteggio
         condividi = findViewById(R.id.shareButtonQuiz);
 
+        //set color buttons
+        setColorButtons();
+
         condividi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
-                bgShape1.setColor(Color.parseColor("#000000"));
-                condividi.setTextColor(Color.parseColor("#ffffff"));
-
                 //attendi alcuni secondi prima di cambiare colore al pulsante
+                setColorButtonsClickCondividi();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
-                        // yourMethod();
-                        bgShape1.setColor(Color.parseColor("#ffffff"));
-                        condividi.setTextColor(Color.parseColor("#000000"));
+                        setColorButtons();
                     }
-                }, 400);
+                }, 330);
 
                 String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
                 //intent share del tuggle bar
@@ -204,9 +198,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         riprovaBtn.setOnClickListener(v -> {
 
-            GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
-            bgShape1.setColor(Color.parseColor("#000000"));
-            riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
+            setColorButtonsClickRiprova();
 
             Intent intent = new Intent(getApplicationContext(), QuizGameActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -316,6 +308,26 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                         listViewClassifica.setAdapter(customAdapter);
                     }//Fine if
                 });
+    }
+
+    //set color per i bottons del materia deign [com.google.android.material.button.MaterialButton]
+    public void setColorButtons(){
+        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        condividi.setTextColor(Color.parseColor("#000000"));
+        riprovaBtn.setTextColor(Color.parseColor("#000000"));
+    }
+
+    //set color per i bottons al click
+    public void setColorButtonsClickCondividi(){
+        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+        condividi.setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    //set color per i bottons al click
+    public void setColorButtonsClickRiprova(){
+        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+        riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
     }
 
 

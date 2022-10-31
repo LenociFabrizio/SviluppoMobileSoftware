@@ -7,20 +7,20 @@
     android:theme="@style/Theme.ECultureExperience"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+
     >
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="48dp"
-
+            android:paddingBottom="0dp"
             tools:context=".LuogoDiInteresse.MostraLuogoDiInteresseActivity">
 
             <TextView
@@ -41,9 +41,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lista_classifica"
-                android:textAppearance="?attr/textAppearanceHeadline5"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/correct_answers"
+                android:textAppearance="?attr/textAppearanceHeadline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/risultatoText" />
@@ -53,15 +53,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textAppearance="?attr/textAppearanceHeadline6"
                 android:text="@string/classifica"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintStart_toStartOf="@+id/lista_classifica"
                 app:layout_constraintTop_toBottomOf="@+id/esitoText" />
 
             <ListView
                 android:id="@+id/lista_classifica"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_below="@+id/classificaText"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
@@ -72,40 +72,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/classificaText" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shareButtonQuiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/share_result"
-                android:layout_marginTop="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lista_classifica" />
-            ù
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/tryAgainBtn"
-                style="@style/Theme.ECultureExperience.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center_horizontal"
-                android:text="@string/riprova"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shareButtonQuiz" />
-
-
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
 
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:context=".LuogoDiInteresse.MostraLuogoDiInteresseActivity"
+        tools:ignore="MissingConstraints">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shareButtonQuiz"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button_quiz_game"
+            android:text="@string/share_result"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="16dp" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tryAgainBtn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/rounded_button_quiz_game"
+            android:padding="10dp"
+            android:text="@string/riprova"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shareButtonQuiz" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
