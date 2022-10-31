@@ -65,7 +65,11 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mostra_percorso);
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
-        listViewOggetti.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager OggettiLinearLayout = new LinearLayoutManager(this){
+
+        };
+        listViewOggetti.setLayoutManager(OggettiLinearLayout);
+        listViewOggetti.setNestedScrollingEnabled(false);
 
         //setto il colore dei pulsanti
         //setColorButtons();
