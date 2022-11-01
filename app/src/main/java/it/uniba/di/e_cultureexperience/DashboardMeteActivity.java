@@ -1,7 +1,5 @@
 package it.uniba.di.e_cultureexperience;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +10,6 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,12 +23,11 @@ import java.util.List;
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuoghiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
-import it.uniba.di.e_cultureexperience.QrCodeScanner;
 
 public class DashboardMeteActivity extends AppCompatActivity {
 
-    private List<LuogoDiInteresse> meteList = new ArrayList<>();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final List<LuogoDiInteresse> meteList = new ArrayList<>();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView list_view_mete;
     public LuoghiDiInteresseAdapter customAdapter;
 
@@ -69,7 +65,6 @@ public class DashboardMeteActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_home);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
                     return true;
@@ -101,8 +96,6 @@ public class DashboardMeteActivity extends AppCompatActivity {
         inflater.inflate(R.menu.top_menu, menu);
 
         final MenuItem menuItem = menu.findItem(R.id.action_search);
-
-        SearchManager searchManager = (SearchManager)getSystemService(Context.SEARCH_SERVICE);
 
         final SearchView searchView = (SearchView) menuItem.getActionView();
 

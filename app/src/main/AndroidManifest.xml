@@ -79,10 +79,6 @@
             android:name=".QuizGame.TimeOutActivity" />
 
         <activity
-            android:name=".QuizGame.StartGame"
-            android:exported="false" />
-
-        <activity
             android:name=".QuizGame.PuzzleGame"
             android:exported="true"
             android:theme="@style/Theme.MyApplication3.NoActionBar">
