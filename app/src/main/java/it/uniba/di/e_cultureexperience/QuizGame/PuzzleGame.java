@@ -75,26 +75,17 @@ public class PuzzleGame extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this);
-        immagineOggetto = findViewById(R.id.immagineQuiz);
+
+        //setto il nome dell appbar
+        Toolbar mToolbar = findViewById(R.id.toolbar_puzzle);
+        setSupportActionBar(mToolbar);
+        String nomeOggetto =getIntent().getExtras().getString("nomeOggetto");
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(nomeOggetto);
 
         //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");
-        //carico l'url all'interno della ImageView
-        Picasso.with(this)
-                .load(url)
-                .into(immagineOggetto);
-
-        //operazioni Toolbar
-        Toolbar mToolbar = findViewById(R.id.toolbar_puzzle);
-        setSupportActionBar(mToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        //getSupportActionBar().setTitle(oggettoDiInteresse.getNome());
-
-        CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbar);
-        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
-        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
-
 
         int DURATA_TIMER = 5;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
@@ -184,7 +175,13 @@ public class PuzzleGame extends AppCompatActivity {
                 });
 
         Button resa = findViewById(R.id.bottoneDiResa);
-        resa.setOnClickListener(v -> goBack());
+        resa.setOnClickListener(v -> finish());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     /**

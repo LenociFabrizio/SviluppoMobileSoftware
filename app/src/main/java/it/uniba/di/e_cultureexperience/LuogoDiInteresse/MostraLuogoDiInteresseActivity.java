@@ -239,7 +239,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 String idUtenteDatabase = document.getString("idUtente");
                                 String nomeLuogoDatabase = document.getString("nome");
                                 //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
-                                if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
+                                if(idUtenteDatabase.equals(fAuth.getUid())
+                                        && nomeLuogoDatabase.equals(luogo.getNome())){
                                     favorite.setChecked(true);
                                     favouriteItem.setChecked(true);
                                     favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
@@ -257,8 +258,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     /**
      * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo

@@ -134,6 +134,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                                 Intent i = new Intent(getApplicationContext(), PuzzleGame.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i.putExtra("urlImmagine", oggettoDiInteresse.getUrl_immagine());
+                                i.putExtra("nomeOggetto", oggettoDiInteresse.getNome());
                                 getApplicationContext().startActivity(i);
                             });
                         }
