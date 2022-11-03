@@ -72,14 +72,11 @@
 
         <activity
             android:name=".QuizGame.RisultatoQuizActivity"
-            android:theme="@style/Theme.MyApplication3.NoActionBar" />
+            android:label="@string/result_quiz_activity"
+            />
 
         <activity
             android:name=".QuizGame.TimeOutActivity" />
-
-        <activity
-            android:name=".QuizGame.StartGame"
-            android:exported="false" />
 
         <activity
             android:name=".QuizGame.PuzzleGame"

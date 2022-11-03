@@ -72,6 +72,7 @@ public class PuzzleGame extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this);
+<<<<<<< HEAD
 
         //setto il nome dell appbar
         Toolbar mToolbar = findViewById(R.id.toolbar_puzzle);
@@ -80,6 +81,10 @@ public class PuzzleGame extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(nomeOggetto);
+=======
+        //spazio in cui verra caricata l'immagine per il puzzle
+        ImageView immagineOggetto = findViewById(R.id.immagineQuiz);
+>>>>>>> b153bc7cfaf86d188e74f319476a2a9ef114e953
 
         //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");

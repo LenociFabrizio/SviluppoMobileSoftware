@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,28 +33,29 @@ public class QuizGameActivity extends AppCompatActivity {
 
     //OGGETTI PER LISTA CONTENENTI LE DOMANDE
     private ArrayList<QuesitoQuiz> list;
-    private List<QuesitoQuiz> allQuestionsLilst;
     private QuesitoQuiz modelClass;
     int i = 0;
 
     //OGGETTI PER IL LAYOUT
-    private TextView domanda, numeroDomanda;
+    private TextView domanda;
     private Button primaOpzione, secondaOpzione, terzaOpzione;
-
-    private ImageView immagineOggetto;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
     int correttaCount = 0, sbagliataCount = 0;
 
-    //contatore per il click dell'utente
+    //posizione per il click dell'utente
     int posizioneCliccata = 0;
+
+    //idOggetto,lo putto nella prossima activity ( se c'è un'altra domanda dopo)
+    String idOggetto = null;
+
+    //attimo in cui il codice si ferma
+    private int stopCodeinMillis=300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_game);
-
-        //numeroDomanda = findViewById(R.id.numeroDomandaTV);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(timerValue);
@@ -62,7 +64,7 @@ public class QuizGameActivity extends AppCompatActivity {
         primaOpzione = findViewById(R.id.primaRisposta);
         secondaOpzione = findViewById(R.id.secondaRisposta);
         terzaOpzione = findViewById(R.id.terzaRisposta);
-        immagineOggetto = findViewById(R.id.immagine);
+        ImageView immagineOggetto = findViewById(R.id.immagine);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -78,7 +80,7 @@ public class QuizGameActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 Log.v("Log_tag", "Tick of progress" + timerValue + millisUntilFinished);
                 timerValue++;
-                progressBar.setProgress((int) timerValue * 100 / (20000 / 1000));
+                progressBar.setProgress(timerValue * 100 / (20000 / 1000));
             }
 
             /**
@@ -97,18 +99,14 @@ public class QuizGameActivity extends AppCompatActivity {
                 secondaOpzione.setText(R.string.vaiVia);
 
 
-                secondaOpzione.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
-                        bgShape1.setColor(Color.parseColor("#000000"));
-                        secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
-                        Intent i= new Intent(QuizGameActivity.this, DashboardMeteActivity.class);
+                secondaOpzione.setOnClickListener(view -> {
+                    GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
+                    bgShape1.setColor(Color.parseColor("#000000"));
+                    secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
 
-                        //i.putExtra("url",urlImmagineOggetto);
-                        startActivity(i);
-                        finish();
-                    }
+                    Intent i = new Intent(QuizGameActivity.this, DashboardMeteActivity.class);
+                    startActivity(i);
+                    finish();
                 });
             }
         }.start();
@@ -118,6 +116,7 @@ public class QuizGameActivity extends AppCompatActivity {
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
         String idOggettoDiInteresse = getIntent().getExtras().getString("idOggetto");
+        idOggetto=idOggettoDiInteresse;
         setListenersToViews(idOggettoDiInteresse);
         assegnazioneList();
         setAllData();
@@ -125,9 +124,8 @@ public class QuizGameActivity extends AppCompatActivity {
 
     /**
      * A seconda della scelta dell'utente il bottone cambia colore in base alla risposta: se è corretta verde, altrimenti rosso
-     * @param idOgg
      */
-    private void setListenersToViews(String idOgg){
+    private void setListenersToViews(String idOgg) {
 
         primaOpzione.setOnClickListener(v -> {
             posizioneCliccata = 1;
@@ -146,42 +144,47 @@ public class QuizGameActivity extends AppCompatActivity {
 
     }
 
-    public void setAllData () {
+    public void setAllData() {
         domanda.setText(modelClass.getDomanda());
         primaOpzione.setText(modelClass.getPrimaOpzione());
         secondaOpzione.setText(modelClass.getSecondaOpzione());
         terzaOpzione.setText(modelClass.getTerzaOpzione());
     }
 
-    public void assegnazioneList () {
-        allQuestionsLilst = list;
+    public void assegnazioneList() {
+        List<QuesitoQuiz> allQuestionsLilst = list;
         Collections.shuffle(allQuestionsLilst);
         modelClass = list.get(i);
     }
 
-    private boolean esitoOpzione (Button opzione){
+    private boolean esitoOpzione(Button opzione) {
         return opzione.getText().equals(modelClass.getRispostaCorretta());
     }
 
-    public void prossimaDomanda (Button opzione, String idOgg){
+    public void prossimaDomanda(Button opzione, String idOgg) {
         //Conto quali sono le opzioni corrette o sbagliate totali
         if (esitoOpzione(opzione)) {
             correttaCount++;
 
-            if(posizioneCliccata==1){
+            if (posizioneCliccata == 1) {
                 // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
-                GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
-                bgShape1.setColor(Color.parseColor(	"#00ff00"));
+                primaCorretta();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
+
             }
-            if(posizioneCliccata==2){
+            if (posizioneCliccata == 2) {
                 // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
-                GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
-                bgShape1.setColor(Color.parseColor("#00ff00"));
+                secondaCorretta();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
+
             }
-            if(posizioneCliccata==3){
+            if (posizioneCliccata == 3) {
                 // qui vado a modificare il colore del shape button non rendendolo quadrato ma sempre ovale
-                GradientDrawable bgShape1 = (GradientDrawable) terzaOpzione.getBackground();
-                bgShape1.setColor(Color.parseColor("#00ff00"));
+                terzaCorretta();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
             }
 
         } else {
@@ -189,16 +192,19 @@ public class QuizGameActivity extends AppCompatActivity {
             sbagliataCount++;
 
             if (posizioneCliccata == 1) {
-                GradientDrawable bgShape2 = (GradientDrawable) primaOpzione.getBackground();
-                bgShape2.setColor(Color.parseColor("#ff0000"));
+                primaSbagliata();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
             }
             if (posizioneCliccata == 2) {
-                GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
-                bgShape2.setColor(Color.parseColor("#ff0000"));
+                secondaSbagliata();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
             }
             if (posizioneCliccata == 3) {
-                GradientDrawable bgShape2 = (GradientDrawable) terzaOpzione.getBackground();
-                bgShape2.setColor(Color.parseColor("#ff0000"));
+                terzaSbagliata();
+                Handler handler = new Handler();
+                handler.postDelayed(this::setColorButtons, stopCodeinMillis);
             }
 
         }
@@ -207,31 +213,19 @@ public class QuizGameActivity extends AppCompatActivity {
         if (i < list.size() - 1) {
             i++;
             modelClass = list.get(i);
-            setAllData();
+            Handler handler = new Handler();
+            handler.postDelayed(this::setAllData, stopCodeinMillis);
         } else {
-            Intent i = new Intent(QuizGameActivity.this, RisultatoQuizActivity.class);
-            //Prendo l'oggetto passato dall'intent
-            String urlImmagineOggetto = getIntent().getExtras().getString("url");
-            //carico il nome del percorso (per condividelo nel risultatoQuiz)
-            String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+            Handler handler = new Handler();
+            handler.postDelayed(this::avantiActivity, stopCodeinMillis);
 
-
-            i.putExtra("idOggetto", idOgg);
-            i.putExtra("quesiti", list);
-            i.putExtra("RISPOSTA_CORRETTA", correttaCount);
-            i.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
-            i.putExtra("url",urlImmagineOggetto);
-            i.putExtra("nomeOggetto",nomeOggetto);
-
-            startActivity(i);
-            finish();
         }
     }
 
     //If user press home button and come in the game from memory then this
     //method will continue the timer from the previous time it left
     @Override
-    protected void onRestart () {
+    protected void onRestart() {
 
         super.onRestart();
         countDownTimer.start();
@@ -239,19 +233,19 @@ public class QuizGameActivity extends AppCompatActivity {
 
     //When activity is destroyed then this will cancel the timer
     @Override
-    protected void onStop () {
+    protected void onStop() {
         super.onStop();
         countDownTimer.cancel();
     }
 
     //This will pause the time
     @Override
-    protected void onPause () {
+    protected void onPause() {
         super.onPause();
         countDownTimer.cancel();
     }
 
-    public void setColorButtons(){
+    public void setColorButtons() {
         GradientDrawable bgShape1 = (GradientDrawable) primaOpzione.getBackground();
         GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
         GradientDrawable bgShape3 = (GradientDrawable) terzaOpzione.getBackground();
@@ -264,5 +258,53 @@ public class QuizGameActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    private void primaCorretta() {
+        GradientDrawable bgShape2 = (GradientDrawable) primaOpzione.getBackground();
+        bgShape2.setColor(Color.parseColor("#00ff00"));
+    }
+
+    private void secondaCorretta() {
+        GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
+        bgShape1.setColor(Color.parseColor("#00ff00"));
+    }
+
+    private void terzaCorretta() {
+        GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
+        bgShape1.setColor(Color.parseColor("#00ff00"));
+    }
+
+    private void primaSbagliata() {
+        GradientDrawable bgShape2 = (GradientDrawable) primaOpzione.getBackground();
+        bgShape2.setColor(Color.parseColor("#ff0000"));
+    }
+
+    private void secondaSbagliata() {
+        GradientDrawable bgShape2 = (GradientDrawable) secondaOpzione.getBackground();
+        bgShape2.setColor(Color.parseColor("#ff0000"));
+    }
+
+    private void terzaSbagliata() {
+        GradientDrawable bgShape2 = (GradientDrawable) terzaOpzione.getBackground();
+        bgShape2.setColor(Color.parseColor("#ff0000"));
+    }
+
+    private void avantiActivity() {
+        Intent i = new Intent(QuizGameActivity.this, RisultatoQuizActivity.class);
+        //Prendo l'oggetto passato dall'intent
+        String urlImmagineOggetto = getIntent().getExtras().getString("url");
+        //carico il nome del percorso (per condividelo nel risultatoQuiz)
+        String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+
+        i.putExtra("idOggetto", idOggetto);
+        i.putExtra("quesiti", list);
+        i.putExtra("RISPOSTA_CORRETTA", correttaCount);
+        i.putExtra("RISPOSTA_SBAGLIATA", sbagliataCount);
+        i.putExtra("url", urlImmagineOggetto);
+        i.putExtra("nomeOggetto", nomeOggetto);
+
+        finish();
+        startActivity(i);
     }
 }

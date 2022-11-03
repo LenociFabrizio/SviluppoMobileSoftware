@@ -11,14 +11,11 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
 public class PercorsiAdapter implements ListAdapter {
     ArrayList<Percorso> arrayList;
-    List<LuogoDiInteresse> arrayListFiltered;
     Context context;
 
     public PercorsiAdapter(Context context, ArrayList<Percorso> arrayList) {
@@ -80,7 +77,7 @@ public class PercorsiAdapter implements ListAdapter {
             TextView txtDescrizione = convertView.findViewById(R.id.txt_descrizione);
             txtDescrizione.setText(percorso.getDescrizione());
 
-            ImageView imageview = (ImageView) convertView.findViewById(R.id.btn_vediPercorso);
+            ImageView imageview = convertView.findViewById(R.id.btn_vediPercorso);
             imageview.setColorFilter(R.color.black);
             convertView.setOnClickListener(v -> {
                 //quando viene premuto, lancia l' intent esplicito
