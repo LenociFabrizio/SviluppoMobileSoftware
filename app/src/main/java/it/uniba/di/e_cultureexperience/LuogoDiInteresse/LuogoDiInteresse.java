@@ -3,6 +3,8 @@ package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public final class LuogoDiInteresse implements Parcelable {
@@ -78,20 +80,12 @@ public final class LuogoDiInteresse implements Parcelable {
         return url_immagine;
     }
 
-    public void setUrl_immagine(String url_immagine) {
-        this.url_immagine = url_immagine;
-    }
-
     public String getDescrizione() {
         return descrizione;
     }
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
-    }
-
-    public static Creator<LuogoDiInteresse> getCREATOR() {
-        return CREATOR;
     }
 
     @Override
@@ -107,6 +101,7 @@ public final class LuogoDiInteresse implements Parcelable {
         return Objects.hash(nome, url_immagine, descrizione, id);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "LuogoDiInteresse{" +

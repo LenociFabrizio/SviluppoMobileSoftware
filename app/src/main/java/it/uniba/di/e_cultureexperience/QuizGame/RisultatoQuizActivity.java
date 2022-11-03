@@ -7,23 +7,17 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +27,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
 
 public class RisultatoQuizActivity extends AppCompatActivity {
@@ -51,11 +44,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     private Button riprovaBtn;
     private Button condividi;
 
-    //elementi per la tuggleBar
-    private MenuItem shareItem;
-    final String collectionPath = "luoghiPreferiti";
-
-    //ELEMENTI PER IL TASTO SHARE
     //variabile punteggioMassimo del quiz, la uso per condividerla se si clicca il pulsante shareBTn
     AtomicLong punteggioMassimo= new AtomicLong();
     //variabile usata nel tasto share
@@ -80,7 +68,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
         String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
-        ImageView immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
 
@@ -169,26 +156,19 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //set color buttons
         setColorButtons();
 
-        condividi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
-                //attendi alcuni secondi prima di cambiare colore al pulsante
-                setColorButtonsClickCondividi();
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        setColorButtons();
-                    }
-                }, 330);
+        condividi.setOnClickListener(v -> {
+            GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
+            //attendi alcuni secondi prima di cambiare colore al pulsante
+            setColorButtonsClickCondividi();
+            Handler handler = new Handler();
+            handler.postDelayed(this::setColorButtons, 330);
 
-                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
-                //intent share del tuggle bar
-                Intent intent =new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
-            }
+            String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+            //intent share del tuggle bar
+            Intent intent =new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
+            startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
         });
 
 
@@ -216,29 +196,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-/*
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.share:
-                //carico il nome del percorso (per condividelo se clicca il bottone share)
-                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
-                //intent share del tuggle bar
-                Intent intent =new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    */
 
     public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
         db.collection(collectionPath)

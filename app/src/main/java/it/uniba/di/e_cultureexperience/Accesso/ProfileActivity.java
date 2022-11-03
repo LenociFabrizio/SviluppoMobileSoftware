@@ -14,14 +14,12 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -58,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
 
-    private final List<String> menuArray = new ArrayList<String>();
+    private final List<String> menuArray = new ArrayList<>();
 
 
     @Override
@@ -96,6 +94,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             if(user.isAnonymous()){
+                //todo: aggiungere in @string
                 email.setText("Sei ospite!");
                 nickname.setText("@ECE" + fAuth.getUid().substring(1, 4));
             }else{
@@ -250,19 +249,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         user.updateProfile(request)
                 .addOnSuccessListener(unused -> Toast.makeText(ProfileActivity.this,"Updated succesfully", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show());
-    }
-
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Locale.setDefault(myLocale);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, ProfileActivity.class);
-        startActivity(refresh);
-        finish();
     }
 
     @Override

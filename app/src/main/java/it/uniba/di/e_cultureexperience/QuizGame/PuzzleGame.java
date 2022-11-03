@@ -61,9 +61,6 @@ public class PuzzleGame extends AppCompatActivity {
     //segnalino per sapere se si può spostare il pezzo di foto al posto dell'immagine nera o bianca
     private boolean verificaSpostamento = false;
 
-    //spazio in cui verra caricata l'immagine per il puzzle
-    private ImageView immagineOggetto;
-
     //creo prima la variabile del timer per poterla eliminare quando esco dall'activity
     CountDownTimer cdt;
 
@@ -75,7 +72,8 @@ public class PuzzleGame extends AppCompatActivity {
 
         gridView = findViewById(R.id.gridview);
         imageAdapter = new ImageAdapter(this);
-        immagineOggetto = findViewById(R.id.immagineQuiz);
+        //spazio in cui verra caricata l'immagine per il puzzle
+        ImageView immagineOggetto = findViewById(R.id.immagineQuiz);
 
         //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");
@@ -373,10 +371,6 @@ public class PuzzleGame extends AppCompatActivity {
         startActivity(i);
         finish();
 
-    }
-
-    public void riordina(){
-        randomImages=imageSplittedDrawableOneDimension;
     }
 
 

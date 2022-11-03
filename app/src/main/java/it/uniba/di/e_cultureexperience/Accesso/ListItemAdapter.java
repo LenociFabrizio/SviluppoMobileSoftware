@@ -1,24 +1,19 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import it.uniba.di.e_cultureexperience.R;
 
 public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.viewProfileHolder> {
 
-    List<String> vociMenu = new ArrayList<String>();
+    List<String> vociMenu;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     Context context;
@@ -33,8 +28,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.viewPr
     public viewProfileHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-        viewProfileHolder viewHolder = new viewProfileHolder(view);
-        return viewHolder;
+        return new viewProfileHolder(view);
     }
 
     @Override

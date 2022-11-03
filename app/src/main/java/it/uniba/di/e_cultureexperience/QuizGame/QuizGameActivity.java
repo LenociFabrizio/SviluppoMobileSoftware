@@ -32,15 +32,12 @@ public class QuizGameActivity extends AppCompatActivity {
 
     //OGGETTI PER LISTA CONTENENTI LE DOMANDE
     private ArrayList<QuesitoQuiz> list;
-    private List<QuesitoQuiz> allQuestionsLilst;
     private QuesitoQuiz modelClass;
     int i = 0;
 
     //OGGETTI PER IL LAYOUT
-    private TextView domanda, numeroDomanda;
+    private TextView domanda;
     private Button primaOpzione, secondaOpzione, terzaOpzione;
-
-    private ImageView immagineOggetto;
 
     //OGGETTI PER CONTARE RISPOSTE CORRETTE E SBAGLIATE - PER RISULTATO FINALE IN "RisultatoQuizActivity.java"
     int correttaCount = 0, sbagliataCount = 0;
@@ -53,8 +50,6 @@ public class QuizGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_game);
 
-        //numeroDomanda = findViewById(R.id.numeroDomandaTV);
-
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(timerValue);
 
@@ -62,7 +57,7 @@ public class QuizGameActivity extends AppCompatActivity {
         primaOpzione = findViewById(R.id.primaRisposta);
         secondaOpzione = findViewById(R.id.secondaRisposta);
         terzaOpzione = findViewById(R.id.terzaRisposta);
-        immagineOggetto = findViewById(R.id.immagine);
+        ImageView immagineOggetto = findViewById(R.id.immagine);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -78,7 +73,7 @@ public class QuizGameActivity extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
                 Log.v("Log_tag", "Tick of progress" + timerValue + millisUntilFinished);
                 timerValue++;
-                progressBar.setProgress((int) timerValue * 100 / (20000 / 1000));
+                progressBar.setProgress(timerValue * 100 / (20000 / 1000));
             }
 
             /**
@@ -97,18 +92,14 @@ public class QuizGameActivity extends AppCompatActivity {
                 secondaOpzione.setText(R.string.vaiVia);
 
 
-                secondaOpzione.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
-                        bgShape1.setColor(Color.parseColor("#000000"));
-                        secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
-                        Intent i= new Intent(QuizGameActivity.this, DashboardMeteActivity.class);
+                secondaOpzione.setOnClickListener(view -> {
+                    GradientDrawable bgShape1 = (GradientDrawable) secondaOpzione.getBackground();
+                    bgShape1.setColor(Color.parseColor("#000000"));
+                    secondaOpzione.setTextColor(Color.parseColor("#ffffff"));
 
-                        //i.putExtra("url",urlImmagineOggetto);
-                        startActivity(i);
-                        finish();
-                    }
+                    Intent i= new Intent(QuizGameActivity.this, DashboardMeteActivity.class);
+                    startActivity(i);
+                    finish();
                 });
             }
         }.start();
@@ -125,7 +116,6 @@ public class QuizGameActivity extends AppCompatActivity {
 
     /**
      * A seconda della scelta dell'utente il bottone cambia colore in base alla risposta: se è corretta verde, altrimenti rosso
-     * @param idOgg
      */
     private void setListenersToViews(String idOgg){
 
@@ -154,7 +144,7 @@ public class QuizGameActivity extends AppCompatActivity {
     }
 
     public void assegnazioneList () {
-        allQuestionsLilst = list;
+        List<QuesitoQuiz> allQuestionsLilst = list;
         Collections.shuffle(allQuestionsLilst);
         modelClass = list.get(i);
     }
