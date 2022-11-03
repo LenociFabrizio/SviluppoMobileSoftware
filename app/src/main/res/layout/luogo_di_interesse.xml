@@ -95,8 +95,7 @@
                     android:layout_below="@+id/descrizione"
                     android:layout_marginHorizontal="@dimen/text_margin"
                     android:text="@string/percorsi"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
                 <ListView
                     android:id="@+id/lista_percorsi"
                     android:layout_width="wrap_content"
