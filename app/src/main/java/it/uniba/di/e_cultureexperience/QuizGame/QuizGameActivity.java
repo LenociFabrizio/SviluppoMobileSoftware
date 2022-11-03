@@ -50,7 +50,7 @@ public class QuizGameActivity extends AppCompatActivity {
     String idOggetto = null;
 
     //attimo in cui il codice si ferma
-    private int stopCodeinMillis=330;
+    private int stopCodeinMillis=300;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -118,10 +118,9 @@
                     android:id="@+id/title_attivita"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_below="@+id/map"
                     android:layout_marginHorizontal="@dimen/text_margin"
-
+                    android:layout_marginTop="15dp"
                     android:text="@string/attivita"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
@@ -132,7 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
-                    android:layout_marginTop="4dp"
+                    android:background="@drawable/rounded_button_quiz_game"
+                    android:layout_marginTop="8dp"
                     android:text="Quiz"
                     android:visibility="gone" />
 
@@ -141,8 +141,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
+                    android:background="@drawable/rounded_button_quiz_game"
                     android:layout_marginLeft="100dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:text="Puzzle"
                     android:visibility="gone" />
 
