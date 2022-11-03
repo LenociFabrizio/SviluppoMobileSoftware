@@ -59,7 +59,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         ImageView immagineOggetto = findViewById(R.id.immagineOggetto);
-        TextView bluetoothOggetto = findViewById(R.id.bluetoothIdTxt);
         quizBtn = findViewById(R.id.btn_quiz);
         puzzleBtn = findViewById(R.id.btn_puzzleGame);
 
@@ -70,7 +69,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         descrizioneOggetto.setText(oggettoDiInteresse.getDescrizione());
 
-        bluetoothOggetto.setText(oggettoDiInteresse.getBluetooth_id());
 
         Toolbar mToolbar = findViewById(R.id.toolbar_oggettodiinteresse);
         setSupportActionBar(mToolbar);
