@@ -3,7 +3,9 @@ package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -59,9 +62,11 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         ImageView immagineOggetto = findViewById(R.id.immagineOggetto);
-        TextView bluetoothOggetto = findViewById(R.id.bluetoothIdTxt);
         quizBtn = findViewById(R.id.btn_quiz);
         puzzleBtn = findViewById(R.id.btn_puzzleGame);
+
+        //setto i colori dei pulsanti con li colore bianco (di default)
+        setColorButtons();
 
         //S T A R T - set content into layout
         Picasso.with(this)
@@ -70,7 +75,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         descrizioneOggetto.setText(oggettoDiInteresse.getDescrizione());
 
-        bluetoothOggetto.setText(oggettoDiInteresse.getBluetooth_id());
 
         Toolbar mToolbar = findViewById(R.id.toolbar_oggettodiinteresse);
         setSupportActionBar(mToolbar);
@@ -95,6 +99,12 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                                 quesiti.add(temp);
                             }
                             quizBtn.setOnClickListener(v -> {
+                                quizBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+                                quizBtn.setTextColor(ContextCompat.getColorStateList(this, R.color.white));
+                                ////ricolora i pulanti col colore di default (bianco), dopo alcuni istanti
+                                Handler handler = new Handler();
+                                handler.postDelayed(this::setColorButtons, 330);
+
                                 //quando viene premuto, lancia l' intent esplicito
                                 Intent i = new Intent(getApplicationContext(), QuizGameActivity.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -119,9 +129,17 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                             //ha un puzzle, rendo visibile il bottone del puzzle(se è stato scannerizzato)
                             puzzleBtn.setVisibility(View.VISIBLE);
                             puzzleBtn.setOnClickListener(v -> {
+                                puzzleBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+                                puzzleBtn.setTextColor(ContextCompat.getColorStateList(this, R.color.white));
+
+                                //ricolora i pulanti col colore di default (bianco)
+                                Handler handler = new Handler();
+                                handler.postDelayed(this::setColorButtons, 330);
+
                                 Intent i = new Intent(getApplicationContext(), PuzzleGame.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 i.putExtra("urlImmagine", oggettoDiInteresse.getUrl_immagine());
+                                i.putExtra("nomeOggetto", oggettoDiInteresse.getNome());
                                 getApplicationContext().startActivity(i);
                             });
                         }
@@ -175,4 +193,14 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                 .title(oggettoDiInteresse.getNome()));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
     }
+
+    //set color per i bottons del materia deign [com.google.android.material.button.MaterialButton]
+    public void setColorButtons(){
+        quizBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        puzzleBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        quizBtn.setTextColor(Color.parseColor("#000000"));
+        puzzleBtn.setTextColor(Color.parseColor("#000000"));
+    }
+
+
 }

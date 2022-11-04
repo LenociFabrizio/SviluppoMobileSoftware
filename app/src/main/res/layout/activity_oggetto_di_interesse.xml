@@ -71,12 +71,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/descrizione"
-                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="sans-serif-medium"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                     />
 
                 <TextView
                     android:id="@+id/descrizioneTxt"
@@ -88,32 +89,55 @@
 
                     />
 
+
                 <TextView
-                    android:id="@+id/bluetoothIdTxt"
+                    android:id="@+id/titleMaps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/descrizioneTxt"
-                    android:layout_marginHorizontal="@dimen/text_margin" />
+                    android:layout_marginHorizontal="@dimen/text_margin"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Posizione"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="18sp" />
+
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/titleMaps"
+                    android:layout_marginHorizontal="@dimen/text_margin"
+                    app:cameraZoom="15"
+                    app:mapType="normal" />
 
                 <TextView
                     android:id="@+id/title_attivita"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:layout_below="@+id/bluetoothIdTxt"
+                    android:layout_below="@+id/map"
                     android:layout_marginHorizontal="@dimen/text_margin"
-
+<<<<<<< Updated upstream
+                    android:layout_marginTop="15dp"
                     android:text="@string/attivita"
-                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/btn_quiz"
+=======
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+>>>>>>> Stashed changes
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/attivita"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="18sp" />
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
-                    android:layout_marginTop="4dp"
+<<<<<<< Updated upstream
+                    android:background="@drawable/rounded_button_quiz_game"
+                    android:layout_marginTop="8dp"
                     android:text="Quiz"
                     android:visibility="gone" />
 
@@ -122,19 +146,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
+                    android:background="@drawable/rounded_button_quiz_game"
                     android:layout_marginLeft="100dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="8dp"
                     android:text="Puzzle"
                     android:visibility="gone" />
+=======
+                    android:layout_marginHorizontal="@dimen/text_margin">
 
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginStart="100dp"
-                    app:cameraZoom="15"
-                    app:mapType="normal" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_quiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quiz"
+                        android:layout_marginRight="16dp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_puzzleGame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/btn_quiz"
+                        android:text="Puzzle"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+>>>>>>> Stashed changes
+
+
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

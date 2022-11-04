@@ -73,7 +73,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
     // Also declare the dependency for the Google Play services library and specify its version
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
 
     //MultiDex
     implementation 'androidx.multidex:multidex:2.0.1'
