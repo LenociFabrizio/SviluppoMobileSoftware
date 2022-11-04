@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,12 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -36,22 +34,23 @@ import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter2;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView numeroVotazioni;
     private TextView mediaValutazione;
-    private ListView listViewOggetti;
+    //private ListView listViewOggetti;
+    private RecyclerView listViewOggetti;
 
-    private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
+    private final ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
-    private String collectionPathValutazione, collectionPathOggetti;
+    private String collectionPathValutazione;
     private Float mediaStelle;
 
     @SuppressLint("SetTextI18n")
@@ -61,17 +60,19 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mostra_percorso);
 
         listViewOggetti = findViewById(R.id.lista_oggetti);
-        listViewOggetti.setDividerHeight(0);
+        LinearLayoutManager OggettiLinearLayout = new LinearLayoutManager(this){
 
-        Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
+        };
+        listViewOggetti.setLayoutManager(OggettiLinearLayout);
+        listViewOggetti.setNestedScrollingEnabled(false);
+
         //setto il colore dei pulsanti
         //setColorButtons();
 
         //prendo l' oggetto passato dall' intent
         Percorso percorso = getIntent().getExtras().getParcelable("percorso");
 
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(percorso.getNome());
 
@@ -81,7 +82,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         //TextView durataPercorso = findViewById(R.id.durata);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
-        //durataPercorso.setText(getString(R.string.durata)+ Integer.toString(percorso.getDurata())+getString(R.string.minutes));
         Button openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
         mediaValutazione = findViewById(R.id.rating_avg);
@@ -92,17 +92,12 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         calcoloMediaValutazione(collectionPathValutazione);
 
-        //String s=Float.toString(mediaStelle);
-        //Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-
         System.out.println("000000000000000ms=" + mediaStelle);
 
-        openDialogBtn.setOnClickListener(v -> {
-            writeRating(percorso, collectionPathValutazione);
-        });
+        openDialogBtn.setOnClickListener(v -> writeRating(collectionPathValutazione));
         //F I N I S H - Rating stars
 
-        collectionPathOggetti = "percorsi/" + percorso.getId() + "/oggetti";
+        String collectionPathOggetti = "percorsi/" + percorso.getId() + "/oggetti";
         letturaOggetti(collectionPathOggetti);
 
         onCreateBottomNavigation();
@@ -137,7 +132,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 oggettiDiInteresse.add(temp);
                             }
                         }
-                        OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggettiDiInteresse);
+                        OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2( getApplicationContext(), oggettiDiInteresse);
+                        listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));
                         listViewOggetti.setAdapter(customAdapter);
                     } else {
                         Log.e("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
@@ -153,14 +149,13 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_home);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
                     startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:
@@ -182,7 +177,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
+        getMenuInflater().inflate(R.menu.percorso_top_menu, menu);
 
         return true;
     }
@@ -220,8 +215,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
     /**
      * Funzione atomica di scrittura su db dato un map<string, object> e la collectionPath
-     * @param valutazione
-     * @param collectionPath
      */
     public void addDoc(Map<String, Object> valutazione, String collectionPath){
 
@@ -233,8 +226,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
     /**
      * Funzione atomica di eliminazione di un documento su db attraverso la collectinoPath e l'id del documento da eliminare
-     * @param collectionPath
-     * @param documentReference
      */
     public void deleteDoc(String collectionPath, String documentReference)
     {
@@ -250,8 +241,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
      * scrive la valutazione su db: se il db è vuoto scrivo la nuova valutazione,
      * se esiste già allora l'aggiorno
      * altrimenti se non è vuota ma la valutazione dal seguente utente non è stata ancora data, allora l'aggiungo
-     * @param collectionPath
-     * @param rating
      */
     public void scritturaValutazioneDatabase(String collectionPath, float rating){
         Map<String, Object> valutazione = new HashMap<>();
@@ -321,13 +310,10 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
     /**
      * Calcolo della media valutazione per un determinato oggetto di interesse (WIP)
-     * @param collectionPath
-     * @return
      */
     @SuppressLint({"DefaultLocale", "SetTextI18n"})
-    public Float calcoloMediaValutazione(String collectionPath){
+    public void calcoloMediaValutazione(String collectionPath){
         
-
         db.collection(collectionPath)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -350,33 +336,29 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                             mediaValutazione.setText(String.format("%.02f", media));
                             if(numeroVotanti > 1){
-                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.reviews));
+                                numeroVotazioni.setText( numeroVotanti +" "+  getString(R.string.reviews));
                             }
                             else{
-                                numeroVotazioni.setText( numeroVotanti +  getString(R.string.review));
+                                numeroVotazioni.setText( numeroVotanti +" "+  getString(R.string.review));
                             }
 
 
                         }
                     }
                 });
-        
-        return mediaStelle;
 
     }
 
     /**
      * Apre un nuovo Dialog che permette all'utente di inserire una valutazione attraverso il ratingBar a stella
-     * @param percorso
-     * @param collectionPathValutazione
      */
-    public void writeRating(Percorso percorso, String collectionPathValutazione){
+    public void writeRating(String collectionPathValutazione){
 
         Dialog rankDialog = new Dialog(MostraPercorsoActivity.this, R.style.Base_Theme_AppCompat_Dialog_Alert);
         rankDialog.setContentView(R.layout.rank_dialog);
         rankDialog.setCancelable(true);
 
-        RatingBar ratingStarsDialog = (RatingBar) rankDialog.findViewById(R.id.ratingBarDialog);
+        RatingBar ratingStarsDialog = rankDialog.findViewById(R.id.ratingBarDialog);
         //Setting iniziale del ratingStars con il voto precedentemente inserito
         letturaValutazione(collectionPathValutazione, ratingStarsDialog);
         //Scrittura e aggiornamento del voto
@@ -387,7 +369,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
             }
         });
 
-        TextView titoloDialog = (TextView) rankDialog.findViewById(R.id.titleRating);
+        TextView titoloDialog = rankDialog.findViewById(R.id.titleRating);
         titoloDialog.setText("Valuta il percorso");
 
         Button updateButton = rankDialog.findViewById(R.id.rank_dialog_button);

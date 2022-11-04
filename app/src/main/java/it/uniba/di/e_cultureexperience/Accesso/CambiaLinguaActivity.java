@@ -20,8 +20,7 @@ import it.uniba.di.e_cultureexperience.R;
 
 public class CambiaLinguaActivity extends AppCompatActivity implements ListItemAdapter.ItemClickListener{
 
-    private RecyclerView listaMenu;
-    private List<String> menuArray = new ArrayList<String>();
+    private final List<String> menuArray = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class CambiaLinguaActivity extends AppCompatActivity implements ListItemA
         Log.e("lingua", current.getLanguage());
 
 
-        listaMenu = findViewById(R.id.lista_menu);
+        RecyclerView listaMenu = findViewById(R.id.lista_menu);
         listaMenu.setLayoutManager(new LinearLayoutManager(this));
 
         ListItemAdapter adapter = new ListItemAdapter(menuArray,this);

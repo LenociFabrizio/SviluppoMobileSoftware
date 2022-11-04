@@ -3,7 +3,6 @@ package it.uniba.di.e_cultureexperience.Accesso;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -22,7 +21,7 @@ import it.uniba.di.e_cultureexperience.R;
 public class LoginActivity extends AppCompatActivity {
     private TextInputEditText editTextPassword, editTextEmail;
     private TextInputLayout layoutPassword, layoutEmail;
-    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,24 +83,10 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-
-        //Controllo email vuota
-        if(email.isEmpty()){
-            layoutEmail.setError("Inserisci email d'accesso");
-            layoutEmail.requestFocus();
-            return;
-        }else{
-            layoutEmail.setError("");
-        }
+        if (emptyCheck(email, layoutEmail, "Inserisci email d'accesso")) return;
 
         //Controllo password vuota
-        if(password.isEmpty()){
-            layoutPassword.setError("Inserisci password d'accesso");
-            layoutPassword.requestFocus();
-            return;
-        }else{
-            layoutEmail.setError("");
-        }
+        if (emptyCheck(password, layoutPassword, "Inserisci password d'accesso")) return;
 
         (fAuth.signInWithEmailAndPassword(email, password)).addOnCompleteListener(task -> {
 
@@ -117,6 +102,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private boolean emptyCheck(String string, TextInputLayout layout, String s) {
+
+        if (string.isEmpty()) {
+            layout.setError(s);
+            layout.requestFocus();
+            return true;
+        } else {
+            layout.setError("");
+        }
+        return false;
+    }
+
     public void forgotTxtClick(View v){
         Intent i = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(i);
@@ -124,7 +121,6 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Permette di accedere senza inserimento di email e password. Crea un utente anonimo in Firebase authentication
-     * @param v
      */
     public void guestLogin(View v){
 

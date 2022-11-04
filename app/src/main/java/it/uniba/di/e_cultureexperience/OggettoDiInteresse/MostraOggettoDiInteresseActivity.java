@@ -1,48 +1,41 @@
 package it.uniba.di.e_cultureexperience.OggettoDiInteresse;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
-import java.util.Objects;
-import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
-import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
-import it.uniba.di.e_cultureexperience.R;
-import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
-import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
-import it.uniba.di.e_cultureexperience.QuizGame.QuizGameActivity;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.Objects;
+
+import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
+import it.uniba.di.e_cultureexperience.QuizGame.PuzzleGame;
+import it.uniba.di.e_cultureexperience.QuizGame.QuesitoQuiz;
+import it.uniba.di.e_cultureexperience.QuizGame.QuizGameActivity;
+import it.uniba.di.e_cultureexperience.R;
 
 public class MostraOggettoDiInteresseActivity extends AppCompatActivity implements OnMapReadyCallback {
     private Button quizBtn, puzzleBtn;
@@ -91,35 +84,30 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
 
         //controllo se l' oggetto ha un quiz
         db.collection("/oggetti/"+oggettoDiInteresse.getId()+"/quesiti_quiz")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if(task.getResult().size() > 0 ) {
-                                //ha un quiz, rendo visibile il bottone del quiz(se è stato scannerizzato)
-                                quizBtn.setVisibility(View.VISIBLE);
-                                ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
-                                    quesiti.add(temp);
-                                }
-                                quizBtn.setOnClickListener(new View.OnClickListener() {
-                                    public void onClick(View v) {
-                                        //quando viene premuto, lancia l' intent esplicito
-                                        Intent i = new Intent(getApplicationContext(), QuizGameActivity.class);
-                                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
-                                        i.putExtra("idOggetto", oggettoDiInteresse.getId());
-                                        i.putExtra("quesiti", quesiti);
-                                        i.putExtra("nomeOggetto",oggettoDiInteresse.getNome());
-                                        getApplicationContext().startActivity(i);
-                                    }
-                                });
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if(task.getResult().size() > 0 ) {
+                            //ha un quiz, rendo visibile il bottone del quiz(se è stato scannerizzato)
+                            quizBtn.setVisibility(View.VISIBLE);
+                            ArrayList<QuesitoQuiz> quesiti = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                QuesitoQuiz temp = document.toObject(QuesitoQuiz.class);
+                                quesiti.add(temp);
                             }
-                        } else {
-                            //non ha nessun quiz, rimane invisibile
-                            Log.w("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                            quizBtn.setOnClickListener(v -> {
+                                //quando viene premuto, lancia l' intent esplicito
+                                Intent i = new Intent(getApplicationContext(), QuizGameActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.putExtra("url",oggettoDiInteresse.getUrl_immagine());
+                                i.putExtra("idOggetto", oggettoDiInteresse.getId());
+                                i.putExtra("quesiti", quesiti);
+                                i.putExtra("nomeOggetto",oggettoDiInteresse.getNome());
+                                getApplicationContext().startActivity(i);
+                            });
                         }
+                    } else {
+                        //non ha nessun quiz, rimane invisibile
+                        Log.w("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
                     }
                 });
 
@@ -145,17 +133,6 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         onCreateBottomNavigation();
     }
 
-    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
-        Window win = activity.getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
-
     @SuppressLint("NonConstantResourceId")
     public void onCreateBottomNavigation(){
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -163,14 +140,13 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         bottomNav.setSelectedItemId(R.id.nav_home);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
                     startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:

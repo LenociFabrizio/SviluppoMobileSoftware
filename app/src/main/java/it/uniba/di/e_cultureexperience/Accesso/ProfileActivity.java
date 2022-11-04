@@ -20,10 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,20 +44,19 @@ import java.util.Locale;
 
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class ProfileActivity extends AppCompatActivity implements ListItemAdapter.ItemClickListener{
 
     private TextView nickname;
     private final int TAKE_IMAGE_CODE = 10001;
-    private int CAMERA_PERMISSION_CODE = 1;
+    private final int CAMERA_PERMISSION_CODE = 1;
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ImageView profileImageView;
 
-    private RecyclerView listaMenu;
-    private List<String> menuArray = new ArrayList<String>();
+    private final List<String> menuArray = new ArrayList<>();
 
 
     @Override
@@ -74,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         profileImageView = findViewById(R.id.profileImage);
         nickname = findViewById(R.id.nicknameView);
 
-        listaMenu = findViewById(R.id.lista_menu);
+        RecyclerView listaMenu = findViewById(R.id.lista_menu);
         listaMenu.setLayoutManager(new LinearLayoutManager(this));
 
         ListItemAdapter adapter = new ListItemAdapter(menuArray,this);
@@ -86,25 +85,16 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         menuArray.add(getString(R.string.edit_profile));
         menuArray.add("Preferenza app");
 
-        //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this, android.R.layout.simple_list_item_1, menuArray );
-        //listaMenu.setAdapter(arrayAdapter);
-
-        /*listaMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                if(position == 0)
-                    startActivity(new Intent(ProfileActivity.this, MostraLuogoDiInteressePreferitoActivity.class));
-                if(position == 1)
-                    startActivity(new Intent(ProfileActivity.this, ForgotPasswordActivity.class));
-                if(position == 2)
-                    startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
-            }
-        });*/
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));
+        listaMenu.addItemDecoration(dividerItemDecoration);
+        listaMenu.setAdapter(adapter);
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             if(user.isAnonymous()){
+                //todo: aggiungere in @string
                 email.setText("Sei ospite!");
                 nickname.setText("@ECE" + fAuth.getUid().substring(1, 4));
             }else{
@@ -168,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
 
                 case R.id.nav_scan:
                     //entro nell'altra activity immettendo il segnalino appena caricato
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
 
@@ -196,31 +186,13 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
 
     public void handleImageClick(View view) {
         if (ContextCompat.checkSelfPermission(ProfileActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(ProfileActivity.this, "Cheese!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ProfileActivity.this, "Cheese!", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if(intent.resolveActivity(getPackageManager()) != null){
                 startActivityForResult(intent, TAKE_IMAGE_CODE);
             }
         } else {
-            requestStoragePermission();
-        }
-    }
-
-    private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                Manifest.permission.CAMERA)) {
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Concedi permesso")
-                    .setMessage("Questo permesso serve per poter accedere alla fotocamera per impostare la propria foto profilo.")
-                    .setPositiveButton("ok", (dialog, which) -> ActivityCompat.requestPermissions(ProfileActivity.this,
-                            new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE))
-                    .setNegativeButton("cancella", (dialog, which) -> dialog.dismiss())
-                    .create().show();
-
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.CAMERA }, CAMERA_PERMISSION_CODE);
         }
     }
 
@@ -229,22 +201,24 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
         if (requestCode == CAMERA_PERMISSION_CODE)  {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permesso Concesso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(intent.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(intent, TAKE_IMAGE_CODE);
+                }
             } else {
                 Toast.makeText(this, "Permesso Rifiutato", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == TAKE_IMAGE_CODE){
-            switch (resultCode){
-                case RESULT_OK:
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    profileImageView.setImageBitmap(bitmap);
-                    handleUpload(bitmap);
+            if (resultCode == RESULT_OK) {
+                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                profileImageView.setImageBitmap(bitmap);
+                handleUpload(bitmap);
             }
         }
     }
@@ -276,21 +250,6 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
                 .addOnSuccessListener(unused -> Toast.makeText(ProfileActivity.this,"Updated succesfully", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show());
     }
-
-    public void setLocale(String lang) {
-        Locale myLocale = new Locale(lang);
-        Locale.setDefault(myLocale);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, ProfileActivity.class);
-        startActivity(refresh);
-        finish();
-    }
-
-
 
     @Override
     public void onItemClick(View view, int position) {

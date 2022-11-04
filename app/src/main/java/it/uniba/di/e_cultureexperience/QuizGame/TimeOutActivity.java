@@ -15,12 +15,11 @@ import com.squareup.picasso.Picasso;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class TimeOutActivity extends AppCompatActivity {
     Button retryBtn, exitBtn;
-    private ImageView immagineOggetto;
 
 
     @Override
@@ -31,7 +30,7 @@ public class TimeOutActivity extends AppCompatActivity {
         // = findViewById(R.id.retryButton);
         exitBtn = findViewById(R.id.exitButton);
 
-        immagineOggetto = findViewById(R.id.immagine);
+        ImageView immagineOggetto = findViewById(R.id.immagine);
 
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
@@ -66,14 +65,13 @@ public class TimeOutActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.share);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
                     startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:

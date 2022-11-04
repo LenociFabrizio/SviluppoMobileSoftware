@@ -6,7 +6,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +33,8 @@ public class RegistrationActivity extends AppCompatActivity {
     private TextInputEditText editTextNickname, editTextPassword, editTextEmail;
     private TextInputLayout layoutNickname, layoutPassword, layoutEmail;
 
-    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -195,7 +194,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
     /**
      * Scrittura di nickname e di id Firebase nella path assegnata agli utenti nel firebase firestore db
-     * @param nickname
      */
     public void scritturaUtenteDataBase(String nickname){
         Map<String, Object> utente = new HashMap<>();
@@ -325,7 +323,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             }//Fine for
 
-                            if(nicknameDuplicato[0] == false && nicknameCorto[0] == false && !emailEsistente.get()){
+                            if(!nicknameDuplicato[0] && !nicknameCorto[0] && !emailEsistente.get()){
 
 
                                 scritturaUtenteDataBase(nickname);

@@ -11,17 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,14 +35,14 @@ import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
 import it.uniba.di.e_cultureexperience.Percorso.Percorso;
-import it.uniba.di.e_cultureexperience.QRScanner.QRScanner;
+import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     private ArrayList<Percorso> percorsi;
     ListView list_view_percorsi;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
     final String collectionPath = "luoghiPreferiti";
     private ToggleButton favorite;
     private MenuItem favouriteItem;
@@ -97,14 +94,13 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.nav_home);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             switch (item.getItemId()){
                 case R.id.nav_home:
                     startActivity(new Intent(getApplicationContext(), DashboardMeteActivity.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_scan:
-                    startActivity(new Intent(getApplicationContext(), QRScanner.class));
+                    startActivity(new Intent(getApplicationContext(), QrCodeScanner.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.nav_profile:
@@ -209,6 +205,11 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                             temp.setId(document.getId());
                             percorsi.add(temp);
                         }
+                        /**
+                         * Se è stato importato un file .json "PercorsoECTool"
+                         * allora: percorso percorso = lettura file json
+                         * add list
+                         */
                         PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
                         list_view_percorsi.setAdapter(customAdapter);
                     } else {
@@ -219,7 +220,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     /**
      * Controllo se il luogo è già nei preferiti. Nel caso lo fosse, rendo il favoriteBtn colorato di rosso
-     * @param luogo
      */
     public void isLuogoPreferito(LuogoDiInteresse luogo){
         final int[] value = new int[1];
@@ -257,7 +257,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     /**
      * Al click del favoriteButton richiama la funzione per inserire il determinato luogo di interesse come preferito o rimuoverlo
-     * @param view
      */
     public void onFavoriteToggleClick(View view) {
 
@@ -327,8 +326,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     /**
      * Scrittura su database metaPreferita del luogoScelto
-     * @param luogo
-     * @param idUtente
      */
     public void scritturaLuogoDatabase(LuogoDiInteresse luogo, String idUtente) {
         Map<String, String> luogoScelto = new HashMap<>();
@@ -369,8 +366,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
 
     /**
      * Permette di aggiungere un documento su firestore database
-     * @param collectionPath
-     * @param luogoScelto
      */
     public void addDoc(String collectionPath, Map<String, String> luogoScelto){
         db.collection(collectionPath)

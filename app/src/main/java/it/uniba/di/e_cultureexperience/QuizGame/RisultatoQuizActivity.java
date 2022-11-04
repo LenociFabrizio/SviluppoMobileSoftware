@@ -7,22 +7,17 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,12 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
-import it.uniba.di.e_cultureexperience.LuogoDiInteresse.LuogoDiInteresse;
 import it.uniba.di.e_cultureexperience.R;
-
-/**
- *************IL TASTO FAVOURITE NON è STATO ANCORA IMPLEMENTATO*************
- */
 
 public class RisultatoQuizActivity extends AppCompatActivity {
 
@@ -51,16 +41,9 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     private final ArrayList<SingolaRigaClassifica> classificaList = new ArrayList<>();
     private ListView listViewClassifica;
 
-    //pulsante riprova
     private Button riprovaBtn;
-    //pulsante condividi
     private Button condividi;
 
-    //elementi per la tuggleBar
-    private MenuItem shareItem;
-    final String collectionPath = "luoghiPreferiti";
-
-    //ELEMENTI PER IL TASTO SHARE
     //variabile punteggioMassimo del quiz, la uso per condividerla se si clicca il pulsante shareBTn
     AtomicLong punteggioMassimo= new AtomicLong();
     //variabile usata nel tasto share
@@ -69,6 +52,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "ResourceType"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_risultato_quiz);
 
@@ -76,6 +60,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         //prendo i quesiti passati dall' intent
         list = getIntent().getExtras().getParcelableArrayList("quesiti");
+
         int numeroRisposteCorrette = getIntent().getIntExtra("RISPOSTA_CORRETTA", 0);
         int numeroRisposteSbagliate = getIntent().getIntExtra("RISPOSTA_SBAGLIATA", 0);
         numeroRisposteTotali = numeroRisposteSbagliate + numeroRisposteCorrette;
@@ -83,25 +68,14 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //S T A R T - Scrittura/eventuale aggiornamento classifica punteggio quiz
         String collectionPath = "oggetti/" + idOggettoDiInteresse + "/classificaQuiz";
 
-        ImageView immagineOggetto = findViewById(R.id.immagine);
         //carico url immagine e la faccio vedere a schermo
         String urlImmagineOggetto = getIntent().getExtras().getString("url");
 
-        /*Picasso.with(this)
-                .load(urlImmagineOggetto)
-                .into(immagineOggetto);
-                
-         */
         //dichiaro la tuggleBar in alto
-        Toolbar mToolbar = findViewById(R.id.toolbar_risultatoQuiz);
-
-        CollapsingToolbarLayout collapsingLayout = findViewById(R.id.collapsing_toolbarQuiz);
         Log.e("colore",getResources().getString(R.color.black));
-        collapsingLayout.setExpandedTitleColor(Color.parseColor(getResources().getString(R.color.white)));
-        collapsingLayout.setCollapsedTitleTextColor(Color.parseColor(getResources().getString(R.color.black)));
+
 
         //operazioni tuggleBar, azioni generali
-        setSupportActionBar(mToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -167,6 +141,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //S T A R T - Mostrare Output classifica aggiornata
 
         listViewClassifica = findViewById(R.id.lista_classifica);
+        listViewClassifica.setDividerHeight(0);
         letturaClassifica(collectionPath);
 
         //F I N I S H - Mostrare Output classifica aggiornata
@@ -178,34 +153,24 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //mostra pusante per condividere punteggio
         condividi = findViewById(R.id.shareButtonQuiz);
 
-        condividi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
-                bgShape1.setColor(Color.parseColor("#000000"));
-                condividi.setTextColor(Color.parseColor("#ffffff"));
+        //set color buttons
+        setColorButtons();
 
-                //attendi alcuni secondi prima di cambiare colore al pulsante
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    public void run() {
-                        // yourMethod();
-                        bgShape1.setColor(Color.parseColor("#ffffff"));
-                        condividi.setTextColor(Color.parseColor("#000000"));
-                    }
-                }, 400);
+        condividi.setOnClickListener(v -> {
+            GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
+            //attendi alcuni secondi prima di cambiare colore al pulsante
+            setColorButtonsClickCondividi();
+            Handler handler = new Handler();
+            handler.postDelayed(this::setColorButtons, 330);
 
-                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
-                //intent share del tuggle bar
-                Intent intent =new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
-            }
+            String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
+            //intent share del tuggle bar
+            Intent intent =new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
+            startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
         });
 
-        //modifico il colore dei pulsanti di questa activity
-        setColorButton();
 
         risultato.setText(numeroRisposteCorrette + "/" + numeroRisposteTotali);
 
@@ -213,9 +178,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         riprovaBtn.setOnClickListener(v -> {
 
-            GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
-            bgShape1.setColor(Color.parseColor("#000000"));
-            riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
+            setColorButtonsClickRiprova();
 
             Intent intent = new Intent(getApplicationContext(), QuizGameActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -227,35 +190,12 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         });
     }
 
-    /*
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.share:
-                //carico il nome del percorso (per condividelo se clicca il bottone share)
-                String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
-                //intent share del tuggle bar
-                Intent intent =new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT,"Nel quiz del " + nomeOggetto + " ,il mio miglior punteggio è: "+ punteggioMassimo + "/" + numeroRisposteTotali + "\nProva a battermi!" + "\n\n" + "Scaricati l'app ECulture-Experience!");
-                startActivity(Intent.createChooser(intent,"Condividi il punteggio del  quiz"));
-                return true;
-
-            default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item);
-        }
-    }
-    */
 
     public void scritturaDataBase(Map<String, Object> utente, String collectionPath){
         db.collection(collectionPath)
@@ -327,12 +267,25 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 });
     }
 
-    public void setColorButton(){
-        GradientDrawable bgShape1 = (GradientDrawable) riprovaBtn.getBackground();
-        GradientDrawable bgShape2 = (GradientDrawable) condividi.getBackground();
-
-        bgShape1.setColor(Color.parseColor("#ffffff"));
-        bgShape2.setColor(Color.parseColor("#ffffff"));
+    //set color per i bottons del materia deign [com.google.android.material.button.MaterialButton]
+    public void setColorButtons(){
+        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        condividi.setTextColor(Color.parseColor("#000000"));
+        riprovaBtn.setTextColor(Color.parseColor("#000000"));
     }
+
+    //set color per i bottons al click
+    public void setColorButtonsClickCondividi(){
+        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+        condividi.setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    //set color per i bottons al click
+    public void setColorButtonsClickRiprova(){
+        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+        riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
+    }
+
 
 }

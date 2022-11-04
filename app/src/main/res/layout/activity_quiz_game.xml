@@ -1,92 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".QuizGame.QuizGameActivity"
-    tools:layout_editor_absoluteX="-3dp"
-    tools:layout_editor_absoluteY="0dp">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/Theme.ECultureExperience.AppBarOverlay">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar">
+            android:layout_height="wrap_content"
+            android:paddingBottom="48dp"
+            android:clipToPadding="false"
+            tools:context=".QuizGame.QuizGameActivity">
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+            <ImageView
+                android:id="@+id/immagine"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@id/immagine"
+
+                />
+
+            <TextView
+                android:id="@+id/domanda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/prova_domanda"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="12dp"
+                android:layout_marginHorizontal="@dimen/text_margin"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            <Button
+                android:id="@+id/primaRisposta"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="@dimen/text_margin"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/rounded_button_quiz_game"
+                android:gravity="center"
+                android:text="@string/button"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/domanda" />
+
+            <Button
+                android:id="@+id/secondaRisposta"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="@dimen/text_margin"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_button_quiz_game"
+                android:text="@string/button"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/primaRisposta" />
+
+            <Button
+                android:id="@+id/terzaRisposta"
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_marginHorizontal="@dimen/text_margin"
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/rounded_button_quiz_game"
+                android:text="@string/button"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/secondaRisposta" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="420dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="-200dip"
-        android:layout_gravity="center"
-         />
-
-    <TextView
-        android:id="@+id/domanda"
-        android:layout_width="244dp"
-        android:layout_height="125dp"
-        android:layout_marginHorizontal="80dp"
-        android:layout_marginVertical="200dp"
-        android:gravity="center"
-        android:text="@string/prova_domanda"
-        android:textColor="#000000"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/primaRisposta"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/button"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:layout_marginTop="320dip"
-        android:layout_marginHorizontal="80dp"/>
-    <Button
-        android:id="@+id/secondaRisposta"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/button"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:layout_marginTop="410dip"
-        android:layout_marginHorizontal="80dp"/>
-    <Button
-        android:id="@+id/terzaRisposta"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
-        android:background="@drawable/rounded_button_quiz_game"
-        android:text="@string/button"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:layout_marginTop="500dip"
-        android:layout_marginHorizontal="80dp"/>
-
-    <ImageView
-        android:id="@+id/immagine"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:scaleType="fitXY"
-        app:layout_anchorGravity="top|end" />
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
