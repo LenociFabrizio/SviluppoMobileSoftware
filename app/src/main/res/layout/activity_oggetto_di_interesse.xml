@@ -71,8 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/descrizione"
                     android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
@@ -94,23 +94,24 @@
                     android:id="@+id/titleMaps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/descrizioneTxt"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="8dp"
-                    android:fontFamily="sans-serif-medium"
                     android:text="Posizione"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:textSize="18sp"
+                    android:fontFamily="sans-serif-medium"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="18sp" />
+                    android:layout_below="@+id/descrizioneTxt"
+                    />
 
                 <fragment
                     android:id="@+id/map"
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_below="@+id/titleMaps"
                     android:layout_marginHorizontal="@dimen/text_margin"
                     app:cameraZoom="15"
+                    android:layout_below="@+id/titleMaps"
                     app:mapType="normal" />
 
                 <TextView
@@ -119,23 +120,17 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/map"
                     android:layout_marginHorizontal="@dimen/text_margin"
-<<<<<<< Updated upstream
                     android:layout_marginTop="15dp"
                     android:text="@string/attivita"
                     android:textSize="18sp"
-=======
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="8dp"
->>>>>>> Stashed changes
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/attivita"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textSize="18sp" />
-                <RelativeLayout
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+                <Button
+                    android:id="@+id/btn_quiz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/title_attivita"
-<<<<<<< Updated upstream
                     android:background="@drawable/rounded_button_quiz_game"
                     android:layout_marginTop="8dp"
                     android:text="Quiz"
@@ -151,27 +146,6 @@
                     android:layout_marginTop="8dp"
                     android:text="Puzzle"
                     android:visibility="gone" />
-=======
-                    android:layout_marginHorizontal="@dimen/text_margin">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_quiz"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quiz"
-                        android:layout_marginRight="16dp"
-                        android:visibility="gone" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_puzzleGame"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/btn_quiz"
-                        android:text="Puzzle"
-                        android:visibility="gone" />
-                </RelativeLayout>
-
->>>>>>> Stashed changes
 
 
 

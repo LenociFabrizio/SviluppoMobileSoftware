@@ -48,7 +48,7 @@
 
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar" />
+            android:theme="@style/Theme.MyApplication3.NoActionBar" />
 
         <activity
             android:name=".LuogoDiInteresse.MostraLuogoDiInteresseActivity"
