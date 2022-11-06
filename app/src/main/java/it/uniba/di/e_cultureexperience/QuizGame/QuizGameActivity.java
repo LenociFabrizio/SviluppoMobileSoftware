@@ -216,6 +216,7 @@ public class QuizGameActivity extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(this::setAllData, stopCodeinMillis);
         } else {
+            //Questo comando attende qualche istante prima di andare alla prossima activity (interazione con l'utente)
             Handler handler = new Handler();
             handler.postDelayed(this::avantiActivity, stopCodeinMillis);
 
@@ -290,6 +291,7 @@ public class QuizGameActivity extends AppCompatActivity {
         bgShape2.setColor(Color.parseColor("#ff0000"));
     }
 
+    //questa funzione va avanti alla prossima domanda
     private void avantiActivity() {
         Intent i = new Intent(QuizGameActivity.this, RisultatoQuizActivity.class);
         //Prendo l'oggetto passato dall'intent

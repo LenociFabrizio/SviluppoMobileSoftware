@@ -77,11 +77,13 @@
                     style="@style/Widget.App.Button"
                     android:layout_width="150dp"
                     android:layout_height="70dp"
+                    android:background="@drawable/rounded_button_quiz_game"
+                    android:textColor="@color/black"
                     android:layout_below="@+id/gridview"
-                    android:gravity="center"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/miArrendo"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:text="@string/miArrendo" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>

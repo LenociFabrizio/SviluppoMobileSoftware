@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -64,6 +66,9 @@ public class PuzzleGame extends AppCompatActivity {
     //creo prima la variabile del timer per poterla eliminare quando esco dall'activity
     CountDownTimer cdt;
 
+    //variabile pulsante
+    private Button resa;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,7 @@ public class PuzzleGame extends AppCompatActivity {
         //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");
 
-        int DURATA_TIMER = 5;
+        int DURATA_TIMER = 1;
         long durataTimer = TimeUnit.MINUTES.toMillis(DURATA_TIMER);
         countdown = findViewById(R.id.countdownTextView);
 
@@ -171,8 +176,15 @@ public class PuzzleGame extends AppCompatActivity {
                     }
                 });
 
-        Button resa = findViewById(R.id.bottoneDiResa);
-        resa.setOnClickListener(v -> finish());
+        resa = findViewById(R.id.bottoneDiResa);
+        //colora il pulsante di bianco (default)
+        setColorButtons();
+
+        resa.setOnClickListener(v -> {
+                resa.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
+                resa.setTextColor(ContextCompat.getColorStateList(this, R.color.white));
+                finish();
+        });
     }
 
     @Override
@@ -366,7 +378,11 @@ public class PuzzleGame extends AppCompatActivity {
         cdt.cancel();
         startActivity(i);
         finish();
+    }
 
+    private void setColorButtons(){
+        resa.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
+        resa.setTextColor(ContextCompat.getColorStateList(this, R.color.black));
     }
 
 
