@@ -79,25 +79,24 @@
 
                     <TextView
                         android:id="@+id/descrizione"
-                        android:layout_width="320dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingEnd="52dp"
                         android:text="@string/descrizioneMetaMatera"
                         android:textColor="@color/black"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginRight="16dp"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
 
                     <ToggleButton
                         android:id="@+id/favoriteToggleButton"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_toEndOf="@+id/descrizione"
                         android:background="@drawable/toggle_selector"
                         android:onClick="onFavoriteToggleClick"
                         android:textOff=""
                         android:textOn=""
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 

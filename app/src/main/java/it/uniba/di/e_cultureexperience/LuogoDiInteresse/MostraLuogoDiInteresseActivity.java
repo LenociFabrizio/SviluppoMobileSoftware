@@ -45,7 +45,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
     final String collectionPath = "luoghiPreferiti";
     private ToggleButton favorite;
-    private MenuItem favouriteItem;
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,7 +122,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.secondary_top_menu, menu);
-        favouriteItem = menu.findItem(R.id.favourite_btn);
 
         LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
@@ -140,18 +138,12 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 //Posso aggiungere il luogoScelto solo se non è stato aggiunto precedentemente
                                 if(idUtenteDatabase.equals(fAuth.getUid()) && nomeLuogoDatabase.equals(luogo.getNome())){
 
-
-                                    favouriteItem.setChecked(true);
-                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
                                     luogoPreferitoEsistente = true;
 
 
                                 }
                             }//fine for
-                            if (!luogoPreferitoEsistente){
-                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
-                                favouriteItem.setChecked(false);
-                            }
+
                         }
                     }
                 });
@@ -173,19 +165,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
 
-            case R.id.favourite_btn:
-                //Toast.makeText(this, item.toString(),Toast.LENGTH_SHORT).show();
-                onFavoriteToggleClick2(item);
-                if(item.isChecked()){
-
-                    Toast.makeText(this, "checked",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(this, "unchecked",Toast.LENGTH_SHORT).show();
-                }
-
-                item.setChecked(!item.isChecked());
-                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -237,8 +216,7 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 if(idUtenteDatabase.equals(fAuth.getUid())
                                         && nomeLuogoDatabase.equals(luogo.getNome())){
                                     favorite.setChecked(true);
-                                    favouriteItem.setChecked(true);
-                                    favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_24));
+                                    Toast.makeText(this, "Meta aggiunta all'elenco dei preferiti",Toast.LENGTH_SHORT).show();
                                     luogoPreferitoEsistente = true;
                                     value[0] = 2;
 
@@ -246,8 +224,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                             }//fine for
                             if (!luogoPreferitoEsistente){
                                 favorite.setChecked(false);
-                                favouriteItem.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_favorite_border_24));
-                                favouriteItem.setChecked(false);
                             }
                         }
                     }
@@ -359,6 +335,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                         }else{
                             addDoc(collectionPath, luogoScelto);
                         }
+                        Toast.makeText(this, R.string.meta_added,Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }
@@ -390,6 +368,8 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 }
                             }
                         }
+                        Toast.makeText(this, R.string.meta_removed,Toast.LENGTH_SHORT).show();
+
                     }else{
                         Log.e("Error", "Errore nella lettura del database metePreferite!");
                     }

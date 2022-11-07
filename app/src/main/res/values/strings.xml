@@ -163,6 +163,8 @@
     <string name="correct_answers">Correct answer</string>
     <string name="result_quiz_activity">Result Quiz</string>
     <string name="share_result">Share result</string>
+    <string name="meta_added">Meta added to favorites list</string>
+    <string name="meta_removed">Meta removed from favorites list</string>
 
 
 </resources>

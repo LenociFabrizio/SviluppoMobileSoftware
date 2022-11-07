@@ -198,11 +198,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(intent,"Condividi il luogo di interesse"));
                 return true;
 
-            case R.id.favourite_btn:
-                //va aggiunta la stessa funzione
-                //onFavoriteToggleClick();
-                return true;
-
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
