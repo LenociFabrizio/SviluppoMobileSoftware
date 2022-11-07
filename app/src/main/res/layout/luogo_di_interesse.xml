@@ -52,16 +52,7 @@
                     app:menu="@menu/secondary_top_menu"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-                <ToggleButton
-                    android:id="@+id/favoriteToggleButton"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/toggle_selector"
-                    android:onClick="onFavoriteToggleClick"
-                    android:textOff=""
-                    android:textOn="" />
+
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -78,21 +69,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-                <TextView
-                    android:id="@+id/descrizione"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/text_margin"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/descrizione_box"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:text="@string/descrizioneMetaMatera"
-                    android:textColor="@color/black" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/descrizione"
+                        android:layout_width="320dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/descrizioneMetaMatera"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ToggleButton
+                        android:id="@+id/favoriteToggleButton"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_toEndOf="@+id/descrizione"
+                        android:background="@drawable/toggle_selector"
+                        android:onClick="onFavoriteToggleClick"
+                        android:textOff=""
+                        android:textOn=""
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
                 <TextView
                     android:id="@+id/title_percorsi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/descrizione"
+                    android:layout_below="@+id/descrizione_box"
                     android:layout_marginHorizontal="@dimen/text_margin"
                     android:text="@string/percorsi"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />

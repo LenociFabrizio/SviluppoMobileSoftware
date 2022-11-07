@@ -54,11 +54,11 @@
                     android:id="@+id/countdownTextView"
                     android:layout_width="212dp"
                     android:layout_height="70dp"
-                    android:gravity="center"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
                     android:textSize="34sp"
-                    tools:ignore="NotSibling"
-                    android:layout_marginTop="15dp"/>
+                    tools:ignore="NotSibling" />
 
                 <GridView
                     android:id="@+id/gridview"
@@ -77,13 +77,13 @@
                     style="@style/Widget.App.Button"
                     android:layout_width="150dp"
                     android:layout_height="70dp"
-                    android:background="@drawable/rounded_button_quiz_game"
-                    android:textColor="@color/black"
                     android:layout_below="@+id/gridview"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_button_quiz_game"
                     android:gravity="center"
-                    android:text="@string/miArrendo" />
+                    android:text="@string/miArrendo"
+                    android:textColor="@color/black" />
 
             </RelativeLayout>
         </androidx.core.widget.NestedScrollView>
