@@ -184,6 +184,8 @@ public class PuzzleGame extends AppCompatActivity {
                 resa.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
                 resa.setTextColor(ContextCompat.getColorStateList(this, R.color.white));
                 finish();
+                goBack();
+
         });
     }
 
