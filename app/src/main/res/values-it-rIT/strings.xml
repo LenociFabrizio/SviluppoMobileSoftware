@@ -69,6 +69,7 @@
     <string name="share_result">Condividi risultato</string>
     <string name="meta_added">Meta aggiunta all\'elenco dei preferiti</string>
     <string name="meta_removed">Meta rimossa dall\'elenco dei preferiti</string>
+    <string name="route">Percorso</string>
 
 
 </resources>

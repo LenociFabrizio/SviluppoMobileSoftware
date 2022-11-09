@@ -141,7 +141,7 @@
                         android:id="@+id/btn_quiz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Quiz"
+                        android:text="@string/quiz"
                         android:clipToPadding="false"
                         android:visibility="gone" />
 
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/btn_quiz"
                         android:layout_marginLeft="12dp"
-                        android:text="Puzzle"
+                        android:text="@string/"
                         android:clipToPadding="false"
                         android:visibility="gone" />
 

@@ -90,7 +90,7 @@
 
             <TextView
                 android:id="@+id/descrizione"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btnVotoDelPercorso"
                 android:layout_marginHorizontal="@dimen/text_margin"

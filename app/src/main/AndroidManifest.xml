@@ -42,7 +42,7 @@
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
-            android:label="@string/percorsi_preferiti"
+            android:label="@string/route"
              />
 
         <activity
@@ -80,6 +80,7 @@
         <activity
             android:name=".QuizGame.PuzzleGame"
             android:exported="true"
+            android:label="@string/puzzle"
             android:theme="@style/Theme.MyApplication3.NoActionBar">
         </activity>
 
@@ -96,6 +97,7 @@
 
         <activity
             android:name=".QuizGame.QuizGameActivity"
+            android:label="@string/quiz"
             android:exported="true" />
 
         <activity

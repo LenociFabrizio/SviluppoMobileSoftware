@@ -74,7 +74,6 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(percorso.getNome());
 
         //prendo i riferimenti degli elementi del layout
         TextView nomePercorso = findViewById(R.id.nome);

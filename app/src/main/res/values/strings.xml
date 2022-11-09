@@ -165,6 +165,9 @@
     <string name="share_result">Share result</string>
     <string name="meta_added">Meta added to favorites list</string>
     <string name="meta_removed">Meta removed from favorites list</string>
+    <string name="route">Route</string>
+    <string name="quiz" translatable="false">Quiz</string>
+    <string name="puzzle" translatable="false">Puzzle</string>
 
 
 </resources>

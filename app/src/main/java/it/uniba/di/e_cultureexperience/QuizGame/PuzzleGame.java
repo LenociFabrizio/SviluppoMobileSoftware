@@ -84,7 +84,6 @@ public class PuzzleGame extends AppCompatActivity {
         String nomeOggetto =getIntent().getExtras().getString("nomeOggetto");
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(nomeOggetto);
 
         //prendo l'url dell'immagine
         String url =getIntent().getExtras().getString("urlImmagine");
