@@ -121,31 +121,41 @@
                     android:layout_below="@+id/map"
                     android:layout_marginHorizontal="@dimen/text_margin"
                     android:layout_marginTop="15dp"
-                    android:text="@string/attivita"
-                    android:textSize="18sp"
                     android:fontFamily="sans-serif-medium"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                    android:text="@string/attivita"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textSize="18sp" />
 
-                <Button
-                    android:id="@+id/btn_quiz"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_attivita"
-                    android:background="@drawable/rounded_button_quiz_game"
                     android:layout_marginTop="8dp"
-                    android:text="Quiz"
-                    android:visibility="gone" />
+                    android:paddingBottom="8dp"
+                    android:clipToOutline="false"
+                    android:clipToPadding="false"
+                    android:theme="@style/Theme.ECultureExperience"
+                    android:layout_marginHorizontal="@dimen/text_margin"
+                    android:layout_below="@+id/title_attivita">
 
-                <Button
-                    android:id="@+id/btn_puzzleGame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_attivita"
-                    android:background="@drawable/rounded_button_quiz_game"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Puzzle"
-                    android:visibility="gone" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_quiz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quiz"
+                        android:clipToPadding="false"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_puzzleGame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/btn_quiz"
+                        android:layout_marginLeft="12dp"
+                        android:text="Puzzle"
+                        android:clipToPadding="false"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
 
 
 
