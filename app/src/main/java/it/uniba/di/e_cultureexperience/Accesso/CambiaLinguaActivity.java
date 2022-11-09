@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,12 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import it.uniba.di.e_cultureexperience.R;
 
-public class CambiaLinguaActivity extends AppCompatActivity implements ListItemAdapter.ItemClickListener{
+public class CambiaLinguaActivity extends AppCompatActivity {
 
-    private final List<String> menuArray = new ArrayList<>();
+
+    private RadioGroup radioGroup;
+    private RadioButton radioIta, radioEng, selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +33,31 @@ public class CambiaLinguaActivity extends AppCompatActivity implements ListItemA
         setContentView(R.layout.activity_cambia_lingua);
 
         Locale current = getResources().getConfiguration().locale;
-        Log.e("lingua", current.getLanguage());
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        RecyclerView listaMenu = findViewById(R.id.lista_menu);
-        listaMenu.setLayoutManager(new LinearLayoutManager(this));
 
-        ListItemAdapter adapter = new ListItemAdapter(menuArray,this);
-        adapter.setClickListener(this);
-        listaMenu.setAdapter(adapter);
+        radioGroup = findViewById(R.id.radio_group);
+        radioIta = findViewById(R.id.radio_ita);
+        radioEng = findViewById(R.id.radio_eng);
 
-        menuArray.add("Italiano");
-        menuArray.add("Inglese");
+        if(current.getLanguage().equals("it")){
+            radioIta.setChecked(true);
+        }
+        else{
+            radioEng.setChecked(true);
+        }
 
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
@@ -58,11 +72,17 @@ public class CambiaLinguaActivity extends AppCompatActivity implements ListItemA
         startActivity(refresh);
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        if(position == 0)
+
+    public void checkRadioGroup(View v){
+        int radioButtonId = radioGroup.getCheckedRadioButtonId();
+        selectedLanguage =findViewById(radioButtonId);
+        String textId = selectedLanguage.toString();
+        if(textId.substring(textId.lastIndexOf("/radio")).contains("/radio_ita")){
             setLocale("it");
-        if(position == 1)
+        }
+        else{
             setLocale("en-rGB");
+        }
+
     }
 }

@@ -28,6 +28,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         MaterialButton resetPasswordBtn = findViewById(R.id.resetBtn);
 
         editTextEmail = findViewById(R.id.emailInputEditText);
@@ -36,6 +39,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
         resetPasswordBtn.setOnClickListener(v -> resetPassword());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
     private void resetPassword(){

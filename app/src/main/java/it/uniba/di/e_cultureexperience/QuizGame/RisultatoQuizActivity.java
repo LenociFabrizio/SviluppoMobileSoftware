@@ -2,7 +2,6 @@ package it.uniba.di.e_cultureexperience.QuizGame;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,7 +40,7 @@ public class RisultatoQuizActivity extends AppCompatActivity {
     private ListView listViewClassifica;
 
     private Button riprovaBtn;
-    private Button condividi;
+    private Button shareBtn;
 
     //variabile punteggioMassimo del quiz, la uso per condividerla se si clicca il pulsante shareBTn
     AtomicLong punteggioMassimo= new AtomicLong();
@@ -151,13 +149,10 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         TextView risultato = findViewById(R.id.risultatoText);
 
         //mostra pusante per condividere punteggio
-        condividi = findViewById(R.id.shareButtonQuiz);
+        shareBtn = findViewById(R.id.shareButtonQuiz);
 
 
-        condividi.setOnClickListener(v -> {
-            GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
-            //attendi alcuni secondi prima di cambiare colore al pulsante
-            Handler handler = new Handler();
+        shareBtn.setOnClickListener(v -> {
 
             String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
             //intent share del tuggle bar

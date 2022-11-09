@@ -70,6 +70,8 @@
     <string name="meta_added">Meta aggiunta all\'elenco dei preferiti</string>
     <string name="meta_removed">Meta rimossa dall\'elenco dei preferiti</string>
     <string name="route">Percorso</string>
+    <string name="recover_password">Recupera password</string>
+    <string name="app_preferences">Preferenze app</string>
 
 
 </resources>

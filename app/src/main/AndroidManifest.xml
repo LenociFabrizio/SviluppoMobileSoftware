@@ -21,7 +21,7 @@
         <activity
             android:name=".Accesso.CambiaLinguaActivity"
             android:exported="false"
-            android:label="@string/edit_profile" />
+            android:label="@string/app_preferences" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -37,7 +37,7 @@
         <activity
             android:name=".LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity"
             android:exported="false"
-            android:label="@string/percorsi_preferiti" />
+            android:label="@string/favourite_destination" />
 
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
@@ -87,6 +87,7 @@
         <activity
             android:name=".Accesso.ForgotPasswordActivity"
             android:exported="true"
+            android:label="@string/recover_password"
             android:windowSoftInputMode="adjustResize"
             />
 
