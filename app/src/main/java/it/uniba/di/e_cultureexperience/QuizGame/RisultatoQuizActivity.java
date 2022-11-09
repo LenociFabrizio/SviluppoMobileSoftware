@@ -153,15 +153,11 @@ public class RisultatoQuizActivity extends AppCompatActivity {
         //mostra pusante per condividere punteggio
         condividi = findViewById(R.id.shareButtonQuiz);
 
-        //set color buttons
-        setColorButtons();
 
         condividi.setOnClickListener(v -> {
             GradientDrawable bgShape1 = (GradientDrawable) condividi.getBackground();
             //attendi alcuni secondi prima di cambiare colore al pulsante
-            setColorButtonsClickCondividi();
             Handler handler = new Handler();
-            handler.postDelayed(this::setColorButtons, 330);
 
             String nomeOggetto = getIntent().getExtras().getString("nomeOggetto");
             //intent share del tuggle bar
@@ -178,7 +174,6 @@ public class RisultatoQuizActivity extends AppCompatActivity {
 
         riprovaBtn.setOnClickListener(v -> {
 
-            setColorButtonsClickRiprova();
 
             Intent intent = new Intent(getApplicationContext(), QuizGameActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -267,25 +262,8 @@ public class RisultatoQuizActivity extends AppCompatActivity {
                 });
     }
 
-    //set color per i bottons del materia deign [com.google.android.material.button.MaterialButton]
-    public void setColorButtons(){
-        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
-        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.white));
-        condividi.setTextColor(Color.parseColor("#000000"));
-        riprovaBtn.setTextColor(Color.parseColor("#000000"));
-    }
 
-    //set color per i bottons al click
-    public void setColorButtonsClickCondividi(){
-        condividi.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
-        condividi.setTextColor(Color.parseColor("#ffffff"));
-    }
 
-    //set color per i bottons al click
-    public void setColorButtonsClickRiprova(){
-        riprovaBtn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
-        riprovaBtn.setTextColor(Color.parseColor("#ffffff"));
-    }
 
 
 }

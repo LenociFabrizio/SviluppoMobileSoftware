@@ -77,7 +77,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
 
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,11 +88,9 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/shareButtonQuiz"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button_quiz_game"
             android:text="@string/share_result"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,13 +98,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tryAgainBtn"
-            android:layout_width="200dp"
+            style="@style/Theme.ECultureExperience.Button.TextButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/rounded_button_quiz_game"
             android:padding="10dp"
             android:text="@string/riprova"
-            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
