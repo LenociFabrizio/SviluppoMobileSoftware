@@ -16,6 +16,7 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:configChanges="locale|orientation"
         android:theme="@style/Theme.ECultureExperience"
         android:usesCleartextTraffic="true">
         <activity
@@ -43,7 +44,7 @@
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
             android:label="@string/route"
-             />
+            />
 
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"
@@ -58,6 +59,9 @@
         <activity
             android:name=".DashboardMeteActivity"
             android:exported="true" />
+
+        <activity android:name=".Accesso.RegistrationActivity"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
 
         <activity
             android:name=".Accesso.LoginActivity"

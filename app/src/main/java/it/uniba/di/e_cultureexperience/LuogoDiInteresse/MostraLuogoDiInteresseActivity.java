@@ -1,6 +1,7 @@
 package it.uniba.di.e_cultureexperience.LuogoDiInteresse;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,12 +29,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
+import it.uniba.di.e_cultureexperience.Percorso.MostraPercorsoActivity;
 import it.uniba.di.e_cultureexperience.Percorso.PercorsiAdapter;
 import it.uniba.di.e_cultureexperience.Percorso.Percorso;
 import it.uniba.di.e_cultureexperience.QrCodeScanner;
@@ -41,34 +53,63 @@ import it.uniba.di.e_cultureexperience.R;
 public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
     private ArrayList<Percorso> percorsi;
     ListView list_view_percorsi;
+
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+
     final String collectionPath = "luoghiPreferiti";
+
     private ToggleButton favorite;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.luogo_di_interesse);
+        //prendo l' oggetto passato dall' intent
+        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
 
         percorsi = new ArrayList<>();
         list_view_percorsi = findViewById(R.id.lista_percorsi);
+
+        Button importPercorsoBtn = findViewById(R.id.importBtn);
+
+        importPercorsoBtn.setOnClickListener(v ->
+                {
+                    //Log.d("Lettura_percorso", getPercorsoByJson().toString());
+                    //Log.d("Lettura_oggetti", getOggettiDiInteresseByJson().toString());
+
+                    Percorso percorsoImportato = new Percorso(getPercorsoByJson().getNome(), getPercorsoByJson().getDescrizione()
+                            , getPercorsoByJson().getDurata(), getPercorsoByJson().getMeta(), getPercorsoByJson().getId());
+                    //Se il percorso importato fa parte dello stesso luogo, allora l'aggiungo alla listViewPercorsi
+                    if(percorsoImportato.getMeta().equals(luogo.getNome())){
+                        ArrayList<OggettoDiInteresse> oggettiImportati = new ArrayList<>(getOggettiDiInteresseByJson());
+
+                        Context context = getApplicationContext();
+                        Intent i = new Intent(context, MostraPercorsoActivity.class);
+                        Bundle args = new Bundle();
+
+                        args.putSerializable("ARRAYLIST", oggettiImportati);
+                        i.putExtra("BUNDLE",args);
+
+                        i.putExtra("percorso", percorsoImportato);
+
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        context.startActivity(i);
+                    }else{
+                        Toast.makeText(this, "Percorso selezionato non appartiene alla meta desiderata, cambiala.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
 
         ImageView immagine = findViewById(R.id.immagine);
         TextView descrizioneLuogo = findViewById(R.id.descrizione);
         favorite = findViewById(R.id.favoriteToggleButton);
 
-        //prendo l' oggetto passato dall' intent
-        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
-
         isLuogoPreferito(luogo);
 
-        Picasso.with(this)
-                .load(luogo.getUrl_immagine())
-                .into(immagine);
-        descrizioneLuogo.setText(luogo.getDescrizione());
-        setPercorsi(luogo);
-
+        setLuogoDiInteresse(immagine, descrizioneLuogo, luogo);
 
         Toolbar mToolbar = findViewById(R.id.toolbar_luogodiinteresse);
 
@@ -85,6 +126,93 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
         onCreateBottomNavigation();
 
     }
+
+    private void setLuogoDiInteresse(ImageView immagine, TextView descrizioneLuogo, LuogoDiInteresse luogo) {
+        Picasso.with(this)
+                .load(luogo.getUrl_immagine())
+                .into(immagine);
+        descrizioneLuogo.setText(luogo.getDescrizione());
+        setPercorsi(luogo);
+    }
+
+    /**
+     * Prelevo da un file json le informazioni del percorso: nome, descrizione, durata, meta, id
+     */
+    private Percorso getPercorsoByJson() {
+        String json;
+        try {
+            InputStream is = getAssets().open("pi.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            JSONObject obj = new JSONObject(json);
+
+            return new Percorso(obj.getString("nome"), obj.getString("descrizione")
+                    , obj.getInt("durata"), obj.getString("meta"), obj.getString("id"));
+
+        } catch (UnsupportedEncodingException unsupportedEncodingException) {
+            unsupportedEncodingException.printStackTrace();
+            return null;
+        } catch (JSONException jsonException) {
+            jsonException.printStackTrace();
+            return null;
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return null;
+        }
+
+    }
+
+    /**
+     * Prelevo da un file json le informazioni degli oggetti di interesse restituendoli in un arrayList di tipo oggettoDiInteresse. Se il percorso non ha oggettiDiInteresse,
+     */
+    private ArrayList<OggettoDiInteresse> getOggettiDiInteresseByJson() {
+
+        ArrayList<OggettoDiInteresse> arrayList = new ArrayList<>();
+        String json;
+
+        try {
+            InputStream is = getAssets().open("pi.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+
+            json = new String(buffer, "UTF-8");
+            JSONObject obj = new JSONObject(json);
+
+            JSONArray oggettiDiInteresseJsonArray = obj.getJSONArray("oggettiDiInteresse");
+
+            if(oggettiDiInteresseJsonArray != null) {
+
+                for (int i = 0; i < oggettiDiInteresseJsonArray.length(); i++) {
+                    JSONObject oggettoDiInteresseJson = oggettiDiInteresseJsonArray.getJSONObject(i);
+                    //Creo oggetto
+                    OggettoDiInteresse oggettoDiInteresse = new OggettoDiInteresse(oggettoDiInteresseJson.getString("id"), oggettoDiInteresseJson.getString("nome"),
+                            oggettoDiInteresseJson.getString("descrizione"), oggettoDiInteresseJson.getString("url_immagine"), oggettoDiInteresseJson.getString("bluetooth_id"),
+                            oggettoDiInteresseJson.getDouble("latitudine"), oggettoDiInteresseJson.getDouble("longitudine"));
+                    //Aggiungo oggetto appena creato nell'array
+                    arrayList.add(oggettoDiInteresse);
+                }
+
+                return arrayList;
+
+            }else{
+                Toast.makeText(this, "Il percorso non ha oggetti di interesse da visitare, riprova con un altro percorso!", Toast.LENGTH_SHORT).show();
+                return null;
+            }
+
+        }catch (IOException | JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 
     @SuppressLint("NonConstantResourceId")
     public void onCreateBottomNavigation(){
@@ -184,11 +312,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                             temp.setId(document.getId());
                             percorsi.add(temp);
                         }
-                        /**
-                         * Se è stato importato un file .json "PercorsoECTool"
-                         * allora: percorso percorso = lettura file json
-                         * add list
-                         */
                         PercorsiAdapter customAdapter = new PercorsiAdapter(getApplicationContext(), percorsi);
                         list_view_percorsi.setAdapter(customAdapter);
                     } else {
@@ -242,40 +365,6 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
          * se favoriteBtn ha il checked TRUE(sta già nei preferiti) allora se lo clicco elimino, altrimenti il contrario
          */
         if(favorite.isChecked()){
-            db.collection(collectionPath)
-                    .get()
-                    .addOnCompleteListener(task1 -> {
-
-                        if (task1.isSuccessful()) {
-
-                            int sizeDataBase = task1.getResult().size();
-                            if(sizeDataBase == 0){
-                                scritturaLuogoDatabase(luogo, fAuth.getUid());
-                                return;
-                            }
-
-                            scritturaLuogoDatabase(luogo, fAuth.getUid());
-                        }else{
-                            Log.e("Error", "Errore server metaPreferita.");
-                        }
-                    });
-        }else{
-            eliminazioneLuogoDatabase(luogo, fAuth.getUid());
-        }
-
-    }
-
-    public void onFavoriteToggleClick2(MenuItem item) {
-
-        //prendo l' oggetto passato dall' intent
-        LuogoDiInteresse luogo = getIntent().getExtras().getParcelable("luogoDiInteresse");
-
-        /**
-         * se favoriteBtn ha il checked TRUE(sta già nei preferiti) allora se lo clicco elimino, altrimenti il contrario
-         */
-
-        if(item.isChecked()){
-
             db.collection(collectionPath)
                     .get()
                     .addOnCompleteListener(task1 -> {

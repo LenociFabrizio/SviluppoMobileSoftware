@@ -19,13 +19,6 @@ public final class OggettoDiInteresse implements Parcelable {
         this.longitudine = longitudine;
     }
 
-    public OggettoDiInteresse(String id, String nome, String descrizione, String url_immagine, String bluetooth_id, boolean visitato) {
-        this.id = id;
-        this.nome = nome;
-        this.descrizione = descrizione;
-        this.url_immagine = url_immagine;
-        this.bluetooth_id = bluetooth_id;
-    }
 
     protected OggettoDiInteresse(Parcel in) {
         id = in.readString();
@@ -124,6 +117,8 @@ public final class OggettoDiInteresse implements Parcelable {
                 ", descrizione='" + descrizione + '\'' +
                 ", url_immagine='" + url_immagine + '\'' +
                 ", bluetooth_id='" + bluetooth_id + '\'' +
+                ", latitudine='" + latitudine + '\'' +
+                ", longitudine='" + longitudine + '\'' +
                 '}';
     }
 

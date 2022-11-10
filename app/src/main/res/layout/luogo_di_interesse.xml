@@ -89,8 +89,8 @@
 
                     <ToggleButton
                         android:id="@+id/favoriteToggleButton"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_toEndOf="@+id/descrizione"
                         android:background="@drawable/toggle_selector"
@@ -119,6 +119,16 @@
                     android:layout_below="@+id/title_percorsi"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="@dimen/text_margin" />
+
+                <Button
+                    android:id="@+id/importBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="67dp"
+                    android:layout_marginEnd="17dp"
+                    android:text="IMPORT" />
 
 
             </RelativeLayout>
