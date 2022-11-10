@@ -1,5 +1,6 @@
 package it.uniba.di.e_cultureexperience.Accesso;
 
+import android.app.Application;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,13 +28,19 @@ public class CambiaLinguaActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private RadioButton radioIta, radioEng, selectedLanguage;
+    private Locale currentLanguage;
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setLocale("en-rGB");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cambia_lingua);
 
-        Locale current = getResources().getConfiguration().locale;
+        currentLanguage = getResources().getConfiguration().locale;
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -43,13 +51,17 @@ public class CambiaLinguaActivity extends AppCompatActivity {
         radioIta = findViewById(R.id.radio_ita);
         radioEng = findViewById(R.id.radio_eng);
 
-        if(current.getLanguage().equals("it")){
+        if(currentLanguage.getLanguage().equals("it")){
             radioIta.setChecked(true);
         }
         else{
             radioEng.setChecked(true);
         }
 
+        if(savedInstanceState != null){
+            currentLanguage = new Locale(savedInstanceState.getString("localeSelected"));
+            Locale.setDefault(currentLanguage);
+        }
 
     }
 
@@ -67,7 +79,7 @@ public class CambiaLinguaActivity extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, ProfileActivity.class);
+        Intent refresh = new Intent(this, CambiaLinguaActivity.class);
         finish();
         startActivity(refresh);
     }
@@ -75,7 +87,7 @@ public class CambiaLinguaActivity extends AppCompatActivity {
 
     public void checkRadioGroup(View v){
         int radioButtonId = radioGroup.getCheckedRadioButtonId();
-        selectedLanguage =findViewById(radioButtonId);
+        selectedLanguage = findViewById(radioButtonId);
         String textId = selectedLanguage.toString();
         if(textId.substring(textId.lastIndexOf("/radio")).contains("/radio_ita")){
             setLocale("it");
@@ -85,4 +97,12 @@ public class CambiaLinguaActivity extends AppCompatActivity {
         }
 
     }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("localeSelected", currentLanguage.getLanguage());
+    }
+
+
 }
