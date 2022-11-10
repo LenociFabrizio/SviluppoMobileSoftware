@@ -33,7 +33,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void onCreate(Bundle state) {
         //controllo i permessi
         String permesso = Manifest.permission.CAMERA;
-        checkCameraPermission(permesso,CAMERA_PERMISSION_CODE);
+        // Checking if permission is not granted
+        if (ContextCompat.checkSelfPermission(this, permesso) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[] { permesso }, CAMERA_PERMISSION_CODE);
+        }
 
         super.onCreate(state);
         // Programmatically initialize the scanner view
@@ -133,14 +136,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
 
         // Do something with the result here
         // Prints scan results
-    }
-
-    public void checkCameraPermission(String permission, int requestCode)
-    {
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[] { permission }, requestCode);
-        }
     }
 
     // This function is called when user accept or decline the permission.

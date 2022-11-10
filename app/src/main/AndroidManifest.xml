@@ -3,9 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="it.uniba.di.e_cultureexperience">
 
+    <!-- Request legacy Bluetooth permissions on older devices. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -18,6 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ECultureExperience"
         android:usesCleartextTraffic="true">
+
+        <service android:name=".Bluetooth.BtService"
+            android:exported="false"/>
+
         <activity
             android:name=".Accesso.CambiaLinguaActivity"
             android:exported="false"
@@ -60,7 +71,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".Accesso.LoginActivity"
+            android:name=".Bluetooth.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ECultureExperience.NoActionBar">
             <intent-filter>
@@ -68,6 +79,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-->
+<!--            android:name=".Accesso.LoginActivity"-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/Theme.ECultureExperience.NoActionBar">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
 
         <activity
             android:name=".QuizGame.RisultatoQuizActivity"
