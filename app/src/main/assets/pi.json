@@ -13,7 +13,7 @@
 			"id" : "oid01",			
 			"nome" : "Basilica di San Nicola",
 			"descrizione" : "La Basilica che custodisce le reliquie di S. Nicola si erge imponente nella Città Vecchia di Bari, a cinque minuti dal Porto marittimo e a 15 minuti dalla Stazione ferroviaria. Lo stile è il romanico, vale a dire che ha un aspetto massiccio e sobrio, caratteristico dell’architettura normanna.",
-			"url_immagine" : "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Bari_BW_2016-10-19_13-35-11_stitch.jpg/1200px-Bari_BW_2016-10-19_13-35-11_stitch.jpg",
+			"url_immagine" : "https://firebasestorage.googleapis.com/v0/b/ecolture-experience.appspot.com/o/oggetti%2Fbari%2Fbasilica_san_nicola.jpg?alt=media&token=7a89c339-8720-4a23-80ae-5e97ab97bf73",
 			"bluetooth_id" : "bid01",
 			"latitudine" : "41.13458490432833", 
 			"longitudine" : "16.86981673933136"
@@ -23,7 +23,7 @@
 			"id" : "oid02",			
 			"nome" : "Castello normanno-svevo",
 			"descrizione" : "Il castello normanno-svevo di Bari (conosciuto anche come u Castídde in barese), edificio simbolo della città di Bari, è un imponente fortezza che si erge ai margini della città vecchia.",
-			"url_immagine" : "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Castello_svevo_normanno_di_Bari.jpg/260px-Castello_svevo_normanno_di_Bari.jpg",
+			"url_immagine" : "https://firebasestorage.googleapis.com/v0/b/ecolture-experience.appspot.com/o/oggetti%2Fbari%2Fcastello-bari.jpg?alt=media&token=b1486f9c-dcd6-4ae9-8a86-ddae0d5e3993",
 			"bluetooth_id" : "bid02",
 			"latitudine" : "41.12818972259388", 
 			"longitudine" : "16.866440780533495"
@@ -33,7 +33,7 @@
 			"id" : "oid03",
 			"nome" : "Piazza Ferrarese",
 			"descrizione" : "Ha sempre rappresentato uno dei punti di accesso alla città vecchia, che attraverso viuzze, vicoli e larghi, si estende dall’asse piazza Ferrarese-piazza Mercantile fino al castello normanno-svevo.",
-			"url_immagine" : "https://citynews-baritoday.stgy.ovh/~media/horizontal-mid/60970831480371/piazza-del-ferrarese.jpg",
+			"url_immagine" : "https://firebasestorage.googleapis.com/v0/b/ecolture-experience.appspot.com/o/oggetti%2Fbari%2Fpiazza_del_ferrarese.jpg?alt=media&token=ca903ad8-1fb5-44e2-ad7f-4690759891ff",
 			"bluetooth_id" : "bid03",
 			"latitudine" : "41.12692808088512", 
 			"longitudine" : "16.87187040059522"

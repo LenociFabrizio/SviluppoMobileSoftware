@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
     private TextView numeroVotazioni, mediaValutazione;
     private Button openDialogBtn;
     private RecyclerView listViewOggetti;
+
+    private RelativeLayout ratingBox;
 
     private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
@@ -83,6 +86,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         //TextView durataPercorso = findViewById(R.id.durata);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
+        ratingBox = findViewById(R.id.rating_layout);
         openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
         mediaValutazione = findViewById(R.id.rating_avg);
@@ -127,9 +131,8 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                Bundle args = intent.getBundleExtra("BUNDLE");
                                ArrayList<OggettoDiInteresse> oggettiDiInteresseImportati = (ArrayList<OggettoDiInteresse>) args.getSerializable("ARRAYLIST");
 
-                               TextView text5 = findViewById(R.id.rating_max);
-                               text5.setVisibility(View.INVISIBLE);
-                               openDialogBtn.setVisibility(View.INVISIBLE);
+                               ratingBox.setVisibility(View.GONE);
+                               openDialogBtn.setVisibility(View.GONE);
                                
                                OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2(getApplicationContext(), oggettiDiInteresseImportati);
                                listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));

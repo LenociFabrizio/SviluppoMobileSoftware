@@ -339,11 +339,12 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 if(idUtenteDatabase.equals(fAuth.getUid())
                                         && nomeLuogoDatabase.equals(luogo.getNome())){
                                     favorite.setChecked(true);
-                                    Toast.makeText(this, "Meta aggiunta all'elenco dei preferiti",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(this, R.string.meta_added,Toast.LENGTH_SHORT).show();
                                     luogoPreferitoEsistente = true;
                                     value[0] = 2;
 
                                 }
+
                             }//fine for
                             if (!luogoPreferitoEsistente){
                                 favorite.setChecked(false);
@@ -421,11 +422,14 @@ public class MostraLuogoDiInteresseActivity extends AppCompatActivity {
                                 }
                             }//fine for
 
-                        }else{
+                        }
+                        else{
                             addDoc(collectionPath, luogoScelto);
                         }
                         Toast.makeText(this, R.string.meta_added,Toast.LENGTH_SHORT).show();
-
+                    }
+                    else{
+                        Log.e("Error", "Errore nella lettura del database metePreferite!");
                     }
                 });
     }
