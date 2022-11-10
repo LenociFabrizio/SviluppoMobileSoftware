@@ -83,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity implements ListItemAdapte
 
         menuArray.add(getString(R.string.favourite_destination));
         menuArray.add(getString(R.string.edit_profile));
-        menuArray.add("Preferenza app");
+        menuArray.add(getString(R.string.app_preferences));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recycler_divider));

@@ -168,6 +168,9 @@
     <string name="route">Route</string>
     <string name="quiz" translatable="false">Quiz</string>
     <string name="puzzle" translatable="false">Puzzle</string>
+    <string name="recover_password">Recover password</string>
+    <string name="app_preferences">App preferences</string>
+    <string name="import_route">Import route</string>
 
 
 </resources>

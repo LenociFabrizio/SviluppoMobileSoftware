@@ -3,9 +3,14 @@ package it.uniba.di.e_cultureexperience.Percorso;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
+
 public final class Percorso implements Parcelable {
     private String nome, descrizione, meta, id;
     private int durata;
+    private ArrayList<OggettoDiInteresse> arrayList;
 
     public Percorso(){}
 
@@ -17,13 +22,24 @@ public final class Percorso implements Parcelable {
         this.id = id;
     }
 
-    protected Percorso(Parcel in) {
+    public Percorso(Parcel in) {
         nome = in.readString();
         descrizione = in.readString();
         durata = in.readInt();
         meta = in.readString();
         id = in.readString();
     }
+
+    //Costruttore per percorso importato
+    public Percorso(String nome, String descrizione, int durata, String meta, String id, ArrayList<OggettoDiInteresse> arrayList){
+        this.nome = nome;
+        this.descrizione = descrizione;
+        this.durata = durata;
+        this.meta = meta;
+        this.id = id;
+        this.arrayList = arrayList;
+    }
+
 
     public static final Creator<Percorso> CREATOR = new Creator<Percorso>() {
         @Override
@@ -89,6 +105,10 @@ public final class Percorso implements Parcelable {
 
     public void setDurata(int durata) {
         this.durata = durata;
+    }
+
+    public void setArrayList(ArrayList<OggettoDiInteresse> arrayList) {
+        this.arrayList = arrayList;
     }
 
     @Override

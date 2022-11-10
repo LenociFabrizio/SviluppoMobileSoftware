@@ -91,6 +91,7 @@
                         android:id="@+id/favoriteToggleButton"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
+                        style="@s"
                         android:layout_gravity="center_horizontal"
                         android:layout_toEndOf="@+id/descrizione"
                         android:background="@drawable/toggle_selector"
@@ -102,23 +103,40 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-                <TextView
-                    android:id="@+id/title_percorsi"
+                <RelativeLayout
+                    android:id="@+id/percorsi_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/descrizione_box"
                     android:layout_marginHorizontal="@dimen/text_margin"
-                    android:text="@string/percorsi"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+                    android:layout_below="@+id/descrizione_box">
+
+                    <TextView
+                        android:id="@+id/title_percorsi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/percorsi"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/importBtn"
+                        style="@style/Theme.ECultureExperience.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/import_route"
+                        app:icon="@drawable/ic_outline_file_upload_24" />
+                </RelativeLayout>
+
                 <ListView
                     android:id="@+id/lista_percorsi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/title_percorsi"
-                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/percorsi_box"
                     android:layout_marginBottom="@dimen/text_margin" />
+
+
 
 
             </RelativeLayout>

@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
@@ -40,16 +43,18 @@ import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
 
 public class MostraPercorsoActivity extends AppCompatActivity {
-    private TextView numeroVotazioni;
-    private TextView mediaValutazione;
-    //private ListView listViewOggetti;
+    private TextView numeroVotazioni, mediaValutazione;
+    private Button openDialogBtn;
     private RecyclerView listViewOggetti;
 
-    private final ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
+    private RelativeLayout ratingBox;
+
+    private ArrayList<OggettoDiInteresse> oggettiDiInteresse = new ArrayList<>();
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
+    //todo: se il percorso è stato imporatto, nonf ar vedere il bottone valuta il percorso
     private String collectionPathValutazione;
     private Float mediaStelle;
 
@@ -81,26 +86,66 @@ public class MostraPercorsoActivity extends AppCompatActivity {
         //TextView durataPercorso = findViewById(R.id.durata);
         nomePercorso.setText(percorso.getNome());
         descrizionePercorso.setText(percorso.getDescrizione());
-        Button openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
+        ratingBox = findViewById(R.id.rating_layout);
+        openDialogBtn = findViewById(R.id.btnVotoDelPercorso);
         numeroVotazioni = findViewById(R.id.numeroVotazioniTxt);
         mediaValutazione = findViewById(R.id.rating_avg);
 
         //S T A R T - Rating stars
-        //TODO: decidere posizione del Rating stars
         collectionPathValutazione = "percorsi/" + percorso.getId() + "/valutazione";
 
         calcoloMediaValutazione(collectionPathValutazione);
 
-        System.out.println("000000000000000ms=" + mediaStelle);
+        String collectionPathOggetti = "percorsi/" + percorso.getId() + "/oggetti";
 
+        controlloPercorsoImportato(percorso, collectionPathOggetti);
         openDialogBtn.setOnClickListener(v -> writeRating(collectionPathValutazione));
         //F I N I S H - Rating stars
 
-        String collectionPathOggetti = "percorsi/" + percorso.getId() + "/oggetti";
-        letturaOggetti(collectionPathOggetti);
-
         onCreateBottomNavigation();
 
+    }
+
+    /**
+     * Se il percorso è stato importato, nascondo il bottone che permette la valutazione di quest'ultimo
+     */
+    public void controlloPercorsoImportato(Percorso percorso, String collectionPathOggetti){
+        AtomicBoolean isPercorsoImportato = new AtomicBoolean(true);
+        db.collection("percorsi")
+                .get().addOnCompleteListener(task -> {
+                   if (task.isSuccessful()){
+
+                       int count = 0;
+                       final int sizeDataBase = task.getResult().size();
+                       for (QueryDocumentSnapshot document : task.getResult()){
+                           count++;
+                           String nomePercorsoDatabase = document.getString("nome");
+
+                           //Se il percorso esiste nel database, allora, non è stato importato
+                           if (nomePercorsoDatabase.equals(percorso.getNome())) {
+                               isPercorsoImportato.set(false);
+                           }
+
+                           if (count == sizeDataBase && isPercorsoImportato.get()){
+                               Intent intent = getIntent();
+                               Bundle args = intent.getBundleExtra("BUNDLE");
+                               ArrayList<OggettoDiInteresse> oggettiDiInteresseImportati = (ArrayList<OggettoDiInteresse>) args.getSerializable("ARRAYLIST");
+
+                               ratingBox.setVisibility(View.GONE);
+                               openDialogBtn.setVisibility(View.GONE);
+                               
+                               OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2(getApplicationContext(), oggettiDiInteresseImportati);
+                               listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));
+                               listViewOggetti.setAdapter(customAdapter);
+                           }else if(count == sizeDataBase && !(isPercorsoImportato).get()){
+                               letturaOggetti(collectionPathOggetti);
+                           }
+
+                       }
+                   }else{
+                       Log.e("Error", "ERRORE NELLA LETTURA DEL DB.", task.getException());
+                   }
+                });
     }
 
     public void letturaOggetti(String collectionPath){

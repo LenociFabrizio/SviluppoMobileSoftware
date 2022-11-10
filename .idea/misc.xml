@@ -113,15 +113,29 @@
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_first_access.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_forgot_password.xml" value="0.25" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_login.xml" value="0.33" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.5" />
+=======
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_luogo_di_interesse_preferito.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_percorso.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_mostra_percorso_importato.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_oggetto_di_interesse.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_registration.xml" value="0.36666666666666664" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/activity_risultato_quiz.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/content_edit_profile.xml" value="0.33" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_luoghi.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/elemento_lista_profilo.xml" value="0.17074275362318841" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/mete_card.xml" value="0.33" />
         <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/menu/top_menu.xml" value="0.36666666666666664" />
+=======
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/luogo_di_interesse.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/fabri/AndroidStudioProjects/SviluppoMobileSoftware/app/src/main/res/layout/mete_card.xml" value="0.17074275362318841" />
+>>>>>>> Stashed changes
         <entry key="..\:/Users/fabri/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_list_item_1.xml" value="0.17074275362318841" />
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -160,6 +174,7 @@
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -177,6 +192,9 @@
 =======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
 >>>>>>> parent of a1d7565 (#7 cambiamento dei button delle attività)
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+>>>>>>> Stashed changes
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="VisualizationToolProject">

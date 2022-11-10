@@ -29,6 +29,7 @@ import it.uniba.di.e_cultureexperience.R;
 public class RegistrationActivity extends AppCompatActivity {
 
     private static final int MIN_LENGTH_NICKNAME = 3, MIN_LENGTH_PASSWORD = 8;
+    public static final String COLLECTION_PATH_UTENTI = "utenti";
 
     private TextInputEditText editTextNickname, editTextPassword, editTextEmail;
     private TextInputLayout layoutNickname, layoutPassword, layoutEmail;
@@ -63,7 +64,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 }else{
 
                     //Controllo di pre-esistenza del Nickname nel database
-                    db.collection("utenti")
+                    db.collection(COLLECTION_PATH_UTENTI)
                             .get()
                             .addOnCompleteListener(task -> {
 
@@ -186,7 +187,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         TextView loginText = findViewById(R.id.loginTextView);
         loginText.setOnClickListener(view -> {
-            //todo: cambiare context
+
             Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(i);
         });
@@ -327,10 +328,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
                                 scritturaUtenteDataBase(nickname);
-                                //Todo: modificare context
+
                                 Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
-                                //Todo: togliere commenti
-                                //Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);    startActivity(i);
+
+                                Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
+                                startActivity(i);
                             }
 
                         }else
