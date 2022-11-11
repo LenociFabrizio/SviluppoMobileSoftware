@@ -85,7 +85,7 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         OggettoDiInteresse oggettoDiInteresse = document.toObject(OggettoDiInteresse.class);
-                                        oggettoDiInteresse.setId(document.getId());
+                                        //oggettoDiInteresse.setId(document.getId());
                                         Intent intent = new Intent(getApplicationContext(), MostraOggettoDiInteresseActivity.class);
                                         intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);
                                         intent.putExtra("scannerizzato", true);
@@ -123,19 +123,6 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                 }
             }
         });
-        //prendo l id preso
-        //se il percorso è avviato, controllo se corrisponde all' oggetto che deve trovare
-        //se non corrisponde all' oggetto da trovare ritorna all' activity del percorso
-        //se corrisponde all' oggetto da trovare lo mostra
-        //se il percorso non è avviato
-        //mostra l' oggetto scannerizzato
-        //mi carico il segnalino dal first activity
-        //boolean loginGoogle = getIntent().getExtras().getBoolean("segnalino");
-        //immetto segnalino in dashboard mete
-        //i.putExtra("segnalino",loginGoogle);
-
-        // Do something with the result here
-        // Prints scan results
     }
 
     // This function is called when user accept or decline the permission.
