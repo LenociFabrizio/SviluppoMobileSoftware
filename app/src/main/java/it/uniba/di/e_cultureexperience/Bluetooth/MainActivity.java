@@ -1,25 +1,21 @@
 package it.uniba.di.e_cultureexperience.Bluetooth;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
+import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import java.util.HashMap;
-import java.util.Map;
 
 //todo: cambiare nome di questa activity
 public class MainActivity extends AppCompatActivity {
@@ -30,11 +26,23 @@ public class MainActivity extends AppCompatActivity {
     BluetoothAdapter bluetoothAdapter;
     final int REQUEST_ENABLE_BT = 0;
     final int REQUEST_ENABLE_LOCATION = 1;
-    final int PERMISSION_REQUEST_CODE = 2;
-    final int ENABLE_BT_SCAN_CODE = 3;
     final int ENABLE_BT_CONNECT = 4;
 
     final String TAG = "BtDevicesScanner";
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("myCh", "MyChannel", importance);
+            channel.setDescription("descrizione");
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Use this check to determine whether Bluetooth classic is supported on the device.
         if (!(getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)) || bluetoothAdapter == null) {
-            Toast.makeText(this, "Bluetooth non supportato", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Bluetooth non supportato", Toast.LENGTH_SHORT).show();
         } else {
             //se la versione è maggiore della 31 devo controllare il permesso BLUETOOTH_CONNECT
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -65,8 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else{
                             //avvio il servizio
-                            Intent serviceIntent = new Intent(this, BtService.class);
-                            startService(serviceIntent);
+                            goToDashboard();
                         }
                     } else {
                         //chiedo l' attivazione del BT
@@ -80,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
                     //controllo se il BT è attico
                     if (bluetoothAdapter.isEnabled()) {
                         //avvio il servizio
-                        bluetoothAdapter.startDiscovery();
                         Intent serviceIntent = new Intent(this, BtService.class);
                         startService(serviceIntent);
+                        goToDashboard();
                     } else {
                         //chiedo l' attivazione
                         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -107,6 +114,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void goToDashboard(){
+        Intent i = new Intent(this, DashboardMeteActivity.class);
+        startActivity(i);
+        finish();
+    }
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -118,13 +131,17 @@ public class MainActivity extends AppCompatActivity {
                         //avvio il servizio
                         Intent serviceIntent = new Intent(this, BtService.class);
                         startService(serviceIntent);
+                        //lo mando alla dashboard
+                        goToDashboard();
                     } else {
                         //chiedo l' attivazione
                         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                         startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                     }
                 } else {
-                    Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permesso non concesso", Toast.LENGTH_SHORT).show();
+                    //lo mando alla dashboard
+                    goToDashboard();
                 }
                 break;
 
@@ -138,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
                             }
                         } else {
                             //avvio il servizio
-                            bluetoothAdapter.startDiscovery();
                             Intent serviceIntent = new Intent(this, BtService.class);
                             startService(serviceIntent);
+                            goToDashboard();
                         }
                     } else {
                         //chiedo l' attivazione
@@ -148,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
                     }
                 } else {
-                    Toast.makeText(this, "Permission not granted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permesso non concesso", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -234,17 +251,19 @@ public class MainActivity extends AppCompatActivity {
                         //avvio il servizio
                         Intent serviceIntent = new Intent(this, BtService.class);
                         startService(serviceIntent);
+                        goToDashboard();
                     }
                 }
                 else{
                     //avvio il servizio
                     Intent serviceIntent = new Intent(this, BtService.class);
                     startService(serviceIntent);
+                    goToDashboard();
                 }
             } else {
                 //attivazione bluetooth non concessa
                 Toast.makeText(MainActivity.this, "Attivazione non concessa", Toast.LENGTH_LONG).show();
-                finish();
+                goToDashboard();
             }
         }
     }

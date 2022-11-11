@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         String checkbox = preferences.getString("remember","");
 
         if(checkbox.equals("true")){
-            Intent intent = new Intent(LoginActivity.this, DashboardMeteActivity.class);
+            Intent intent = new Intent(LoginActivity.this, it.uniba.di.e_cultureexperience.Bluetooth.MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login effettuato", Toast.LENGTH_LONG).show();
 
                 Intent i = new Intent(LoginActivity.this, DashboardMeteActivity.class);
+//                Intent i = new Intent(LoginActivity.this, it.uniba.di.e_cultureexperience.Bluetooth.MainActivity.class);
                 startActivity(i);
                 finish();
             }else{

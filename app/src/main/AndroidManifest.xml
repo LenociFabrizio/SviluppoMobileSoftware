@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="it.uniba.di.e_cultureexperience">
-
     <!-- Request legacy Bluetooth permissions on older devices. -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
@@ -10,25 +9,24 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:allowClearUserData="true"
+        android:configChanges="locale|orientation"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:configChanges="locale|orientation"
         android:theme="@style/Theme.ECultureExperience"
         android:usesCleartextTraffic="true">
 
-        <service android:name=".Bluetooth.BtService"
-            android:exported="false"/>
+        <service
+            android:name=".Bluetooth.BtService"
+            android:exported="false" />
 
         <activity
             android:name=".Accesso.CambiaLinguaActivity"
@@ -50,85 +48,61 @@
             android:name=".LuogoDiInteresse.MostraLuogoDiInteressePreferitoActivity"
             android:exported="false"
             android:label="@string/favourite_destination" />
-
         <activity
             android:name=".Percorso.MostraPercorsoActivity"
             android:exported="true"
-            android:label="@string/route"
-            />
-
+            android:label="@string/route" />
         <activity
             android:name=".OggettoDiInteresse.MostraOggettoDiInteresseActivity"
             android:theme="@style/Theme.ECultureExperience.NoActionBar" />
-
         <activity
             android:name=".LuogoDiInteresse.MostraLuogoDiInteresseActivity"
-            android:label="@string/app_name"
             android:parentActivityName=".DashboardMeteActivity"
             android:theme="@style/Theme.ECultureExperience.NoActionBar" />
-
         <activity
             android:name=".DashboardMeteActivity"
             android:exported="true" />
-
-        <activity android:name=".Accesso.RegistrationActivity"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
-
-<!--        <activity-->
-<!--            android:name=".Bluetooth.MainActivity"-->
-<!--            android:exported="true"-->
-<!--            android:theme="@style/Theme.ECultureExperience.NoActionBar">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
+        <activity
+            android:name=".Accesso.RegistrationActivity"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar" />
+        <activity
+            android:name=".Bluetooth.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar">
+        </activity>
         <activity
             android:name=".Accesso.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.ECultureExperience.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".QuizGame.RisultatoQuizActivity"
-            android:label="@string/result_quiz_activity"
-            />
-
-        <activity
-            android:name=".QuizGame.TimeOutActivity" />
-
+            android:label="@string/result_quiz_activity" />
+        <activity android:name=".QuizGame.TimeOutActivity" />
         <activity
             android:name=".QuizGame.PuzzleGame"
             android:exported="true"
             android:label="@string/puzzle"
-            android:theme="@style/Theme.MyApplication3.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.MyApplication3.NoActionBar" />
         <activity
             android:name=".Accesso.ForgotPasswordActivity"
             android:exported="true"
             android:label="@string/recover_password"
-            android:windowSoftInputMode="adjustResize"
-            />
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Accesso.ProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.MyApplication3.NoActionBar" />
-
         <activity
             android:name=".QuizGame.QuizGameActivity"
-            android:label="@string/quiz"
-            android:exported="true" />
-
-        <activity
-            android:name=".QrCodeScanner" />
-
+            android:exported="true"
+            android:label="@string/quiz" />
+        <activity android:name=".QrCodeScanner" />
     </application>
 
 </manifest>
