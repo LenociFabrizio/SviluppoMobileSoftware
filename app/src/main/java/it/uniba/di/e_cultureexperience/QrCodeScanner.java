@@ -87,8 +87,11 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+<<<<<<< Updated upstream
                                         OggettoDiInteresse oggettoDiInteresse = document.toObject(OggettoDiInteresse.class);
                                         //oggettoDiInteresse.setId(document.getId());
+=======
+>>>>>>> Stashed changes
                                         oggettoDiInteresse.setId(document.getId());
                                         Intent intent = new Intent(getApplicationContext(), MostraOggettoDiInteresseActivity.class);
                                         intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);

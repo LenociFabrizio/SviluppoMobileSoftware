@@ -18,7 +18,11 @@ import java.util.ArrayList;
 
 import it.uniba.di.e_cultureexperience.R;
 
+<<<<<<< Updated upstream:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/OggettiDiInteresseAdapter.java
 public class OggettiDiInteresseAdapter extends RecyclerView.Adapter<OggettiDiInteresseAdapter.OggettiViewHolder> {
+=======
+public class OggettiDiInteresseAdapter2 extends RecyclerView.Adapter<OggettiDiInteresseAdapter2.OggettiViewHolder> {
+>>>>>>> Stashed changes:app/src/main/java/it/uniba/di/e_cultureexperience/OggettoDiInteresse/OggettiDiInteresseAdapter2.java
     ArrayList<OggettoDiInteresse> arrayList;
     Context context;
 
