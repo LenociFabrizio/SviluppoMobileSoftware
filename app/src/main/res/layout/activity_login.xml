@@ -68,7 +68,7 @@
                 style="@style/Widget.App.CheckBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ricorda le mie credenziali"
+                android:text="@string/remember_credentials"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/passwordTextInputLayout"
                 app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
@@ -83,7 +83,7 @@
                 android:layout_marginEnd="32dp"
                 android:onClick="loginBtnClick"
 
-                android:text="Accedi"
+                android:text="@string/logIn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
@@ -93,10 +93,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
-                android:text="Accedi"
-                android:textColor="#000000"
-                android:textSize="34sp"
-                android:textStyle="bold"
+                android:text="@string/logIn"
+                android:fontFamily="sans-serif-medium"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -105,58 +104,78 @@
             <TextView
                 android:id="@+id/descrizione"
                 android:layout_width="320dp"
-                android:layout_height="66dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="32dp"
                 android:gravity="center"
-                android:text="Inserisci email e password per poter accedere ad E-CultureExperience"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:text="@string/text_login"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titolo" />
 
-            <TextView
-                android:id="@+id/registrationTextView"
+            <LinearLayout
+                android:id="@+id/registrationLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:textStyle="bold"
-                android:text="Non ho un account, voglio registrarmi"
+                android:layout_marginTop="64dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@+id/guestText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/forgotText">
+
+                <TextView
+                    android:id="@+id/registrationTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/no_account"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/forgotText" />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Theme.ECultureExperience.Button.TextButton"
+                    android:id="@+id/registrationBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/registrati"
+                    android:fontFamily="sans-serif-medium"
+                    app:layout_constraintBottom_toTopOf="@+id/guestText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/registrationTextView" />
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/forgotText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:minHeight="48dp"
+                android:layout_marginTop="8dp"
                 android:onClick="forgotTxtClick"
-                android:text="Dimenticato la password?"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/forgot_password"
                 android:textColor="@color/gov_blue"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/registrationTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
             <TextView
                 android:id="@+id/guestText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:minHeight="48dp"
                 android:onClick="guestLogin"
-                android:text="Accedi senza credenziali"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                android:text="@string/login_no_credentials"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/forgotText" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -105,7 +105,7 @@
                 android:layout_marginEnd="32dp"
                 android:onClick="registerBtnClick"
 
-                android:text="Registrati"
+                android:text="@string/registrati"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passwordTextInputLayout" />
@@ -116,23 +116,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
                 android:text="@string/registrati"
-                android:textSize="34sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/descrizione"
                 android:layout_width="320dp"
-                android:layout_height="66dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="32dp"
                 android:gravity="center"
-                android:text="Inserisci email e password per poter accedere ad E-CultureExperience"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:text="@string/text_registration"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titolo" />
@@ -141,12 +140,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Ho già un account, voglio accedere"
-                android:textStyle="bold|italic"
+                android:text="@string/already_registration"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/registrationBtn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginBtn"
+                style="@style/Theme.ECultureExperience.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/logIn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
