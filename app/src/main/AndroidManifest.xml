@@ -74,18 +74,8 @@
         <activity android:name=".Accesso.RegistrationActivity"
             android:theme="@style/Theme.ECultureExperience.NoActionBar"/>
 
-        <activity
-            android:name=".Bluetooth.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ECultureExperience.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
 <!--        <activity-->
-<!--            android:name=".Accesso.LoginActivity"-->
+<!--            android:name=".Bluetooth.MainActivity"-->
 <!--            android:exported="true"-->
 <!--            android:theme="@style/Theme.ECultureExperience.NoActionBar">-->
 <!--            <intent-filter>-->
@@ -93,6 +83,16 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 <!--        </activity>-->
+
+        <activity
+            android:name=".Accesso.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ECultureExperience.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".QuizGame.RisultatoQuizActivity"

@@ -60,6 +60,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
         Intent intent = getIntent();
         OggettoDiInteresse oggettoDiInteresse = intent.getExtras().getParcelable("oggettoDiInteresse");
         boolean scannerizzato = intent.getBooleanExtra("scannerizzato", false);
+        TextView title_attivita = findViewById(R.id.title_attivita);
 
         TextView descrizioneOggetto = findViewById(R.id.descrizioneTxt);
         ImageView immagineOggetto = findViewById(R.id.immagineOggetto);
@@ -100,6 +101,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                                 }
                                 //rendo visibile il button
                                 quizBtn.setVisibility(View.VISIBLE);
+                                title_attivita.setVisibility(View.VISIBLE);
                                 quizBtn.setOnClickListener(v -> {
                                     ////ricolora i pulanti col colore di default (bianco), dopo alcuni istanti
 
@@ -127,6 +129,7 @@ public class MostraOggettoDiInteresseActivity extends AppCompatActivity implemen
                             if (task.getResult().size() > 0) {
                                 //ha un puzzle, rendo visibile il bottone del puzzle
                                 puzzleBtn.setVisibility(View.VISIBLE);
+                                title_attivita.setVisibility(View.VISIBLE);
                                 puzzleBtn.setOnClickListener(v -> {
 
 
