@@ -102,7 +102,11 @@
             android:name=".QuizGame.QuizGameActivity"
             android:exported="true"
             android:label="@string/quiz" />
-        <activity android:name=".QrCodeScanner" />
+        <activity
+            android:name=".QrCodeScanner"
+            android:label="@string/title_qrscanner"
+            android:parentActivityName=".DashboardMeteActivity"
+            />
     </application>
 
 </manifest>

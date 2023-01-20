@@ -178,6 +178,7 @@
     <string name="remember_credentials">Remember my credentials</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="login_no_credentials">Login without credentials</string>
+    <string name="title_qrscanner">Scan QR Code</string>
 
 
 </resources>

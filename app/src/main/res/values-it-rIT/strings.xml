@@ -80,6 +80,7 @@
     <string name="remember_credentials">Ricorda le mie credenziali</string>
     <string name="forgot_password">Password dimenticata?</string>
     <string name="login_no_credentials">Accedi senza credenziali</string>
+    <string name="title_qrscanner">Scansiona QR Code</string>
 
 
 </resources>

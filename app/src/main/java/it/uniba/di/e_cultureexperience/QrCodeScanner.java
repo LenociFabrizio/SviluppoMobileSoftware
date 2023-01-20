@@ -21,6 +21,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.Result;
 
+import java.util.Objects;
+
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.MostraOggettoDiInteresseActivity;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
@@ -33,6 +35,10 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     public void onCreate(Bundle state) {
         //controllo i permessi
         String permesso = Manifest.permission.CAMERA;
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         // Checking if permission is not granted
         if (ContextCompat.checkSelfPermission(this, permesso) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[] { permesso }, CAMERA_PERMISSION_CODE);
