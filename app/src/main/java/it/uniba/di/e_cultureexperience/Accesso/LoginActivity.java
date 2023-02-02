@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,13 +15,15 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 
-import it.uniba.di.e_cultureexperience.Bluetooth.MainActivity;
+import org.w3c.dom.Text;
+
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
 import it.uniba.di.e_cultureexperience.R;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputEditText editTextPassword, editTextEmail;
     private TextInputLayout layoutPassword, layoutEmail;
+    private Button registrationBtn;
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @Override
@@ -34,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.passwordInputEditText);
         layoutPassword = findViewById(R.id.passwordTextInputLayout);
 
-        TextView registrationTxt = findViewById(R.id.registrationTextView);
-        registrationTxt.setOnClickListener(view -> {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        registrationBtn = findViewById(R.id.registrationBtn);
+        registrationBtn.setOnClickListener(view -> {
+            Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(i);
         });
 
@@ -72,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        TextView registerText = findViewById(R.id.registrationTextView);
+        TextView registerText = findViewById(R.id.registrationBtn);
         registerText.setOnClickListener(view -> {
             Intent i = new Intent(LoginActivity.this, RegistrationActivity.class);
             startActivity(i);

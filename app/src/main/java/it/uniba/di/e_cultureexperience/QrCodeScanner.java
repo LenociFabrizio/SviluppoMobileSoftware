@@ -76,16 +76,20 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+
                     if (document.exists()) {
+                        OggettoDiInteresse oggettoDiInteresse = document.toObject(OggettoDiInteresse.class);
+
                         //CORRISPONDE al QR di un oggetto
                         //CHIEDO ALL' UTENTE SE VUOLE VISUALIZZARLO
-                        builder.setMessage("Vuoi visualizzare l' oggetto scansionato?");
+                        builder.setMessage("Vuoi visualizzare "+oggettoDiInteresse.getNome()+"?");
                         builder.setPositiveButton("Conferma",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         OggettoDiInteresse oggettoDiInteresse = document.toObject(OggettoDiInteresse.class);
                                         //oggettoDiInteresse.setId(document.getId());
+                                        oggettoDiInteresse.setId(document.getId());
                                         Intent intent = new Intent(getApplicationContext(), MostraOggettoDiInteresseActivity.class);
                                         intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);
                                         intent.putExtra("scannerizzato", true);

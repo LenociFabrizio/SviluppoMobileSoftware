@@ -171,6 +171,13 @@
     <string name="recover_password">Recover password</string>
     <string name="app_preferences">App preferences</string>
     <string name="import_route">Import route</string>
+    <string name="already_registration">Do you already have an account?</string>
+    <string name="text_registration">Enter email and password in order to register with E-CultureExperience</string>
+    <string name="text_login">Enter email and password to access E-CultureExperience</string>
+    <string name="no_account">Don’t you have an account?</string>
+    <string name="remember_credentials">Remember my credentials</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_no_credentials">Login without credentials</string>
 
 
 </resources>

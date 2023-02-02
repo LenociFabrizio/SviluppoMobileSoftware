@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import it.uniba.di.e_cultureexperience.Accesso.ProfileActivity;
 import it.uniba.di.e_cultureexperience.DashboardMeteActivity;
-import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter2;
+import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettiDiInteresseAdapter;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.OggettoDiInteresse;
 import it.uniba.di.e_cultureexperience.QrCodeScanner;
 import it.uniba.di.e_cultureexperience.R;
@@ -134,7 +134,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                ratingBox.setVisibility(View.GONE);
                                openDialogBtn.setVisibility(View.GONE);
                                
-                               OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2(getApplicationContext(), oggettiDiInteresseImportati);
+                               OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter(getApplicationContext(), oggettiDiInteresseImportati);
                                listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));
                                listViewOggetti.setAdapter(customAdapter);
                            }else if(count == sizeDataBase && !(isPercorsoImportato).get()){
@@ -176,7 +176,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
                                 oggettiDiInteresse.add(temp);
                             }
                         }
-                        OggettiDiInteresseAdapter2 customAdapter = new OggettiDiInteresseAdapter2( getApplicationContext(), oggettiDiInteresse);
+                        OggettiDiInteresseAdapter customAdapter = new OggettiDiInteresseAdapter( getApplicationContext(), oggettiDiInteresse);
                         listViewOggetti.setLayoutManager(new LinearLayoutManager(MostraPercorsoActivity.this, LinearLayoutManager.VERTICAL,false));
                         listViewOggetti.setAdapter(customAdapter);
                     } else {
@@ -235,7 +235,7 @@ public class MostraPercorsoActivity extends AppCompatActivity {
 
                 Percorso percorso = getIntent().getExtras().getParcelable("percorso");
 
-                Intent intent =new Intent(Intent.ACTION_SEND);
+                Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT,"Vieni a vedere il "+percorso.getNome()+"\n\n"+"\n\n"+percorso.getDescrizione()+"\n\n"+ "valutazione media:"+mediaStelle+"/5"+"\n\n"+"Scaricati l'app ECulture-Experience!");
 

@@ -105,7 +105,6 @@ public class MostraLuogoDiInteressePreferitoActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.nav_profile:
-
                     return true;
             }
             return false;

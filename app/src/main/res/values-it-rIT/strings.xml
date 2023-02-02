@@ -22,7 +22,7 @@
     <string name="le_tue_mete_preferite">le tue mete preferite</string>
     <string name="esci_da_questo_account">Esci</string>
     <string name="registrati">Registrati</string>
-    <string name="logIn">LogIn</string>
+    <string name="logIn">Accedi</string>
     <string name="inserisci_email">INSERISCI EMAIL</string>
     //LOGIN ACTIVITY
     <string name="ricorda_le_mie_credenziali">ricorda le mie credenziali</string>
@@ -73,6 +73,13 @@
     <string name="recover_password">Recupera password</string>
     <string name="app_preferences">Preferenze app</string>
     <string name="import_route">Importa percorso</string>
+    <string name="already_registration">Hai già un account?</string>
+    <string name="text_registration">Inserisci email e password per poterti registrare a E-CultureExperience</string>
+    <string name="text_login">Inserisci email e password per poter accedere ad E-CultureExperience</string>
+    <string name="no_account">Non hai un account?</string>
+    <string name="remember_credentials">Ricorda le mie credenziali</string>
+    <string name="forgot_password">Password dimenticata?</string>
+    <string name="login_no_credentials">Accedi senza credenziali</string>
 
 
 </resources>

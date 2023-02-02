@@ -36,21 +36,6 @@
     <style name="Theme.ECultureExperience.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-    <style name="Theme.MyApplication3.FloatingButton" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/grey_50</item>
-        <item name="colorPrimaryDark">@color/light_grey</item>
-        <item name="colorPrimaryVariant">@color/grey_50</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/gov_blue</item>
-        <item name="colorSecondaryVariant">@color/golden</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <!-- Customize your theme here. -->
-        <item name="colorAccent">@color/gov_blue</item>
-    </style>
-
     <!--To fix rendering in preview -->
     <style name="AppTextAppearance.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textAllCaps">true</item>

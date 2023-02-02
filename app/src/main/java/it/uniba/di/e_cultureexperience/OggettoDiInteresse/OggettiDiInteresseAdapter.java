@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 import it.uniba.di.e_cultureexperience.R;
 
-//todo: capire quale oggettodiinteresseadapter utilizzare, se il primo o il secondo
-public class OggettiDiInteresseAdapter2 extends RecyclerView.Adapter<OggettiDiInteresseAdapter2.OggettiViewHolder> {
+public class OggettiDiInteresseAdapter extends RecyclerView.Adapter<OggettiDiInteresseAdapter.OggettiViewHolder> {
+
     ArrayList<OggettoDiInteresse> arrayList;
     Context context;
 
-    public OggettiDiInteresseAdapter2(Context context, ArrayList<OggettoDiInteresse> arrayList) {
+    public OggettiDiInteresseAdapter(Context context, ArrayList<OggettoDiInteresse> arrayList) {
         this.arrayList = arrayList;
         this.context = context;
     }

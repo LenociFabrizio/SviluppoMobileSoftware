@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private TextInputEditText editTextNickname, editTextPassword, editTextEmail;
     private TextInputLayout layoutNickname, layoutPassword, layoutEmail;
-
+    private Button loginBtn;
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -185,9 +186,8 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
-        TextView loginText = findViewById(R.id.loginTextView);
-        loginText.setOnClickListener(view -> {
-
+        loginBtn = findViewById(R.id.loginBtn);
+        loginBtn.setOnClickListener(view -> {
             Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
             startActivity(i);
         });
