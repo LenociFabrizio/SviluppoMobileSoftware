@@ -1,7 +1,11 @@
 package it.uniba.di.e_cultureexperience.Bluetooth;
 
+import it.uniba.di.e_cultureexperience.R;
 import android.Manifest;
 import android.app.IntentService;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -11,9 +15,11 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import it.uniba.di.e_cultureexperience.OggettoDiInteresse.MostraOggettoDiInteresseActivity;
@@ -37,6 +43,14 @@ public class BtService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        NotificationChannel channel = new NotificationChannel("000", "nome", NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription("description");
+        // Register the channel with the system; you can't change the importance
+        // or other notification behaviors after this
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         //definisco il broadcastReceiver
@@ -67,24 +81,15 @@ public class BtService extends IntentService {
                         case BluetoothAdapter.STATE_ON:
                             Log.d(TAG, "Bluetooth on");
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                if((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED)){
-                                    Log.d(TAG, "avvio scansione");
-                                    if (bluetoothAdapter.isDiscovering()) {
-                                        bluetoothAdapter.cancelDiscovery();
-                                    }
-                                    bluetoothAdapter.startDiscovery();
-                                }else{
-                                    Toast.makeText(getApplicationContext(), "Impossibile continuare la scansione Bluetooth, controllare i permessi", Toast.LENGTH_SHORT).show();
-                                    stopSelf();
+                                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                                    unregisterReceiver(receiver);
+                                    onDestroy();
                                 }
                             }
-                            else{
-                                Log.d(TAG, "avvio scansione");
-                                if (bluetoothAdapter.isDiscovering()) {
-                                    bluetoothAdapter.cancelDiscovery();
-                                }
-                                bluetoothAdapter.startDiscovery();
+                            if (bluetoothAdapter.isDiscovering()) {
+                                bluetoothAdapter.cancelDiscovery();
                             }
+                            bluetoothAdapter.startDiscovery();
                             break;
 
                         case BluetoothAdapter.STATE_TURNING_ON:
@@ -94,29 +99,19 @@ public class BtService extends IntentService {
                     break;
 
                 case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
-                    Log.d(TAG, "ricerca iniziata");
+                    Log.d(TAG, "scansione iniziata");
                     break;
 
                 case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                        if((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED)){
-                            Log.d(TAG, "avvio scansione");
-                            if (bluetoothAdapter.isDiscovering()) {
-                                bluetoothAdapter.cancelDiscovery();
-                            }
-                            bluetoothAdapter.startDiscovery();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Impossibile continuare la scansione Bluetooth, controllare i permessi", Toast.LENGTH_SHORT).show();
-                            stopSelf();
+                        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                            onDestroy();
                         }
                     }
-                    else{
-                        Log.d(TAG, "avvio scansione");
-                        if (bluetoothAdapter.isDiscovering()) {
-                            bluetoothAdapter.cancelDiscovery();
-                        }
-                        bluetoothAdapter.startDiscovery();
+                    if (bluetoothAdapter.isDiscovering()) {
+                        bluetoothAdapter.cancelDiscovery();
                     }
+                    bluetoothAdapter.startDiscovery();
                     break;
 
                 case BluetoothDevice.ACTION_FOUND:
@@ -130,7 +125,6 @@ public class BtService extends IntentService {
         }
     };
 
-
     public void controllaRisultatoScansione(String id_bluetooth) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -140,16 +134,37 @@ public class BtService extends IntentService {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             OggettoDiInteresse oggettoDiInteresse = document.toObject(OggettoDiInteresse.class);
                             //Controllo se corrisponde al bluetooth id di un oggetto di interesse
-                            if(oggettoDiInteresse.getBluetooth_id().equals(id_bluetooth) && !id_bluetooth.equals(bt_id_found)){
+                            if (oggettoDiInteresse.getBluetooth_id().equals(id_bluetooth) && !id_bluetooth.equals(bt_id_found)) {
                                 bt_id_found = id_bluetooth;
 
-                                Intent intent = new Intent(getApplicationContext(), MostraOggettoDiInteresseActivity.class);
+                                Intent intent = new Intent(this, MostraOggettoDiInteresseActivity.class);
                                 intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);
                                 intent.putExtra("scannerizzato", true);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                        Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-                                stopSelf();
+                                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "000")
+                                        .setSmallIcon(R.drawable.ic_baseline_chevron_right_24)
+                                        .setContentTitle(oggettoDiInteresse.getNome())
+                                        .setContentText("Hai raggiunto: "+oggettoDiInteresse.getNome())
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        // Set the intent that will fire when the user taps the notification
+                                        .setContentIntent(pendingIntent)
+                                        .setAutoCancel(true);
+
+                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+                                // notificationId is a unique int for each notification that you must define
+                                notificationManager.notify(111, builder.build());
+
+//                                Intent intent = new Intent(getApplicationContext(), MostraOggettoDiInteresseActivity.class);
+//                                intent.putExtra("oggettoDiInteresse", oggettoDiInteresse);
+//                                intent.putExtra("scannerizzato", true);
+//                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                startActivity(intent);
+
+                                //stopSelf();
                             }
                         }
                     } else {
@@ -170,28 +185,17 @@ public class BtService extends IntentService {
         Log.d(TAG, "OnStartCommand");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED)){
-                Log.d(TAG, "avvio scansione");
-                if (bluetoothAdapter.isDiscovering()) {
-                    bluetoothAdapter.cancelDiscovery();
-                }
-                bluetoothAdapter.startDiscovery();
-            }else{
-                Toast.makeText(this, "Impossibile continuare la scansione Bluetooth, controllare i permessi", Toast.LENGTH_SHORT).show();
-                stopSelf();
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
+                onDestroy();
             }
         }
-        else{
-            Log.d(TAG, "avvio scansione");
-            if (bluetoothAdapter.isDiscovering()) {
-                bluetoothAdapter.cancelDiscovery();
-            }
-            bluetoothAdapter.startDiscovery();
+        if (bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.cancelDiscovery();
         }
+        bluetoothAdapter.startDiscovery();
         return START_NOT_STICKY;
     }
-
-    @Override
+        @Override
     protected void onHandleIntent(@Nullable Intent intent) {
     }
 }
